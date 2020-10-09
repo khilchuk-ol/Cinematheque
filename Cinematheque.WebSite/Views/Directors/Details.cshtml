@@ -1,0 +1,98 @@
+﻿@model Cinematheque.WebSite.Models.DirectorView
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <hr />
+    <table>
+        <tr>
+            <td>
+                <img width="340" height="500" src="/images/directors/@Model.PhotoFileName" />
+            </td>
+            <td>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Name)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Surname)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Surname)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Birth)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Birth)
+                    </dd>
+
+                    @if (Model.Death.HasValue)
+                    {
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Death)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Death.Value)
+                        </dd>
+                    }
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Gender)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Gender)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Country)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Country)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.FilmsDirected)
+                    </dt>
+
+                    <dd>
+                        <ul>
+                            @foreach (var pair in Model.FilmsDirected)
+                            {
+                                <li>@Html.ActionLink(pair.Value, "Details", "Films", new { id = pair.Key }, null)</li>
+                            }
+                        </ul>
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Biography)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Biography)
+                    </dd>
+
+                </dl>
+            </td>
+        </tr>
+    </table>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

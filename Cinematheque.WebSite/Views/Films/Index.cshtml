@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Cinematheque.WebSite.Models.FilmView>
+
+@{
+    ViewBag.Title = "All films";
+}
+
+<h2>Films</h2>
+
+<label for="searchFilm">Enter film's title: </label>
+@using (Html.BeginForm("Search", "Films", FormMethod.Get, new { name = "searchFilm" }))
+{
+    <input type="text" title="Find film" name="q" />
+    <input type="submit" value="Search" />
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.ReleaseDate)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Duration)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Genres)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.IMDbRating)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.ReleaseDate)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Duration)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.GenresString)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.IMDbRating)
+            </td>
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>

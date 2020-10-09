@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Cinematheque.Data.Genre>
+
+@{
+    ViewBag.Title = "All genres";
+}
+
+<h2>Genres</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.Name, "Films", "Genres", new { id = item.ID }, new { @class = "navbar-brand" })
+            </td>
+        </tr>
+    }
+
+</table>

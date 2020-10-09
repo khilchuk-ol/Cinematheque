@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "Home";
+}
+
+<h2>Home</h2>
+
+<label for="searchFilm">Enter film's title: </label>
+@using (Html.BeginForm("Search", "Films", FormMethod.Get, new { name = "searchFilm" }))
+{
+    <input type="text" title="Find film" name="q" />
+    <input type="submit" value="Search" />
+}

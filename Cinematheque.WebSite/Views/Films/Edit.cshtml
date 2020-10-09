@@ -1,0 +1,113 @@
+﻿@using Cinematheque.WebSite.Extensions
+@using Cinematheque.Data.Utils
+@model Cinematheque.WebSite.Models.FilmView
+
+@{
+    ViewBag.Title = "Edit film";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm("DoEdit", "Films", FormMethod.Post, new { id = Model.ID, enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <hr />
+    <table>
+        <tr>
+            <td>
+                <img width="340" height="500" src="/images/films/@Model.PosterFileName" />
+
+                <label for="file">Upload New Poster:</label>
+                <input type="file" name="file" id="file" /><br><br>
+                <br><br>
+                @Html.ValidationMessageFor(model => model.PosterFileName, "", new { @class = "text-danger" })
+            </td>
+
+            <td width="700">
+                <div class="form-horizontal">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.ID)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ReleaseDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <input type="date" value="@Model.ReleaseDate.ToString("yyyy-MM-dd")" name="ReleaseDate" />
+                            @Html.ValidationMessageFor(model => model.ReleaseDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Country, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @foreach (var c in CountryList.MainFilmCountriesNames.ConvertToCheckBoxItems(Model.Country))
+                            {
+                                <div>
+                                    <label>@c.Text</label>
+                                    <input type="checkbox" name="Country" value="@c.Value" checked="@c.Selected" />
+                                </div>
+                            }
+
+                            @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DirectorName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(model => model.DirectorID,
+                           Cinematheque.Data.DataHolder.Directors.ConvertToListItems(),
+                           new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.DirectorID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Duration, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Duration, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IMDbRating, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.IMDbRating, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.IMDbRating, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Save" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

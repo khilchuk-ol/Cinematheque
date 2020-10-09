@@ -1,0 +1,117 @@
+﻿@model Cinematheque.WebSite.Models.FilmView
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <hr />
+    <table>
+        <tr>
+            <td>
+                <img width="340" height="500" src="/images/films/@Model.PosterFileName" />
+            </td>
+
+            <td>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Title)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Title)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Title)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Title)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ReleaseDate)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.ReleaseDate)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Country)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.CountryString)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Actors)
+                    </dt>
+
+                    <dd>
+                        <ul>
+                            @foreach (var pair in Model.Actors)
+                            {
+                                <li>@Html.ActionLink(pair.Value, "Details", "Actors", new { id = pair.Key }, null)</li>
+                            }
+                        </ul>
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.DirectorName)
+                    </dt>
+
+                    <dd>
+                        @Html.ActionLink(Model.DirectorName, "Details", "Directors", new { id = Model.DirectorID }, null)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Genres)
+                    </dt>
+
+                    <dd>
+                        <ul>
+                            @foreach (var genre in Model.Genres)
+                            {
+                                <li>@Html.ActionLink(genre.Name, "Films", "Genres", new { id = genre.ID }, null)</li>
+                            }
+                        </ul>
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Duration)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Duration)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.IMDbRating)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.IMDbRating)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Description)
+                    </dd>
+
+                </dl>
+            </td>
+        </tr>
+    </table>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
