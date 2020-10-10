@@ -20,6 +20,12 @@ namespace Cinematheque.Data
 
         static DataHolder()
         {
+            var t = new List<string>();
+            t.Add("actorA.jpg");
+            var test = new Actor("Actor", "Test", DateTime.Now, null, Gender.NotIdentified, new RegionInfo("US"),
+                        t, " Audrey Justine Tautou was born on August 9, 1976 in Beaumont, France, to Evelyne Marie Laure (Nuret), a teacher, and Bernard Tautou, a dental surgeon. Audrey showed an interest for comedy at an early age and started he");
+            Actors.Add(test);
+
             var list = new List<RegionInfo>();
             list.Add(new RegionInfo("US"));
             if (Films.Count == 0)
@@ -44,6 +50,7 @@ namespace Cinematheque.Data
                     Genres.Add(genre);
 
                     ActorsInFilms.Add(new ActorInFilm() { Actor = actor, Film = film });
+                    ActorsInFilms.Add(new ActorInFilm() { Actor = test, Film = film });
                     GenresOfFilms.Add(new GenreOfFilm() { Genre = genre, Film = film });
                     film.Director = director;
                 }
