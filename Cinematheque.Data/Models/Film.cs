@@ -18,8 +18,10 @@ namespace Cinematheque.Data
         {
             get 
             {
-                var aifs = DataHolder.ActorsInFilms.Where(aif => aif.Film.Equals(this)).ToList();
-                var result= aifs.Select(aif => aif.Actor)     .ToList();
+                var result = DataHolder.ActorsInFilms.Where(aif => aif.Film.Equals(this))
+                                                  .Select(aif => aif.Actor)  
+                                                  .OrderBy(a => a.GetFullName())
+                                                  .ToList();
                 return result;
             }
         }
@@ -38,6 +40,7 @@ namespace Cinematheque.Data
         {
             get { return DataHolder.GenresOfFilms.Where(gof => gof.Film.Equals(this))
                                                  .Select(gof => gof.Genre)
+                                                 .OrderBy(g => g.Name)
                                                  .ToList(); }
             private set { }
         }
@@ -63,6 +66,9 @@ namespace Cinematheque.Data
 
             Validate(this);
         }
+
+        public Film() : base()
+        { }
 
         public override string ToString()
         {

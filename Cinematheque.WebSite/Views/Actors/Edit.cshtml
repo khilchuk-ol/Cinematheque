@@ -1,5 +1,5 @@
 ﻿@using Cinematheque.WebSite.Extensions
-@using Cinematheque.Data.Utils
+@using Cinematheque.Data
 @model Cinematheque.WebSite.Models.ActorView
 
 @{
@@ -13,15 +13,15 @@
     @Html.AntiForgeryToken()
 
     <hr />
-    <table> 
+    <table>
         <tr>
             <td>
-                <img width="340" height="500" src="/images/films/@Model.PhotoFileNames" />
+                <img width="340" height="500" src="/images/actors/@Model.PhotoFileName" />
 
-                <label for="file">Upload New Photo to Add:</label>
+                <label for="file">Upload New Photo:</label>
                 <input type="file" name="file" id="file" /><br><br>
                 <br><br>
-                @Html.ValidationMessageFor(model => model.PhotoFileNames, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.PhotoFileName, "", new { @class = "text-danger" })
             </td>
 
             <td width="700">
@@ -73,10 +73,43 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Country, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.DropDownListFor(model => model.Country, 
-                           CountryList.EnglishNames.ConvertToListItems(), 
+                            @Html.DropDownListFor(model => model.Country,
+                           Cinematheque.Data.Utils.CountryList.EnglishNames.ConvertToListItems(),
                            new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FilmsStared, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <table id="films-act">
+                                @foreach (var f in Model.FilmsStared)
+                                {
+                                    <tr id="@f.Key">
+                                        <td style="text-align:left; width:200px">
+                                            <span class="film-text">@f.Value</span>
+                                            <input type="hidden" name="FilmsDirected" value="@f.Key" />
+                                        </td>
+                                        <td>
+                                            <span class="btn-remove-film" style="cursor:pointer">
+                                                <img width="10" height="10" src="~/Content/Images/remove.jpg" />
+                                            </span>
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
+
+                            <select id="select-film-act">
+                                @foreach (var f in DataHolder.AvailableFilms(DataHolder.GetActorById(Model.ID)))
+                                {
+                                    <option value="@f.ID">@f.Title</option>
+                                }
+                            </select>
+
+                            <button type="button" id="btn-add-film" style="cursor:pointer">Add film</button>
+
+                            @Html.ValidationMessageFor(model => model.FilmsStared, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
@@ -89,6 +122,40 @@
             </td>
         </tr>
     </table>
+
+    @section scripts {
+        <script>
+            $('#films-act').on('click', '.btn-remove-film', function (e) {
+                if (confirm('Do you want to delete film?')) {
+
+                    var tr = $(e.target).closest('tr');
+                    var text = tr.find('.film-text').text();
+                    var id = tr.find('input:hidden').val();
+
+                    $('#select-film-act').append(new Option(text, id));
+                    tr.remove();
+                }
+            });
+
+            $('#btn-add-film').click(function () {
+                var opt = $('#select-film-act').find('option:selected');
+
+                $('#films-act').append(
+                    `<tr>
+                             <td style="text-align:left; width:200px">
+                                 <span class="film-text">${opt.text()}</span>
+                                 <input type="hidden" name="FilmsDirected" value="${opt.val()}" />
+                             </td>
+                             <td>
+                                 <span class="btn-remove-film" style="cursor:pointer">
+                                     <img width="10" height="10" src="@Url.Content("~/Content/Images/remove.jpg")" />
+                                 </span>
+                             </td>
+                        </tr>`);
+                opt.remove();
+            });
+        </script>
+    }
 }
 
 <div>

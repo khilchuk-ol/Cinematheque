@@ -10,58 +10,34 @@ using System.Web;
 
 namespace Cinematheque.WebSite.Extensions
 {
-    public static class DataModelExtensions
+    public static class CreationExtensions
     {
-        public static void CopyToData(this FilmInput input, Film data, HttpPostedFileBase poster)
+        public static Film CreateFilm(this FilmInput input, HttpPostedFileBase poster)
         {
-            if (data.ID != input.ID) throw new Exception("Cannot copy from foreign view to data");
+            var film = new Film();
 
-            data.Title = input.Title;
-            data.ReleaseDate = input.ReleaseDate;
-            data.IMDbRating = input.IMDbRating;
-            data.Duration = input.Duration;
-            data.Country = new List<RegionInfo>();
+            film.Title = input.Title;
+            film.ReleaseDate = input.ReleaseDate;
+            film.IMDbRating = input.IMDbRating;
+            film.Duration = input.Duration;
+            film.Description = input.Description;
+            film.Country = new List<RegionInfo>();
 
             foreach (var name in input.Country)
             {
-                data.Country.Add(CountryList.GetRegionByEnglishName(name));
-            }
-
-            data.RemoveAllGenres();
-
-            if (input.Genres != null)
-            {
-                foreach (var id in input.Genres)
-                {
-                    var genre = DataHolder.Genres.Where(g => g.ID == id).FirstOrDefault();
-                    data.AddGenre(genre);
-                }
-
-            }
-
-            data.Director = DataHolder.Directors.Where(d => d.ID == input.DirectorID).FirstOrDefault();
-
-            data.RemoveAllActors();
-            if (input.Actors != null)
-            {
-                foreach (var id in input.Actors)
-                {
-                    var actor = DataHolder.Actors.Where(a => a.ID == id).FirstOrDefault();
-
-                    data.AddActor(actor);
-                }
+                film.Country.Add(CountryList.GetRegionByEnglishName(name));
             }
 
             if (poster != null && poster.ContentLength > 0)
-            { 
+            {
                 try
                 {
                     if (poster.ContentType.Contains("image"))
                     {
                         var filename = Path.Combine(new Guid().ToString(), Path.GetExtension(poster.FileName));
 
-                        var path = Path.Combine(PathUtils.GetProjectDirectory(), 
-                                                "Cinematheque.WebSite\\images\\films\\", 
+                        var path = Path.Combine(PathUtils.GetProjectDirectory(),
+                                                "Cinematheque.WebSite\\images\\films\\",
                                                 filename);
                         poster.SaveAs(path);
 
@@ -69,9 +45,9 @@ namespace Cinematheque.WebSite.Extensions
                                                 "Cinematheque.WebSite\\images\\films\\",
                                                 filename);*/
 
-                        data.PosterFileName = filename;
+                        film.PosterFileName = filename;
                     }
-                    else 
+                    else
                     {
                         throw new Exception("ERROR: Uploaded file is not image");
                     }
@@ -82,30 +58,46 @@ namespace Cinematheque.WebSite.Extensions
                     throw new Exception("ERROR:" + ex.Message.ToString());
                 }
             }
-        }
-
-        public static void CopyToData(this ActorInput input, Actor data, HttpPostedFileBase photo)
-        {
-            if (data.ID != input.ID) throw new Exception("Cannot copy from foreign view to data");
-
-            data.Name = input.Name;
-            data.Surname = input.Surname;
-            data.Birth = input.Birth;
-            data.Death = input.Death;
-            data.Country = CountryList.GetRegionByEnglishName(input.Country);
-
-            data.RemoveAllFilms();
-            if (input.FilmsStared != null)
+            else
             {
-                foreach (var id in input.FilmsStared)
-                {
-                    var film = DataHolder.Films.Where(f => f.ID == id).FirstOrDefault();
+                film.PosterFileName = "default.jpg";
+            }
 
-                    data.AddFilm(film);
+            if (input.Genres != null)
+            {
+                foreach (var id in input.Genres)
+                {
+                    var genre = DataHolder.Genres.Where(g => g.ID == id).FirstOrDefault();
+                    film.AddGenre(genre);
+                }
+
+            }
+
+            film.Director = DataHolder.Directors.Where(d => d.ID == input.DirectorID).FirstOrDefault();
+
+            if (input.Actors != null)
+            {
+                foreach (var id in input.Actors)
+                {
+                    var actor = DataHolder.Actors.Where(a => a.ID == id).FirstOrDefault();
+
+                    film.AddActor(actor);
                 }
             }
 
-            data.Gender = (Data.Gender)input.Gender;
+            return film;
+        }
+
+        public static Actor CreateActor(this ActorInput input, HttpPostedFileBase photo)
+        {
+            var actor = new Actor();
+
+            actor.Name = input.Name;
+            actor.Surname = input.Surname;
+            actor.Birth = input.Birth;
+            actor.Death = input.Death;
+            actor.Country = CountryList.GetRegionByEnglishName(input.Country);
+            actor.Gender = (Data.Gender)input.Gender;
 
             if (photo != null && photo.ContentLength > 0)
             {
@@ -120,7 +112,7 @@ namespace Cinematheque.WebSite.Extensions
                                                 filename);
                         photo.SaveAs(path);
 
-                        data.PhotoFileName = filename;
+                        actor.PhotoFileName = filename;
                     }
                     else
                     {
@@ -133,30 +125,34 @@ namespace Cinematheque.WebSite.Extensions
                     throw new Exception("ERROR:" + ex.Message.ToString());
                 }
             }
-        }
-
-        public static void CopyToData(this DirectorInput input, Director data, HttpPostedFileBase photo)
-        {
-            if (data.ID != input.ID) throw new Exception("Cannot copy from foreign view to data");
-
-            data.Name = input.Name;
-            data.Surname = input.Surname;
-            data.Birth = input.Birth;
-            data.Death = input.Death;
-            data.Country = CountryList.GetRegionByEnglishName(input.Country);
-
-            data.RemoveAllFilms();
-            if (input.FilmsDirected != null)
+            else
             {
-                foreach (var id in input.FilmsDirected)
+                actor.PhotoFileName = "default.jpg";
+            }
+
+            if (input.FilmsStared != null)
+            {
+                foreach (var id in input.FilmsStared)
                 {
                     var film = DataHolder.Films.Where(f => f.ID == id).FirstOrDefault();
 
-                    data.AddFilm(film);
+                    actor.AddFilm(film);
                 }
             }
 
-            data.Gender = (Data.Gender)input.Gender;
+            return actor;
+        }
+
+        public static Director CreateDirector(this DirectorInput input, HttpPostedFileBase photo)
+        {
+            var director = new Director();
+
+            director.Name = input.Name;
+            director.Surname = input.Surname;
+            director.Birth = input.Birth;
+            director.Death = input.Death;
+            director.Country = CountryList.GetRegionByEnglishName(input.Country);
+            director.Gender = (Data.Gender)input.Gender;
 
             if (photo != null && photo.ContentLength > 0)
             {
@@ -171,11 +167,7 @@ namespace Cinematheque.WebSite.Extensions
                                                 filename);
                         photo.SaveAs(path);
 
-                        /*File.Delete(Path.Combine(PathUtils.GetProjectDirectory(),
-                                                "Cinematheque.WebSite\\images\\directors\\",
-                                                filename);*/
-
-                        data.PhotoFileName = filename;
+                        director.PhotoFileName = filename;
                     }
                     else
                     {
@@ -188,6 +180,22 @@ namespace Cinematheque.WebSite.Extensions
                     throw new Exception("ERROR:" + ex.Message.ToString());
                 }
             }
+            else
+            {
+                director.PhotoFileName = "default.jpg";
+            }
+
+            if (input.FilmsDirected != null)
+            {
+                foreach (var id in input.FilmsDirected)
+                {
+                    var film = DataHolder.Films.Where(f => f.ID == id).FirstOrDefault();
+
+                    director.AddFilm(film);
+                }
+            }
+
+            return director;
         }
     }
 }

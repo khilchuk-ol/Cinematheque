@@ -9,7 +9,7 @@
 
 <h2>Edit</h2>
 
-@using (Html.BeginForm("DoEdit", "Films", FormMethod.Post, new { id = Model.ID, enctype = "multipart/form-data" }))
+@using (Html.BeginForm("DoCreate", "Films", FormMethod.Post, new {enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -17,9 +17,9 @@
     <table>
         <tr>
             <td>
-                <img width="340" height="500" src="/images/films/@Model.PosterFileName" />
+                <img width="340" height="500" src="/images/films/default.jpg" />
 
-                <label for="file">Upload New Poster:</label>
+                <label for="file">Upload Poster:</label>
                 <input type="file" name="file" id="file" /><br><br>
                 <br><br>
                 @Html.ValidationMessageFor(model => model.PosterFileName, "", new { @class = "text-danger" })
@@ -29,7 +29,6 @@
                 <div class="form-horizontal">
 
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    @Html.HiddenFor(model => model.ID)
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -42,7 +41,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.ReleaseDate, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            <input type="date" value="@Model.ReleaseDate.ToString("yyyy-MM-dd")" name="ReleaseDate" />
+                            <input type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" name="ReleaseDate" />
                             @Html.ValidationMessageFor(model => model.ReleaseDate, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -50,7 +49,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Country, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @foreach (var c in CountryList.MainFilmCountriesNames.ConvertToCheckBoxItems(Model.Country))
+                            @foreach (var c in CountryList.MainFilmCountriesNames.ConvertToCheckBoxItems())
                             {
                                 <div>
                                     <label>@c.Text</label>
@@ -76,24 +75,11 @@
                         @Html.LabelFor(model => model.Actors, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
                             <table id="actors">
-                                @foreach (var a in Model.Actors)
-                                {
-                                    <tr id="@a.Key">
-                                        <td style="text-align:left; width:200px">
-                                            <span class="actor-text">@a.Value</span>
-                                            <input type="hidden" name="Actors" value="@a.Key" />
-                                        </td>
-                                        <td>
-                                            <span class="btn-remove-actor" style="cursor:pointer">
-                                                <img width="10" height="10" src="~/Content/Images/remove.jpg" />
-                                            </span>
-                                        </td>
-                                    </tr>
-                                }
+                                
                             </table>
 
                             <select id="select-actor">
-                                @foreach (var a in DataHolder.AvailableActors(DataHolder.GetFilmById(Model.ID)))
+                                @foreach (var a in DataHolder.Actors)
                                 {
                                     <option value="@a.ID">@a.GetFullName()</option>
                                 }
@@ -109,24 +95,11 @@
                         @Html.LabelFor(model => model.Genres, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
                             <table id="genres">
-                                @foreach (var a in Model.Genres)
-                                {
-                                    <tr id="@a.ID">
-                                        <td style="text-align:left; width:200px">
-                                            <span class="genre-text">@a.Name</span>
-                                            <input type="hidden" name="Genres" value="@a.ID" />
-                                        </td>
-                                        <td>
-                                            <span class="btn-remove-genre" style="cursor:pointer">
-                                                <img width="10" height="10" src="~/Content/Images/remove.jpg" />
-                                            </span>
-                                        </td>
-                                    </tr>
-                                }
+                                
                             </table>
 
                             <select id="select-genre">
-                                @foreach (var g in DataHolder.AvailableGenres(DataHolder.GetFilmById(Model.ID)))
+                                @foreach (var g in DataHolder.Genres)
                                 {
                                     <option value="@g.ID">@g.Name</option>
                                 }
@@ -235,7 +208,7 @@
             });
 
         </script>
-   }
+    }
 }
 
 <div>

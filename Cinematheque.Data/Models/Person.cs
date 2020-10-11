@@ -30,6 +30,9 @@ namespace Cinematheque.Data
             Validate(this);
         }
 
+        public Person() : base()
+        { }
+
         public override string ToString()
         {
             return Name + " " + Surname + " (" + GetAge() + ") ";

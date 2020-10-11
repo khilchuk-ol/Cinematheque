@@ -1,4 +1,5 @@
 ﻿@using Cinematheque.WebSite.Extensions
+@using Cinematheque.Data
 @model Cinematheque.WebSite.Models.DirectorView
 
 @{
@@ -15,7 +16,7 @@
     <table>
         <tr>
             <td>
-                <img width="340" height="500" src="/images/films/@Model.PhotoFileName" />
+                <img width="340" height="500" src="/images/directors/@Model.PhotoFileName" />
 
                 <label for="file">Upload New Photo:</label>
                 <input type="file" name="file" id="file" /><br><br>
@@ -79,7 +80,38 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FilmsDirected, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <table id="films-dir">
+                                @foreach (var f in Model.FilmsDirected)
+                                {
+                                    <tr id="@f.Key">
+                                        <td style="text-align:left; width:200px">
+                                            <span class="film-text">@f.Value</span>
+                                            <input type="hidden" name="FilmsDirected" value="@f.Key" />
+                                        </td>
+                                        <td>
+                                            <span class="btn-remove-film" style="cursor:pointer">
+                                                <img width="10" height="10" src="~/Content/Images/remove.jpg" />
+                                            </span>
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
 
+                            <select id="select-film-dir">
+                                @foreach (var f in DataHolder.AvailableFilms(DataHolder.GetDirectorById(Model.ID)))
+                                {
+                                    <option value="@f.ID">@f.Title</option>
+                                }
+                            </select>
+
+                            <button type="button" id="btn-add-film" style="cursor:pointer">Add film</button>
+
+                            @Html.ValidationMessageFor(model => model.FilmsDirected, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
@@ -91,6 +123,40 @@
             </td>
         </tr>
     </table>
+
+    @section scripts {
+        <script>
+            $('#films-dir').on('click', '.btn-remove-film', function (e) {
+                if (confirm('Do you want to delete film?')) {
+
+                    var tr = $(e.target).closest('tr');
+                    var text = tr.find('.film-text').text();
+                    var id = tr.find('input:hidden').val();
+
+                    $('#select-film-dir').append(new Option(text, id));
+                    tr.remove();
+                }
+            });
+
+            $('#btn-add-film').click(function () {
+                var opt = $('#select-film-dir').find('option:selected');
+
+                $('#films-dir').append(
+                    `<tr>
+                     <td style="text-align:left; width:200px">
+                         <span class="film-text">${opt.text()}</span>
+                         <input type="hidden" name="FilmsDirected" value="${opt.val()}" />
+                     </td>
+                     <td>
+                         <span class="btn-remove-film" style="cursor:pointer">
+                             <img width="10" height="10" src="@Url.Content("~/Content/Images/remove.jpg")" />
+                         </span>
+                     </td>
+                </tr>`);
+                opt.remove();
+            });
+        </script>
+    }
 }
 
 <div>

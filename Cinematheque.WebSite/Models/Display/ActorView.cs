@@ -11,7 +11,7 @@ namespace Cinematheque.WebSite.Models
         [Display(Name = "Stared in films ")]
         public Dictionary<Guid, string> FilmsStared { get; set; }
 
-        public IEnumerable<string> PhotoFileNames { get; }
+        public string PhotoFileName { get; }
 
         [Required(AllowEmptyStrings = false)]
         public string Biography { get; set; }
@@ -19,7 +19,7 @@ namespace Cinematheque.WebSite.Models
         public ActorView(Actor data) : base(data)
         {
             FilmsStared = data.FilmsStared.ToDictionary(f => f.ID, f => f.Title);
-            PhotoFileNames = data.PhotoFileNames;
+            PhotoFileName = data.PhotoFileName;
             Biography = data.Biography;
         }
 

@@ -25,7 +25,7 @@ namespace Cinematheque.WebSite.Controllers
         }
 
         [HttpPost]
-        public ActionResult DoEdit(Guid id, HttpPostedFileBase file, DirectorView newView)
+        public ActionResult DoEdit(Guid id, HttpPostedFileBase file, DirectorInput newView)
         {
             var data = DataHolder.Directors.Where(d => d.ID.Equals(id)).FirstOrDefault();
             newView.CopyToData(data, file);
@@ -51,6 +51,9 @@ namespace Cinematheque.WebSite.Controllers
         public ActionResult DoDelete(Guid id)
         {
             var toRemove = DataHolder.Directors.Where(d => d.ID.Equals(id)).FirstOrDefault();
+
+            toRemove.RemoveAllFilms();
+
             DataHolder.Directors.Remove(toRemove);
             return RedirectToAction("Index");
         }

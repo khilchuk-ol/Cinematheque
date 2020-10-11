@@ -10,7 +10,11 @@ namespace Cinematheque.Data
     {
         public List<Film> FilmsDirected 
         {
-            get { return DataHolder.Films.Where(f => f.Director.Equals(this)).ToList(); }
+            get { 
+                return DataHolder.Films.Where(f => f.Director.Equals(this))
+                                       .OrderBy(f => f.Title)
+                                       .ToList(); 
+            }
         }
 
         public string PhotoFileName { get; set; }
@@ -26,6 +30,9 @@ namespace Cinematheque.Data
 
             Validate(this);
         }
+
+        public Director() : base()
+        { }
 
         public void AddFilm(Film f)
         {

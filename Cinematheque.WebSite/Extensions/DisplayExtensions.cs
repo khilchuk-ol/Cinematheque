@@ -36,5 +36,12 @@ namespace Cinematheque.WebSite.Extensions
                         .ToList();
 
         }
+
+        public static List<SelectListItem> ConvertToCheckBoxItems(this IEnumerable<string> @items)
+        {
+            return items.Select(i => new SelectListItem() { Text = i, Value = i, Selected = false })
+                        .ToList();
+
+        }
     }
 }

@@ -12,23 +12,27 @@ namespace Cinematheque.Data
         {
             get { return DataHolder.ActorsInFilms.Where(aif => aif.Actor.Equals(this)) 
                                                  .Select(aif => aif.Film)
+                                                 .OrderBy(f => f.Title)
                                                  .ToList(); }
             private set { }
         }
 
-        public IEnumerable<string> PhotoFileNames { get; private set; }
+        public string PhotoFileName { get; set; }
 
         public string Biography { get; set; }
 
         public Actor(string name, string sname, DateTime birth, DateTime? death, Gender gender, RegionInfo country, 
-            IEnumerable<string> photoFileNames, string biography) :
+            string photoFileName, string biography) :
             base(name, sname, birth, death, gender, country)
         {
-            PhotoFileNames = photoFileNames;
+            PhotoFileName = photoFileName;
             Biography = biography;
 
             Validate(this);
         }
+
+        public Actor() : base()
+        { }
 
         public void RemoveAllFilms()
         {
@@ -45,20 +49,9 @@ namespace Cinematheque.Data
             DataHolder.AddFilmToActor(f, this);
         }
 
-        public void AddPhoto(string fileName)
-        {
-            var path = PathUtils.GetProjectDirectory() + "data\\actors\\photos\\" + fileName;
-            Validator.CheckFileExist(path);
-
-            PhotoFileNames.Append(fileName);
-        }
-
         private static void Validate(Actor a)
         {
-            foreach (var fn in a.PhotoFileNames)
-            {
-                Validator.CheckFileExist(PathUtils.GetProjectDirectory() + "Cinematheque.WebSite\\images\\actors\\" + fn);
-            }
+            Validator.CheckFileExist(PathUtils.GetProjectDirectory() + "Cinematheque.WebSite\\images\\actors\\" + a.PhotoFileName);
         }
     }
 }
