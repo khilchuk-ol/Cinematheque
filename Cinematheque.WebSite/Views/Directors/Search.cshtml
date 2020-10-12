@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<Cinematheque.WebSite.Models.DirectorView>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Search";
 }
 
-<h2>Directors</h2>
+<h2>Found directors</h2>
 
 <label for="search-dir">Enter director's name: </label>
 @using (Html.BeginForm("Search", "Directors", FormMethod.Get, new { name = "search-dir" }))
@@ -16,6 +16,7 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
 <table class="table">
     <tr>
         <th>
@@ -70,5 +71,4 @@
             </td>
         </tr>
     }
-
 </table>

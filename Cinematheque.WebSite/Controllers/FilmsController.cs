@@ -21,13 +21,13 @@ namespace Cinematheque.WebSite.Controllers
         // GET: Films/Search
         public ActionResult Search(string q)
         {
-            var films = DataHolder.Films.Where(f => f.Title.Contains(q)).Select(f => new FilmView(f));
+            var films = DataHolder.Films.Where(f => f.Title.Contains(q, StringComparison.OrdinalIgnoreCase)).Select(f => new FilmView(f));
             return View(films.OrderBy(f => f.Title));
         }
 
         public ActionResult Edit(Guid id)
         {
-            var film = DataHolder.Films.Where(f => f.ID.Equals(id)).FirstOrDefault();
+            var film = DataHolder.GetFilmById(id);
 
             return View(new FilmView(film));
         }
@@ -35,7 +35,7 @@ namespace Cinematheque.WebSite.Controllers
         [HttpPost]
         public ActionResult DoEdit(Guid id, HttpPostedFileBase file, FilmInput input)
         {
-            var data = DataHolder.Films.Where(f => f.ID.Equals(id)).FirstOrDefault();
+            var data = DataHolder.GetFilmById(id);
             input.CopyToData(data, file);
 
             return RedirectToAction("Index");
@@ -43,14 +43,14 @@ namespace Cinematheque.WebSite.Controllers
 
         public ActionResult Details(Guid id)
         {
-            var film = DataHolder.Films.Where(f => f.ID.Equals(id)).FirstOrDefault();
+            var film = DataHolder.GetFilmById(id);
 
             return View(new FilmView(film));
         }
 
         public ActionResult Delete(Guid id)
         {
-            var film = DataHolder.Films.Where(f => f.ID.Equals(id)).FirstOrDefault();
+            var film = DataHolder.GetFilmById(id);
 
             return View(new FilmView(film));
         }
@@ -58,7 +58,7 @@ namespace Cinematheque.WebSite.Controllers
         [HttpPost]
         public ActionResult DoDelete(Guid id)
         {
-            var toRemove = DataHolder.Films.Where(f => f.ID.Equals(id)).FirstOrDefault();
+            var toRemove = DataHolder.GetFilmById(id);
 
             toRemove.RemoveAllActors();
             toRemove.RemoveAllGenres();

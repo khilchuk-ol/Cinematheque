@@ -33,20 +33,20 @@ namespace Cinematheque.WebSite.Extensions
             {
                 foreach (var id in input.Genres)
                 {
-                    var genre = DataHolder.Genres.Where(g => g.ID == id).FirstOrDefault();
+                    var genre = DataHolder.GetGenreById(id);
                     data.AddGenre(genre);
                 }
 
             }
 
-            data.Director = DataHolder.Directors.Where(d => d.ID == input.DirectorID).FirstOrDefault();
+            data.Director = DataHolder.GetDirectorById(input.DirectorID);
 
             data.RemoveAllActors();
             if (input.Actors != null)
             {
                 foreach (var id in input.Actors)
                 {
-                    var actor = DataHolder.Actors.Where(a => a.ID == id).FirstOrDefault();
+                    var actor = DataHolder.GetActorById(id);
 
                     data.AddActor(actor);
                 }
@@ -58,7 +58,7 @@ namespace Cinematheque.WebSite.Extensions
                 {
                     if (poster.ContentType.Contains("image"))
                     {
-                        var filename = Path.Combine(new Guid().ToString(), Path.GetExtension(poster.FileName));
+                        var filename = Guid.NewGuid().ToString() + Path.GetExtension(poster.FileName);
 
                         var path = Path.Combine(PathUtils.GetProjectDirectory(), 
                                                 "Cinematheque.WebSite\\images\\films\\", 
@@ -99,7 +99,7 @@ namespace Cinematheque.WebSite.Extensions
             {
                 foreach (var id in input.FilmsStared)
                 {
-                    var film = DataHolder.Films.Where(f => f.ID == id).FirstOrDefault();
+                    var film = DataHolder.GetFilmById(id);
 
                     data.AddFilm(film);
                 }
@@ -113,7 +113,7 @@ namespace Cinematheque.WebSite.Extensions
                 {
                     if (photo.ContentType.Contains("image"))
                     {
-                        var filename = Path.Combine(new Guid().ToString(), Path.GetExtension(photo.FileName));
+                        var filename = Guid.NewGuid().ToString() + Path.GetExtension(photo.FileName);
 
                         var path = Path.Combine(PathUtils.GetProjectDirectory(),
                                                 "Cinematheque.WebSite\\images\\actors\\",
@@ -150,7 +150,7 @@ namespace Cinematheque.WebSite.Extensions
             {
                 foreach (var id in input.FilmsDirected)
                 {
-                    var film = DataHolder.Films.Where(f => f.ID == id).FirstOrDefault();
+                    var film = DataHolder.GetFilmById(id);
 
                     data.AddFilm(film);
                 }
@@ -164,7 +164,7 @@ namespace Cinematheque.WebSite.Extensions
                 {
                     if (photo.ContentType.Contains("image"))
                     {
-                        var filename = Path.Combine(new Guid().ToString(), Path.GetExtension(photo.FileName));
+                        var filename = Guid.NewGuid().ToString() + Path.GetExtension(photo.FileName);
 
                         var path = Path.Combine(PathUtils.GetProjectDirectory(),
                                                 "Cinematheque.WebSite\\images\\directors\\",

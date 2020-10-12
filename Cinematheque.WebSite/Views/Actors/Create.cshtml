@@ -1,14 +1,14 @@
 ﻿@using Cinematheque.WebSite.Extensions
 @using Cinematheque.Data
-@model Cinematheque.WebSite.Models.DirectorView
+@model Cinematheque.WebSite.Models.ActorView
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Create actor";
 }
 
-<h2>Edit</h2>
+<h2>Create actor</h2>
 
-@using (Html.BeginForm("DoEdit", "Directors", FormMethod.Post, new { id = Model.ID, enctype = "multipart/form-data" }))
+@using (Html.BeginForm("DoCreate", "Actors", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -16,9 +16,9 @@
     <table>
         <tr>
             <td>
-                <img width="340" height="500" src="/images/directors/@Model.PhotoFileName" />
+                <img width="340" height="500" src="/images/actors/default.jpg" />
 
-                <label for="file">Upload New Photo:</label>
+                <label for="file">Upload Photo:</label>
                 <input type="file" name="file" id="file" /><br><br>
                 <br><br>
                 @Html.ValidationMessageFor(model => model.PhotoFileName, "", new { @class = "text-danger" })
@@ -28,7 +28,6 @@
                 <div class="form-horizontal">
 
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    @Html.HiddenFor(model => model.ID)
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -49,7 +48,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Birth, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            <input type="date" value="@Model.Birth.ToString("yyyy-MM-dd")" />
+                            <input type="date" value="value=" @DateTime.Now.ToString("yyyy-MM-dd") name="Birth" />
                             @Html.ValidationMessageFor(model => model.Birth, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -57,7 +56,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Death, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            <input type="date" value="@(Model.Death.HasValue ? Model.Death.Value.ToString("yyyy-MM-dd") : "yyyy-MM-dd")" />
+                            <input type="date" value="yyyy-MM-dd" name="Death" />
                             @Html.ValidationMessageFor(model => model.Death, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -81,27 +80,13 @@
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.FilmsDirected, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.FilmsStared, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            <table id="films-dir">
-                                @foreach (var f in Model.FilmsDirected)
-                                {
-                                    <tr id="@f.Key">
-                                        <td style="text-align:left; width:200px">
-                                            <span class="film-text">@f.Value</span>
-                                            <input type="hidden" name="FilmsDirected" value="@f.Key" />
-                                        </td>
-                                        <td>
-                                            <span class="btn-remove-film" style="cursor:pointer">
-                                                <img width="10" height="10" src="~/Content/Images/remove.jpg" />
-                                            </span>
-                                        </td>
-                                    </tr>
-                                }
+                            <table id="films-act">
                             </table>
 
-                            <select id="select-film-dir">
-                                @foreach (var f in DataHolder.AvailableFilms(DataHolder.GetDirectorById(Model.ID)))
+                            <select id="select-film-act">
+                                @foreach (var f in DataHolder.Films)
                                 {
                                     <option value="@f.ID">@f.Title</option>
                                 }
@@ -109,7 +94,7 @@
 
                             <button type="button" id="btn-add-film" style="cursor:pointer">Add film</button>
 
-                            @Html.ValidationMessageFor(model => model.FilmsDirected, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.FilmsStared, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
@@ -126,7 +111,6 @@
                             <input type="submit" value="Save" class="btn btn-default" />
                         </div>
                     </div>
-
                 </div>
             </td>
         </tr>
@@ -134,33 +118,33 @@
 
     @section scripts {
         <script>
-            $('#films-dir').on('click', '.btn-remove-film', function (e) {
+            $('#films-act').on('click', '.btn-remove-film', function (e) {
                 if (confirm('Do you want to delete film?')) {
 
                     var tr = $(e.target).closest('tr');
                     var text = tr.find('.film-text').text();
                     var id = tr.find('input:hidden').val();
 
-                    $('#select-film-dir').append(new Option(text, id));
+                    $('#select-film-act').append(new Option(text, id));
                     tr.remove();
                 }
             });
 
             $('#btn-add-film').click(function () {
-                var opt = $('#select-film-dir').find('option:selected');
+                var opt = $('#select-film-act').find('option:selected');
 
-                $('#films-dir').append(
+                $('#films-act').append(
                     `<tr>
-                     <td style="text-align:left; width:200px">
-                         <span class="film-text">${opt.text()}</span>
-                         <input type="hidden" name="FilmsDirected" value="${opt.val()}" />
-                     </td>
-                     <td>
-                         <span class="btn-remove-film" style="cursor:pointer">
-                             <img width="10" height="10" src="@Url.Content("~/Content/Images/remove.jpg")" />
-                         </span>
-                     </td>
-                </tr>`);
+                             <td style="text-align:left; width:200px">
+                                 <span class="film-text">${opt.text()}</span>
+                                 <input type="hidden" name="FilmsStared" value="${opt.val()}" />
+                             </td>
+                             <td>
+                                 <span class="btn-remove-film" style="cursor:pointer">
+                                     <img width="10" height="10" src="@Url.Content("~/Content/Images/remove.jpg")" />
+                                 </span>
+                             </td>
+                        </tr>`);
                 opt.remove();
             });
         </script>

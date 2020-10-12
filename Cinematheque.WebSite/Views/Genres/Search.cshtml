@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<Cinematheque.Data.Genre>
 
 @{
-    ViewBag.Title = "All genres";
+    ViewBag.Title = "Search";
 }
 
-<h2>Genres</h2>
+<h2>Found genres</h2>
 
 <label for="search-gen">Enter genre's name: </label>
 @using (Html.BeginForm("Search", "Genres", FormMethod.Get, new { name = "search-gen" }))

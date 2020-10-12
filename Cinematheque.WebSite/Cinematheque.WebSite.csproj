@@ -177,18 +177,20 @@
     <Compile Include="Extensions\CreationExtensions.cs" />
     <Compile Include="Extensions\DataModelExtensions.cs" />
     <Compile Include="Extensions\DisplayExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ActorInput.cs" />
-    <Compile Include="Models\DirectorInput.cs" />
+    <Compile Include="Models\Input\ActorInput.cs" />
+    <Compile Include="Models\Input\DirectorInput.cs" />
     <Compile Include="Models\Display\ActorView.cs" />
     <Compile Include="Models\Display\DirectorView.cs" />
     <Compile Include="Models\EntityView.cs" />
     <Compile Include="Models\Display\FilmView.cs" />
-    <Compile Include="Models\FilmInput.cs" />
+    <Compile Include="Models\Input\FilmInput.cs" />
     <Compile Include="Models\Gender.cs" />
     <Compile Include="Models\Display\GenreAndFilmsView.cs" />
+    <Compile Include="Models\Input\GenreInput.cs" />
     <Compile Include="Models\PersonView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -227,9 +229,13 @@
     <Content Include="Views\Genres\Index.cshtml" />
     <Content Include="Views\Genres\Films.cshtml" />
     <Content Include="Views\Films\Top100.cshtml" />
-    <Content Include="Views\Films\FilmsSearch.cshtml" />
     <Content Include="Views\Films\Create.cshtml" />
     <Content Include="Views\Directors\Create.cshtml" />
+    <Content Include="Views\Actors\Create.cshtml" />
+    <Content Include="Views\Genres\Create.cshtml" />
+    <Content Include="Views\Actors\Search.cshtml" />
+    <Content Include="Views\Directors\Search.cshtml" />
+    <Content Include="Views\Genres\Search.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,67 +1,155 @@
-﻿@model Cinematheque.WebSite.Models.DirectorView
+﻿@using Cinematheque.WebSite.Extensions
+@using Cinematheque.Data
+@model Cinematheque.WebSite.Models.DirectorView
 
-@using (Html.BeginForm()) 
+@{
+    ViewBag.Title = "Create director";
+}
+
+<h2>Create director</h2>
+
+@using (Html.BeginForm("DoCreate", "Directors", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>DirectorView</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Surname, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Surname, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    <hr />
+    <table>
+        <tr>
+            <td>
+                <img width="340" height="500" src="/images/directors/default.jpg" />
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Birth, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Birth, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Birth, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <label for="file">Upload Photo:</label>
+                <input type="file" name="file" id="file" /><br><br>
+                <br><br>
+                @Html.ValidationMessageFor(model => model.PhotoFileName, "", new { @class = "text-danger" })
+            </td>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Death, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Death, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Death, "", new { @class = "text-danger" })
-            </div>
-        </div>
+            <td width="700">
+                <div class="form-horizontal">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Country, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Biography, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Biography, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Biography, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Surname, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Surname, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Birth, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <input type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" name="Birth" />
+                            @Html.ValidationMessageFor(model => model.Birth, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Death, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <input type="date" value="yyyy-MM-dd" name="Death" />
+                            @Html.ValidationMessageFor(model => model.Death, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Country, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(model => model.Country,
+                           Cinematheque.Data.Utils.CountryList.EnglishNames.ConvertToListItems(),
+                           new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FilmsDirected, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <table id="films-dir">
+                            </table>
+
+                            <select id="select-film-dir">
+                                @foreach (var f in DataHolder.Films)
+                                {
+                                    <option value="@f.ID">@f.Title</option>
+                                }
+                            </select>
+
+                            <button type="button" id="btn-add-film" style="cursor:pointer">Add film</button>
+
+                            @Html.ValidationMessageFor(model => model.FilmsDirected, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Biography, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <textarea rows="10" cols="30" name="Biography"></textarea>
+                            @Html.ValidationMessageFor(model => model.Biography, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Save" class="btn btn-default" />
+                        </div>
+                    </div>
+
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    @section scripts {
+        <script>
+            $('#films-dir').on('click', '.btn-remove-film', function (e) {
+                if (confirm('Do you want to delete film?')) {
+
+                    var tr = $(e.target).closest('tr');
+                    var text = tr.find('.film-text').text();
+                    var id = tr.find('input:hidden').val();
+
+                    $('#select-film-dir').append(new Option(text, id));
+                    tr.remove();
+                }
+            });
+
+            $('#btn-add-film').click(function () {
+                var opt = $('#select-film-dir').find('option:selected');
+
+                $('#films-dir').append(
+                    `<tr>
+                     <td style="text-align:left; width:200px">
+                         <span class="film-text">${opt.text()}</span>
+                         <input type="hidden" name="FilmsDirected" value="${opt.val()}" />
+                     </td>
+                     <td>
+                         <span class="btn-remove-film" style="cursor:pointer">
+                             <img width="10" height="10" src="@Url.Content("~/Content/Images/remove.jpg")" />
+                         </span>
+                     </td>
+                </tr>`);
+                opt.remove();
+            });
+        </script>
+    }
 }
 
 <div>

@@ -1,0 +1,83 @@
+﻿@using Cinematheque.Data
+@model Cinematheque.Data.Genre
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Genre</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FilmsOfGenre, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <table id="films-gen">
+                </table>
+
+                <select id="select-film-gen">
+                    @foreach (var f in DataHolder.Films)
+                    {
+                        <option value="@f.ID">@f.Title</option>
+                    }
+                </select>
+
+                <button type="button" id="btn-add-film" style="cursor:pointer">Add film</button>
+
+                @Html.ValidationMessageFor(model => model.FilmsOfGenre, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+
+    @section scripts {
+        <script>
+            $('#films-gen').on('click', '.btn-remove-film', function (e) {
+                if (confirm('Do you want to delete film?')) {
+
+                    var tr = $(e.target).closest('tr');
+                    var text = tr.find('.film-text').text();
+                    var id = tr.find('input:hidden').val();
+
+                    $('#select-film-gen').append(new Option(text, id));
+                    tr.remove();
+                }
+            });
+
+            $('#btn-add-film').click(function () {
+                var opt = $('#select-film-gen').find('option:selected');
+
+                $('#films-dir').append(
+                    `<tr>
+                     <td style="text-align:left; width:200px">
+                         <span class="film-text">${opt.text()}</span>
+                         <input type="hidden" name="FilmsOfGenre" value="${opt.val()}" />
+                     </td>
+                     <td>
+                         <span class="btn-remove-film" style="cursor:pointer">
+                             <img width="10" height="10" src="@Url.Content("~/Content/Images/remove.jpg")" />
+                         </span>
+                     </td>
+                </tr>`);
+                opt.remove();
+            });
+        </script>
+    }
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

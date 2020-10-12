@@ -6,9 +6,17 @@
 
 <h2>Actors</h2>
 
+<label for="search-act">Enter actor's name: </label>
+@using (Html.BeginForm("Search", "Actors", FormMethod.Get, new { name = "search-act" }))
+{
+    <input type="text" title="Find actor" name="q" />
+    <input type="submit" value="Search" />
+}
+
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
 <table class="table">
     <tr>
         <th>
@@ -55,7 +63,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Country)
             </td>
-  
+
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
                 @Html.ActionLink("Details", "Details", new { id = item.ID }) |

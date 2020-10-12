@@ -34,16 +34,12 @@ namespace Cinematheque.WebSite.Extensions
                 {
                     if (poster.ContentType.Contains("image"))
                     {
-                        var filename = Path.Combine(new Guid().ToString(), Path.GetExtension(poster.FileName));
+                        var filename = Guid.NewGuid().ToString() + Path.GetExtension(poster.FileName);
 
                         var path = Path.Combine(PathUtils.GetProjectDirectory(),
                                                 "Cinematheque.WebSite\\images\\films\\",
                                                 filename);
                         poster.SaveAs(path);
-
-                        /*File.Delete(Path.Combine(PathUtils.GetProjectDirectory(),
-                                                "Cinematheque.WebSite\\images\\films\\",
-                                                filename);*/
 
                         film.PosterFileName = filename;
                     }
@@ -67,19 +63,19 @@ namespace Cinematheque.WebSite.Extensions
             {
                 foreach (var id in input.Genres)
                 {
-                    var genre = DataHolder.Genres.Where(g => g.ID == id).FirstOrDefault();
+                    var genre = DataHolder.GetGenreById(id);
                     film.AddGenre(genre);
                 }
 
             }
 
-            film.Director = DataHolder.Directors.Where(d => d.ID == input.DirectorID).FirstOrDefault();
+            film.Director = DataHolder.GetDirectorById(input.DirectorID);
 
             if (input.Actors != null)
             {
                 foreach (var id in input.Actors)
                 {
-                    var actor = DataHolder.Actors.Where(a => a.ID == id).FirstOrDefault();
+                    var actor = DataHolder.GetActorById(id);
 
                     film.AddActor(actor);
                 }
@@ -105,7 +101,7 @@ namespace Cinematheque.WebSite.Extensions
                 {
                     if (photo.ContentType.Contains("image"))
                     {
-                        var filename = Path.Combine(new Guid().ToString(), Path.GetExtension(photo.FileName));
+                        var filename = Guid.NewGuid().ToString() + Path.GetExtension(photo.FileName);
 
                         var path = Path.Combine(PathUtils.GetProjectDirectory(),
                                                 "Cinematheque.WebSite\\images\\actors\\",
@@ -134,7 +130,7 @@ namespace Cinematheque.WebSite.Extensions
             {
                 foreach (var id in input.FilmsStared)
                 {
-                    var film = DataHolder.Films.Where(f => f.ID == id).FirstOrDefault();
+                    var film = DataHolder.GetFilmById(id);
 
                     actor.AddFilm(film);
                 }
@@ -160,7 +156,7 @@ namespace Cinematheque.WebSite.Extensions
                 {
                     if (photo.ContentType.Contains("image"))
                     {
-                        var filename = Path.Combine(new Guid().ToString(), Path.GetExtension(photo.FileName));
+                        var filename = Guid.NewGuid().ToString() + Path.GetExtension(photo.FileName);
 
                         var path = Path.Combine(PathUtils.GetProjectDirectory(),
                                                 "Cinematheque.WebSite\\images\\directors\\",
@@ -189,13 +185,30 @@ namespace Cinematheque.WebSite.Extensions
             {
                 foreach (var id in input.FilmsDirected)
                 {
-                    var film = DataHolder.Films.Where(f => f.ID == id).FirstOrDefault();
+                    var film = DataHolder.GetFilmById(id);
 
                     director.AddFilm(film);
                 }
             }
 
             return director;
+        }
+
+        public static Genre CreateGenre(this GenreInput input, HttpPostedFileBase photo)
+        {
+            var genre = new Genre(input.Name);
+
+            if (input.FilmsOfGenre != null)
+            {
+                foreach (var id in input.FilmsOfGenre)
+                {
+                    var film = DataHolder.GetFilmById(id);
+
+                    genre.AddFilm(film);
+                }
+            }
+
+            return genre;
         }
     }
 }

@@ -1,21 +1,23 @@
-﻿@model IEnumerable<Cinematheque.WebSite.Models.DirectorView>
+﻿@model IEnumerable<Cinematheque.WebSite.Models.ActorView>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Search";
 }
 
-<h2>Directors</h2>
+<h2>Found actors</h2>
 
-<label for="search-dir">Enter director's name: </label>
-@using (Html.BeginForm("Search", "Directors", FormMethod.Get, new { name = "search-dir" }))
+<label for="search-act">Enter actor's name: </label>
+@using (Html.BeginForm("Search", "Actors", FormMethod.Get, new { name = "search-act" }))
 {
-    <input type="text" title="Find dsirector" name="q" />
+    <input type="text" title="Find actor" name="q" />
     <input type="submit" value="Search" />
 }
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+
 <table class="table">
     <tr>
         <th>
@@ -23,6 +25,9 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Surname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FullName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Birth)
@@ -33,7 +38,6 @@
         <th>
             @Html.DisplayNameFor(model => model.Country)
         </th>
-
         <th></th>
     </tr>
 
@@ -62,7 +66,6 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Country)
             </td>
-
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
                 @Html.ActionLink("Details", "Details", new { id = item.ID }) |
