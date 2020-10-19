@@ -48,7 +48,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Birth, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            <input type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" name="Birth" />
+                            <input type="date" value="yyyy-MM-dd" name="Birth" />
                             @Html.ValidationMessageFor(model => model.Birth, "", new { @class = "text-danger" })
                         </div>
                     </div>

@@ -46,6 +46,7 @@ namespace Cinematheque.Data
 
         public void AddFilm(Film f)
         {
+            Validator.RequireNotNull(f);
             DataHolder.AddFilmToActor(f, this);
         }
 

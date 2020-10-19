@@ -56,7 +56,7 @@ namespace Cinematheque.Data
 
         public static bool AddGenreToFilm(Genre g, Film f)
         {
-            if (GenresOfFilms.Find(gof => gof.Film.Equals(f) && gof.Genre.Equals(g)) != default(GenreOfFilm))
+            if (GenresOfFilms.Find(gof => gof.Genre.Equals(g) && gof.Film.Equals(f)) != default(GenreOfFilm))
             {
                 return false;
             }
@@ -66,7 +66,17 @@ namespace Cinematheque.Data
             return true;
         }
 
-        public static void AddFilmToGenre(Film f, Genre g) => AddGenreToFilm(g, f);
+        public static bool AddFilmToGenre(Film f, Genre g)
+        {
+            if (GenresOfFilms.Find(gof => gof.Film.Equals(f) && gof.Genre.Equals(g)) != default(GenreOfFilm))
+            {
+                return false;
+            }
+
+            GenresOfFilms.Add(new GenreOfFilm() { Genre = g, Film = f });
+
+            return true;
+        }
 
         public static bool AddActorToFilm(Actor a, Film f)
         {
@@ -79,7 +89,16 @@ namespace Cinematheque.Data
             return true;
         }
 
-        public static bool AddFilmToActor(Film f, Actor a) => AddActorToFilm(a, f);
+        public static bool AddFilmToActor(Film f, Actor a)
+        {
+            if (ActorsInFilms.Find(aif => aif.Film.Equals(f) && aif.Actor.Equals(a)) != default(ActorInFilm))
+            {
+                return false;
+            }
+
+            ActorsInFilms.Add(new ActorInFilm() { Actor = a, Film = f });
+            return true;
+        }
 
         public static void RemoveAllGenresOfFilm(Film f)
         {
@@ -112,7 +131,12 @@ namespace Cinematheque.Data
             ActorsInFilms.Remove(toRemove);
         }
 
-        public static void RemoveFilmFromActor(Film f, Actor a) => RemoveActorFromFilm(a, f);
+        public static void RemoveFilmFromActor(Film f, Actor a)
+        {
+            var toRemove = ActorsInFilms.Find(aif => aif.Film.Equals(f) && aif.Actor.Equals(a));
+
+            ActorsInFilms.Remove(toRemove);
+        }
 
         public static void RemoveAllFilmsOfGenre(Genre g)
         {
