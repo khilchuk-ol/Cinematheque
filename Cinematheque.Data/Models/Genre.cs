@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cinematheque.Data
 {
-    public class Genre : Entity, IEquatable<Genre>
+    public class Genre : Entity<Genre>, IEquatable<Genre>
     {
         public string Name { get; set; }
 

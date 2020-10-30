@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cinematheque.Data
 {
-    public class Film : Entity
+    public class Film : Entity<Film>
     {
         public string Title { get; set; }
 

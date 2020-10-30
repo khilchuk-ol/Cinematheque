@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cinematheque.WebSite.Models
 {
-    public class DirectorView : PersonView
+    public class DirectorView : PersonView<Director>
     {
         [Display(Name = "Directed films")]
         public Dictionary<Guid, string> FilmsDirected { get; set; }

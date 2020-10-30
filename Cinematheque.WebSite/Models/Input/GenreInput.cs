@@ -1,12 +1,11 @@
-﻿using System;
+﻿using Cinematheque.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace Cinematheque.WebSite.Models
 {
-    public class GenreInput : EntityView
+    public class GenreInput : EntityView<Genre>
     {
         [Required()]
         [RegularExpression(@"^[a-zA-Z''-'\s]{1,40}$", 

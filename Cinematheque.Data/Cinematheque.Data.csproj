@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DbManager.cs" />
     <Compile Include="Models\Actor.cs" />
     <Compile Include="Associative\ActorInFilm.cs" />
     <Compile Include="Models\Director.cs" />
@@ -52,7 +53,9 @@
     <Compile Include="Associative\GenreOfFilm.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TableManager.cs" />
     <Compile Include="Utils\CountryList.cs" />
+    <Compile Include="Utils\LogWriter.cs" />
     <Compile Include="Utils\PathUtils.cs" />
     <Compile Include="Utils\Validator.cs" />
   </ItemGroup>

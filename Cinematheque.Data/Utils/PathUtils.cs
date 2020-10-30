@@ -14,8 +14,9 @@ namespace Cinematheque.Data.Utils
         {
             var full = System.Reflection.Assembly.GetExecutingAssembly().CodeBase;
             var dir = Path.GetDirectoryName(full);
+            var ind = dir.IndexOf("Cinematheque.");
 
-            return dir.Substring(6, dir.Length - 30);
+            return dir.Substring(6, ind - 6);
         }
     }
 }

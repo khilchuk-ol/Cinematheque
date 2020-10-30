@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cinematheque.Data
 {
-    public class Director : Person
+    public class Director : Person<Director>
     {
         public List<Film> FilmsDirected 
         {
@@ -43,6 +43,11 @@ namespace Cinematheque.Data
 
         public void RemoveFilm(Film f)
         {
+            if(!IsDirectorOfFilm(f))
+            {
+                return;
+            }
+
             f.RemoveDirector();
         }
 

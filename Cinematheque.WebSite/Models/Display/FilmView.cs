@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Cinematheque.WebSite.Models
 {
-    public class FilmView : EntityView
+    public class FilmView : EntityView<Film>
     {
         [Required(AllowEmptyStrings = false)]
         [StringLength(160)]

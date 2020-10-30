@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Cinematheque.Data
 {
-    public class GenreOfFilm : Entity
+    public class GenreOfFilm : Entity<GenreOfFilm>
     {
         private Guid _genreID;
 

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Cinematheque.WebSite.Models
 {
-    public class PersonView : EntityView
+    public class PersonView<T> : EntityView<T> where T : class
     {
         [Required]
         [RegularExpression(@"^[a-zA-Z''-'\s]{1,40}$", 
@@ -39,7 +39,7 @@ namespace Cinematheque.WebSite.Models
 
         public int GetAge()
         {
-            var lastAlive = Death.HasValue ? Death.Value : DateTime.Now;
+            var lastAlive = Death ?? DateTime.Now;
             var difInYears = lastAlive.Year - Birth.Year;
             return (lastAlive.Date < Birth.Date) ? difInYears-- : difInYears;
         }
@@ -49,7 +49,7 @@ namespace Cinematheque.WebSite.Models
             return Name + " " + Surname;
         }
 
-        public PersonView(Person data) : base(data)
+        public PersonView(Person<T> data) : base(data)
         {
             Name = data.Name;
             Surname = data.Surname;

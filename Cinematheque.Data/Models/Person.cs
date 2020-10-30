@@ -4,7 +4,7 @@ using System.Globalization;
 
 namespace Cinematheque.Data
 {
-    public class Person : Entity//, IEquatable<Person>
+    public class Person<T> : Entity<T> where T : class//, IEquatable<Person>
     {
         public string Name { get; set; }
 
@@ -40,7 +40,7 @@ namespace Cinematheque.Data
 
         public int GetAge()
         {
-            var lastAlive = Death.HasValue ? Death.Value : DateTime.Now;
+            var lastAlive = Death ?? DateTime.Now;
             var difInYears = lastAlive.Year - Birth.Year;
 
             return (lastAlive.Date < Birth.Date) ? difInYears-- : difInYears;
@@ -51,7 +51,7 @@ namespace Cinematheque.Data
             return Name + " " + Surname;
         }
 
-        private static void Validate(Person p)
+        private static void Validate(Person<T> p)
         {
             if (!Validator.IsNameValid(p.Name, p.Surname))
             {

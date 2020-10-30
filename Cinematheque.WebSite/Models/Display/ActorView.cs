@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cinematheque.WebSite.Models
 {
-    public class ActorView : PersonView
+    public class ActorView : PersonView<Actor>
     {
         [Display(Name = "Stared in films ")]
         public Dictionary<Guid, string> FilmsStared { get; set; }

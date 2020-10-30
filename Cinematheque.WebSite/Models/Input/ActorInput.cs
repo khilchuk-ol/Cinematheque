@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Cinematheque.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Cinematheque.WebSite.Models
 {
-    public class ActorInput : PersonView
+    public class ActorInput : PersonView<Actor>
     {
         public List<Guid> FilmsStared { get; set; }
 

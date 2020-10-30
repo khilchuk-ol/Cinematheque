@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Cinematheque.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Cinematheque.WebSite.Models
 {
-    public class FilmInput : EntityView
+    public class FilmInput : EntityView<Film>
     {
         [Required(AllowEmptyStrings = false)]
         [StringLength(160)]

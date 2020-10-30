@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cinematheque.Data
 {
-    public class Actor : Person
+    public class Actor : Person<Actor>
     {
         public List<Film> FilmsStared
         {
