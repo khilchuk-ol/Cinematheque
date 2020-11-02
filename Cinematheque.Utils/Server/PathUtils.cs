@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cinematheque.Data.Utils
+namespace Cinematheque.Utils
 {
     public static class PathUtils
     {

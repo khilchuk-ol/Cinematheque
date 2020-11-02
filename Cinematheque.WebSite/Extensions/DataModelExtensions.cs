@@ -1,11 +1,10 @@
 ﻿using Cinematheque.Data;
-using Cinematheque.Data.Utils;
+using Cinematheque.Utils;
 using Cinematheque.WebSite.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Web;
 
 namespace Cinematheque.WebSite.Extensions
@@ -33,20 +32,20 @@ namespace Cinematheque.WebSite.Extensions
             {
                 foreach (var id in input.Genres)
                 {
-                    var genre = DataHolder.GetGenreById(id);
+                    var genre = DataHolder.DaoGenre.Find(id);
                     data.AddGenre(genre);
                 }
 
             }
 
-            data.Director = DataHolder.GetDirectorById(input.DirectorID);
+            data.Director = DataHolder.DaoDirector.Find(input.DirectorID);
 
             data.RemoveAllActors();
             if (input.Actors != null)
             {
                 foreach (var id in input.Actors)
                 {
-                    var actor = DataHolder.GetActorById(id);
+                    var actor = DataHolder.DaoActor.Find(id);
 
                     data.AddActor(actor);
                 }
@@ -99,7 +98,7 @@ namespace Cinematheque.WebSite.Extensions
             {
                 foreach (var id in input.FilmsStared)
                 {
-                    var film = DataHolder.GetFilmById(id);
+                    var film = DataHolder.DaoFilm.Find(id);
 
                     data.AddFilm(film);
                 }
@@ -150,7 +149,7 @@ namespace Cinematheque.WebSite.Extensions
             {
                 foreach (var id in input.FilmsDirected)
                 {
-                    var film = DataHolder.GetFilmById(id);
+                    var film = DataHolder.DaoFilm.Find(id);
 
                     data.AddFilm(film);
                 }

@@ -2,12 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.IO;
 using System.Linq;
 
 namespace Cinematheque.WebSite.Models
 {
-    public class FilmView : EntityView<Film>
+    public class FilmView : EntityView
     {
         [Required(AllowEmptyStrings = false)]
         [StringLength(160)]
@@ -17,11 +16,11 @@ namespace Cinematheque.WebSite.Models
         public DateTime ReleaseDate { get; set; }
 
         [Required]
-        public List<string> Country { get; set; }
+        public List<string> Countries { get; set; }
 
         public string CountryString
         {
-            get { return string.Join(", ", Country); }
+            get { return string.Join(", ", Countries); }
         }
 
         public Dictionary<Guid, string> Actors { get; set; }
@@ -55,7 +54,7 @@ namespace Cinematheque.WebSite.Models
         {
             Title = data.Title;
             ReleaseDate = data.ReleaseDate;
-            Country = data.Country.Select(ri => ri.EnglishName).ToList();
+            Countries = data.Countries.Select(ri => ri.EnglishName).ToList();
             Actors = data.Actors.ToDictionary(a => a.ID, a => a.GetFullName());
             DirectorID = data.Director.ID;
             DirectorName = data.Director.GetFullName();
@@ -66,15 +65,7 @@ namespace Cinematheque.WebSite.Models
             Description = data.Description;
         }
 
-        public FilmView() : base()
-        {
-
-        }
-
-        public override string ToString()
-        {
-            return Title;
-        }
+        public FilmView() : base() { }
 
         public static List<FilmView> GetFilmViews(List<Film> data)
         {

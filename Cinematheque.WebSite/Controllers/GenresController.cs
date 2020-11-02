@@ -2,7 +2,6 @@
 using Cinematheque.WebSite.Extensions;
 using Cinematheque.WebSite.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -14,23 +13,23 @@ namespace Cinematheque.WebSite.Controllers
         // GET: Genres
         public ActionResult Index()
         {
-            return View(DataHolder.Genres.OrderBy(g => g.Name));
+            return View(DataHolder.DaoGenre.FindAll().OrderBy(g => g.Name));
         }
 
         public ActionResult Search(string q)
         {
-            var genres = DataHolder.Genres.Where(g => g.Name.Contains(q, StringComparison.OrdinalIgnoreCase));
+            var genres = DataHolder.DaoGenre.SearchGenresByName(q);
             return View(genres.OrderBy(f => f.Name));
         }
 
         //GET: Genres/Films
         public ActionResult Films(Guid id)
         {
-            var genre = DataHolder.GetGenreById(id);
+            var genre = DataHolder.DaoGenre.GetGenreWithFilms(id);
 
             return View(new GenreAndFilmsView
             {
-                Films = genre?.FilmsOfGenre.Select(f => new FilmView(f)).OrderBy(f => f.Title),
+                Films = genre?.Films.Select(f => new FilmView(f)).OrderBy(f => f.Title),
                 Genre = genre
             });
         }
@@ -40,10 +39,10 @@ namespace Cinematheque.WebSite.Controllers
             return View();
         }
 
-        public ActionResult DoCreate(HttpPostedFileBase file, GenreInput input)
+        public ActionResult DoCreate(GenreInput input)
         {
-            var genre = input.CreateGenre(file);
-            DataHolder.Genres.Add(genre);
+            var genre = input.CreateGenre();
+            DataHolder.DaoGenre.Add(genre);
 
             return RedirectToAction("Index");
         }

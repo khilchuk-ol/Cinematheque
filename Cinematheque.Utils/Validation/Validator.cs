@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Cinematheque.Data.Utils
+namespace Cinematheque.Utils
 {
     public static class Validator
     {

@@ -1,10 +1,10 @@
-﻿using Cinematheque.Data.Utils;
+﻿using Cinematheque.Utils;
 using System;
 using System.Globalization;
 
 namespace Cinematheque.Data
 {
-    public class Person<T> : Entity<T> where T : class//, IEquatable<Person>
+    public class Person : Entity//<T> where T : class, IEquatable<Person>
     {
         public string Name { get; set; }
 
@@ -18,24 +18,9 @@ namespace Cinematheque.Data
 
         public RegionInfo Country { get; set; } 
 
-        public Person(string name, string surname, DateTime birth, DateTime? death, Gender gender, RegionInfo country) : base()
-        {
-            Name = name;
-            Surname = surname;
-            Birth = birth;
-            Death = death;
-            Gender = gender;
-            Country = country;
-
-            Validate(this);
-        }
-
         public Person() : base()
-        { }
-
-        public override string ToString()
         {
-            return Name + " " + Surname + " (" + GetAge() + ") ";
+            //Validate(this);
         }
 
         public int GetAge()
@@ -51,7 +36,7 @@ namespace Cinematheque.Data
             return Name + " " + Surname;
         }
 
-        private static void Validate(Person<T> p)
+        private static void Validate(Person p)
         {
             if (!Validator.IsNameValid(p.Name, p.Surname))
             {
@@ -68,15 +53,5 @@ namespace Cinematheque.Data
                 throw new Exception("Death date is not valid");
             }
         }
-
-        /*public bool Equals(Person other)
-        {
-            return Name.Equals(other.Name) &&
-                      Surname.Equals(other.Surname) &&
-                      Birth.Equals(other.Birth) &&
-                      Death.Equals(other.Death) &&
-                      Country.Equals(other.Country) &&
-                      Gender.Equals(other.Gender);
-        }*/
     }
 }

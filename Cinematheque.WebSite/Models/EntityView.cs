@@ -3,18 +3,15 @@ using System;
 
 namespace Cinematheque.WebSite.Models
 {
-    public class EntityView<T> where T : class
+    public class EntityView
     {
         public Guid ID { get; set; }
 
-        public EntityView(Entity<T> data)
+        public EntityView(Entity data)
         {
             ID = data.ID;
         }
 
-        public EntityView()
-        {
-
-        }
+        public EntityView() {}
     }
 }

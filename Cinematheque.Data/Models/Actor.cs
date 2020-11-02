@@ -1,53 +1,37 @@
-﻿using Cinematheque.Data.Utils;
-using System;
+﻿using Cinematheque.Utils;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
 
 namespace Cinematheque.Data
 {
-    public class Actor : Person<Actor>
+    public class Actor : Person
     {
-        public List<Film> FilmsStared
-        {
-            get { return DataHolder.ActorsInFilms.Where(aif => aif.Actor.Equals(this)) 
-                                                 .Select(aif => aif.Film)
-                                                 .OrderBy(f => f.Title)
-                                                 .ToList(); }
-            private set { }
-        }
+        public List<Film> Films { get; set; }
 
         public string PhotoFileName { get; set; }
 
         public string Biography { get; set; }
 
-        public Actor(string name, string sname, DateTime birth, DateTime? death, Gender gender, RegionInfo country, 
-            string photoFileName, string biography) :
-            base(name, sname, birth, death, gender, country)
-        {
-            PhotoFileName = photoFileName;
-            Biography = biography;
-
-            Validate(this);
-        }
-
         public Actor() : base()
-        { }
+        {
+            Films = new List<Film>();
+
+            //Validate(this);
+        }
 
         public void RemoveAllFilms()
         {
-            DataHolder.RemoveAllFilmsOfActor(this);
+            Films.Clear();
         }
 
         public void RemoveFilm(Film f)
         {
-            DataHolder.RemoveFilmFromActor(f, this);
+            Films.Remove(f);
         }
 
         public void AddFilm(Film f)
         {
             Validator.RequireNotNull(f);
-            DataHolder.AddFilmToActor(f, this);
+            Films.Add(f);
         }
 
         private static void Validate(Actor a)

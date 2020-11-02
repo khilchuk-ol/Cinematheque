@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Cinematheque.WebSite.Models
 {
-    public class FilmInput : EntityView<Film>
+    public class FilmInput : EntityView
     {
         [Required(AllowEmptyStrings = false)]
         [StringLength(160)]
@@ -15,7 +15,7 @@ namespace Cinematheque.WebSite.Models
         public DateTime ReleaseDate { get; set; }
 
         [Required]
-        public List<string> Country { get; set; }
+        public List<string> Countries { get; set; }
 
         public List<Guid> Actors { get; set; }
 
@@ -35,9 +35,6 @@ namespace Cinematheque.WebSite.Models
         [Required(AllowEmptyStrings = false)]
         public string Description { get; set; }
 
-        public FilmInput() : base()
-        {
-
-        }
+        public FilmInput() : base() { }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Cinematheque.Data;
-using Cinematheque.Data.Utils;
+using Cinematheque.Utils;
 using Cinematheque.WebSite.Extensions;
 using Cinematheque.WebSite.Models;
 using System;
@@ -15,19 +15,19 @@ namespace Cinematheque.WebSite.Controllers
         public ActionResult Index()
         {
             var st = PathUtils.GetProjectDirectory();
-            return View(DataHolder.Films.Select(f => new FilmView(f)).OrderBy(f => f.Title));
+            return View(DataHolder.DaoFilm.FindAll().Select(f => new FilmView(f)).OrderBy(f => f.Title));
         }
 
         // GET: Films/Search
         public ActionResult Search(string q)
         {
-            var films = DataHolder.Films.Where(f => f.Title.Contains(q, StringComparison.OrdinalIgnoreCase)).Select(f => new FilmView(f));
+            var films = DataHolder.DaoFilm.SearchFilmsByTitle(q).Select(f => new FilmView(f));
             return View(films.OrderBy(f => f.Title));
         }
 
         public ActionResult Edit(Guid id)
         {
-            var film = DataHolder.GetFilmById(id);
+            var film = DataHolder.DaoFilm.GetFilmWithActorsAndGenres(id);
 
             return View(new FilmView(film));
         }
@@ -35,7 +35,7 @@ namespace Cinematheque.WebSite.Controllers
         [HttpPost]
         public ActionResult DoEdit(Guid id, HttpPostedFileBase file, FilmInput input)
         {
-            var data = DataHolder.GetFilmById(id);
+            var data = DataHolder.DaoFilm.Find(id);
             input.CopyToData(data, file);
 
             return RedirectToAction("Index");
@@ -43,14 +43,14 @@ namespace Cinematheque.WebSite.Controllers
 
         public ActionResult Details(Guid id)
         {
-            var film = DataHolder.GetFilmById(id);
+            var film = DataHolder.DaoFilm.GetFilmWithActorsAndGenres(id);
 
             return View(new FilmView(film));
         }
 
         public ActionResult Delete(Guid id)
         {
-            var film = DataHolder.GetFilmById(id);
+            var film = DataHolder.DaoFilm.GetFilmWithActorsAndGenres(id);
 
             return View(new FilmView(film));
         }
@@ -58,13 +58,9 @@ namespace Cinematheque.WebSite.Controllers
         [HttpPost]
         public ActionResult DoDelete(Guid id)
         {
-            var toRemove = DataHolder.GetFilmById(id);
+            var toRemove = DataHolder.DaoFilm.Find(id);
 
-            toRemove.RemoveAllActors();
-            toRemove.RemoveAllGenres();
-            toRemove.RemoveDirector();
-
-            DataHolder.Films.Remove(toRemove);
+            DataHolder.DaoFilm.Delete(toRemove);
             return RedirectToAction("Index");
         }
 
@@ -76,7 +72,7 @@ namespace Cinematheque.WebSite.Controllers
         public ActionResult DoCreate(HttpPostedFileBase file, FilmInput input)
         {
             var film = input.CreateFilm(file);
-            DataHolder.Films.Add(film);
+            DataHolder.DaoFilm.Add(film);
 
             return RedirectToAction("Index");
         }
@@ -84,7 +80,7 @@ namespace Cinematheque.WebSite.Controllers
         //GET: Films/Top100
         public ActionResult Top100()
         {
-            return View(DataHolder.Films.OrderByDescending(f => f.IMDbRating)
+            return View(DataHolder.DaoFilm.FindAll().OrderByDescending(f => f.IMDbRating)
                                         .Take(100)
                                         .Select(f => new FilmView(f))
                                         .ToList());

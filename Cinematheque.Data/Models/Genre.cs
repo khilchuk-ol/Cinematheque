@@ -1,43 +1,37 @@
-﻿using Cinematheque.Data.Utils;
+﻿using Cinematheque.Utils;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Cinematheque.Data
 {
-    public class Genre : Entity<Genre>, IEquatable<Genre>
+    public class Genre : Entity
     {
         public string Name { get; set; }
 
-        public IEnumerable<Film> FilmsOfGenre
+        public List<Film> Films { get; set; }
+
+        public Genre() : base()
         {
-            get { return DataHolder.GenresOfFilms.Where(gof => gof.Genre.Equals(this))
-                                                 .Select(gof => gof.Film)
-                                                 .ToList(); }
+            Films = new List<Film>();
 
-            private set { }
-        }
-
-        public Genre(string name) : base()
-        {
-            Name = name;
-
-            Validate(this);
+            //Validate(this);
         }
 
         public void AddFilm(Film f)
         {
-            DataHolder.AddFilmToGenre(f, this);
+            Validator.RequireNotNull(f);
+            Films.Add(f);
         }
 
         public void RemoveFilm(Film f)
         {
-            DataHolder.RemoveFilmFromGenre(f, this);
+            Validator.RequireNotNull(f);
+            Films.Remove(f);
         }
 
         public void RemoveAllFilms()
         {
-            DataHolder.RemoveAllFilmsOfGenre(this);
+            Films.Clear();
         }
 
         private static void Validate(Genre g)
@@ -46,16 +40,6 @@ namespace Cinematheque.Data
             {
                 throw new Exception("Name is not valid");
             }
-        }
-
-        public bool Equals(Genre other)
-        {
-            return Name.Equals(other.Name);
-        }
-
-        public override string ToString()
-        {
-            return Name;
         }
     }
 }

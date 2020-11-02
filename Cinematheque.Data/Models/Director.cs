@@ -1,38 +1,22 @@
-﻿using Cinematheque.Data.Utils;
-using System;
+﻿using Cinematheque.Utils;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
 
 namespace Cinematheque.Data
 {
-    public class Director : Person<Director>
+    public class Director : Person
     {
-        public List<Film> FilmsDirected 
-        {
-            get { 
-                return DataHolder.Films.Where(f => f.Director.Equals(this))
-                                       .OrderBy(f => f.Title)
-                                       .ToList(); 
-            }
-        }
+        public List<Film> Films { get; set; }
 
         public string PhotoFileName { get; set; }
 
         public string Biography { get; set; }
 
-        public Director(string name, string sname, DateTime birth, DateTime? death, Gender gender, RegionInfo country, 
-            string photoFileName, string biography) : 
-            base(name, sname, birth, death, gender, country)
-        {
-            PhotoFileName = photoFileName;
-            Biography = biography;
-
-            Validate(this);
-        }
-
         public Director() : base()
-        { }
+        {
+            Films = new List<Film>();
+
+            //Validate(this);
+        }
 
         public void AddFilm(Film f)
         {
@@ -53,7 +37,7 @@ namespace Cinematheque.Data
 
         public void RemoveAllFilms()
         {
-            foreach(var f in FilmsDirected)
+            foreach(var f in Films)
             {
                 f.RemoveDirector();
             }

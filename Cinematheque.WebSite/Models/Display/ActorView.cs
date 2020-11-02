@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cinematheque.WebSite.Models
 {
-    public class ActorView : PersonView<Actor>
+    public class ActorView : PersonView
     {
         [Display(Name = "Stared in films ")]
         public Dictionary<Guid, string> FilmsStared { get; set; }
@@ -18,15 +18,12 @@ namespace Cinematheque.WebSite.Models
 
         public ActorView(Actor data) : base(data)
         {
-            FilmsStared = data.FilmsStared.ToDictionary(f => f.ID, f => f.Title);
+            FilmsStared = data.Films.ToDictionary(f => f.ID, f => f.Title);
             PhotoFileName = data.PhotoFileName;
             Biography = data.Biography;
         }
 
-        public ActorView() : base()
-        {
-
-        }
+        public ActorView() : base() { }
 
         public static List<ActorView> GetActorViews(List<Actor> data)
         {

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Cinematheque.WebSite.Models
 {
-    public class ActorInput : PersonView<Actor>
+    public class ActorInput : PersonView
     {
         public List<Guid> FilmsStared { get; set; }
 
@@ -13,9 +13,6 @@ namespace Cinematheque.WebSite.Models
 
         [Required(AllowEmptyStrings = false)]
         public string Biography { get; set; }
-        public ActorInput() : base()
-        {
-
-        }
+        public ActorInput() : base() { }
     }
 }

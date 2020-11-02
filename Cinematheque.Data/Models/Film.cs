@@ -1,49 +1,25 @@
-﻿using Cinematheque.Data.Utils;
+﻿using Cinematheque.Utils;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 
 namespace Cinematheque.Data
 {
-    public class Film : Entity<Film>
+    public class Film : Entity
     {
         public string Title { get; set; }
 
         public DateTime ReleaseDate { get; set; }
 
-        public List<RegionInfo> Country { get; set; }
+        public List<RegionInfo> Countries { get; set; }
         
-        public List<Actor> Actors
-        {
-            get 
-            {
-                var result = DataHolder.ActorsInFilms.Where(aif => aif.Film.Equals(this))
-                                                  .Select(aif => aif.Actor)  
-                                                  .OrderBy(a => a.GetFullName())
-                                                  .ToList();
-                return result;
-            }
-        }
+        public List<Actor> Actors { get; set; }
 
-        private Guid _directorID;
+        public Guid DirectorID { get; set; }
 
-        public Director Director
-        {
-            get { return _directorID.Equals(Guid.Empty) ? 
-                    null : DataHolder.Directors.Where(d => d.ID == _directorID).FirstOrDefault(); }
+        public Director Director { get; set; }
 
-            set { _directorID = value.ID; }
-        }
-
-        public List<Genre> Genres
-        {
-            get { return DataHolder.GenresOfFilms.Where(gof => gof.Film.Equals(this))
-                                                 .Select(gof => gof.Genre)
-                                                 .OrderBy(g => g.Name)
-                                                 .ToList(); }
-            private set { }
-        }
+        public List<Genre> Genres { get; set; }
 
         public TimeSpan Duration { get; set; }
 
@@ -52,67 +28,54 @@ namespace Cinematheque.Data
         public string PosterFileName { get; set; }
 
         public string Description { get; set; }
-        
-        public Film(string title, DateTime relese, List<RegionInfo> countries, TimeSpan duration, float rating, 
-            string posterFileName, string description) : base()
-        {
-            Title = title;
-            ReleaseDate = relese;
-            Country = countries ?? new List<RegionInfo>();
-            Duration = duration;
-            IMDbRating = rating;
-            PosterFileName = posterFileName;
-            Description = description;
-
-            Validate(this);
-        }
 
         public Film() : base()
-        { }
-
-        public override string ToString()
         {
-            return Title + " (" + ReleaseDate.Year + ") ";
+            Countries = new List<RegionInfo>();
+            Actors = new List<Actor>();
+            Genres = new List<Genre>();
+
+            //Validate(this);
         }
 
         public void RemoveActor(Actor a)
         {
             Validator.RequireNotNull(a);
-            DataHolder.RemoveActorFromFilm(a, this);
+            Actors.Remove(a);
         }
 
         public void RemoveGenre(Genre g)
         {
             Validator.RequireNotNull(g);
-            DataHolder.RemoveGenreFromFilm(g, this);
+            Genres.Remove(g);
         }
 
         public void RemoveAllActors()
         {
-            DataHolder.RemoveAllActorsOfFilm(this);
+            Actors.Clear();
         }
 
         public void RemoveAllGenres()
         {
-            DataHolder.RemoveAllGenresOfFilm(this);
+            Genres.Clear();
         }
 
-        public void AddGenre(Genre genre)
+        public void AddGenre(Genre g)
         {
-            Validator.RequireNotNull(genre);
-            DataHolder.AddGenreToFilm(genre, this);
+            Validator.RequireNotNull(g);
+            Genres.Add(g);
         }
 
-        public void AddActor(Actor actor)
+        public void AddActor(Actor a)
         {
-            Validator.RequireNotNull(actor);
-            DataHolder.AddActorToFilm(actor, this);
+            Validator.RequireNotNull(a);
+            Actors.Add(a);
         }
 
 
         public void RemoveDirector()
         {
-            _directorID = Guid.Empty;
+            DirectorID = Guid.Empty;
         }
 
         private static void Validate(Film f)

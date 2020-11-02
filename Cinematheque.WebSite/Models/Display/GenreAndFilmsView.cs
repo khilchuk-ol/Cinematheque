@@ -1,8 +1,5 @@
 ﻿using Cinematheque.Data;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Cinematheque.WebSite.Models
 {

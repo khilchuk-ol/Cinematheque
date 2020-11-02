@@ -1,27 +1,29 @@
-﻿using Cinematheque.Data.Utils;
-using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System;
 
 namespace Cinematheque.Data
 {
-    public class Entity<T> where T : class
+    public class Entity//<T> where T : class
     {
-        internal static TableManager tm; 
-        public Guid ID { get { return new Guid(row["ID"].ToString()); } }
+        //internal static TableManager tm; 
+        public Guid ID { get; private set; } //{ get { return new Guid(row["ID"].ToString()); } }
 
-        internal DataRow row;
+        public Entity()
+        {
+            ID = Guid.NewGuid();
+        }
 
-        private bool isNew;
+        //internal DataRow row;
 
-        public static List<T> AllItems
+        //private bool isNew;
+
+        /*public static List<T> AllItems
         {
             get { return GetByQuery(""); }
         }
 
         static Entity()
         {
-            tm = new TableManager.GetTableManager(typeof(T).Name);
+            tm = DbManager.GetTableManager(typeof(T).Name.ToString());
         }
 
         public Entity()
@@ -29,6 +31,8 @@ namespace Cinematheque.Data
             row = tm.Table.NewRow();
             row["ID"] = Guid.NewGuid();
             isNew = true;
+
+            ID = Guid.NewGuid();
         }
 
         public Entity(DataRow dr)
@@ -100,7 +104,7 @@ namespace Cinematheque.Data
                 {
                     int count = 0;
 
-                    foreach(var row in tm.GetIDs(query))
+                    foreach(DataRow row in tm.GetIDs(query))
                     {
                         if(tm.Table.Select($"Id = '{row["ID"]}'").Length == 0)
                         {
@@ -149,6 +153,6 @@ namespace Cinematheque.Data
         {
             row.Delete();
             tm.Update(row);
-        }
+        }*/
     }
 }

@@ -1,4 +1,4 @@
-﻿using Cinematheque.Data.Utils;
+﻿using Cinematheque.Utils;
 using System;
 using System.Data;
 using System.Data.Common;
@@ -7,10 +7,10 @@ namespace Cinematheque.Data
 {
     public class TableManager
     {
-        private DbDataAdapter adapter;
-        private DataTable table;
-        private DataTable temp;
-        private DbCommand command;
+        private readonly DbDataAdapter adapter;
+        private readonly DataTable table;
+        private readonly DataTable temp;
+        private readonly DbCommand command;
 
         public DataTable Table { get { return table; } }
 

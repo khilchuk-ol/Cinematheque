@@ -1,11 +1,10 @@
 ﻿using Cinematheque.Data;
-using Cinematheque.Data.Utils;
+using Cinematheque.Utils;
 using Cinematheque.WebSite.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Web;
 
 namespace Cinematheque.WebSite.Extensions
@@ -14,14 +13,15 @@ namespace Cinematheque.WebSite.Extensions
     {
         public static Film CreateFilm(this FilmInput input, HttpPostedFileBase poster)
         {
-            var film = new Film();
-
-            film.Title = input.Title;
-            film.ReleaseDate = input.ReleaseDate;
-            film.IMDbRating = input.IMDbRating;
-            film.Duration = input.Duration;
-            film.Description = input.Description;
-            film.Country = new List<RegionInfo>();
+            var film = new Film
+            {
+                Title = input.Title,
+                ReleaseDate = input.ReleaseDate,
+                IMDbRating = input.IMDbRating,
+                Duration = input.Duration,
+                Description = input.Description,
+                Country = new List<RegionInfo>()
+            };
 
             foreach (var name in input.Country)
             {
@@ -63,19 +63,19 @@ namespace Cinematheque.WebSite.Extensions
             {
                 foreach (var id in input.Genres)
                 {
-                    var genre = DataHolder.GetGenreById(id);
+                    var genre = DataHolder.DaoGenre.Find(id);
                     film.AddGenre(genre);
                 }
 
             }
 
-            film.Director = DataHolder.GetDirectorById(input.DirectorID);
+            film.Director = DataHolder.DaoDirector.Find(input.DirectorID);
 
             if (input.Actors != null)
             {
                 foreach (var id in input.Actors)
                 {
-                    var actor = DataHolder.GetActorById(id);
+                    var actor = DataHolder.DaoActor.Find(id);
 
                     film.AddActor(actor);
                 }
@@ -86,14 +86,15 @@ namespace Cinematheque.WebSite.Extensions
 
         public static Actor CreateActor(this ActorInput input, HttpPostedFileBase photo)
         {
-            var actor = new Actor();
-
-            actor.Name = input.Name;
-            actor.Surname = input.Surname;
-            actor.Birth = input.Birth;
-            actor.Death = input.Death;
-            actor.Country = CountryList.GetRegionByEnglishName(input.Country);
-            actor.Gender = (Data.Gender)input.Gender;
+            var actor = new Actor
+            {
+                Name = input.Name,
+                Surname = input.Surname,
+                Birth = input.Birth,
+                Death = input.Death,
+                Country = CountryList.GetRegionByEnglishName(input.Country),
+                Gender = (Data.Gender)input.Gender
+            };
 
             if (photo != null && photo.ContentLength > 0)
             {
@@ -130,7 +131,7 @@ namespace Cinematheque.WebSite.Extensions
             {
                 foreach (var id in input.FilmsStared)
                 {
-                    var film = DataHolder.GetFilmById(id);
+                    var film = DataHolder.DaoFilm.Find(id);
 
                     actor.AddFilm(film);
                 }
@@ -141,14 +142,15 @@ namespace Cinematheque.WebSite.Extensions
 
         public static Director CreateDirector(this DirectorInput input, HttpPostedFileBase photo)
         {
-            var director = new Director();
-
-            director.Name = input.Name;
-            director.Surname = input.Surname;
-            director.Birth = input.Birth;
-            director.Death = input.Death;
-            director.Country = CountryList.GetRegionByEnglishName(input.Country);
-            director.Gender = (Data.Gender)input.Gender;
+            var director = new Director
+            {
+                Name = input.Name,
+                Surname = input.Surname,
+                Birth = input.Birth,
+                Death = input.Death,
+                Country = CountryList.GetRegionByEnglishName(input.Country),
+                Gender = (Data.Gender)input.Gender
+            };
 
             if (photo != null && photo.ContentLength > 0)
             {
@@ -185,7 +187,7 @@ namespace Cinematheque.WebSite.Extensions
             {
                 foreach (var id in input.FilmsDirected)
                 {
-                    var film = DataHolder.GetFilmById(id);
+                    var film = DataHolder.DaoFilm.Find(id);
 
                     director.AddFilm(film);
                 }
@@ -194,15 +196,18 @@ namespace Cinematheque.WebSite.Extensions
             return director;
         }
 
-        public static Genre CreateGenre(this GenreInput input, HttpPostedFileBase photo)
+        public static Genre CreateGenre(this GenreInput input)
         {
-            var genre = new Genre(input.Name);
+            var genre = new Genre()
+            {
+                Name = input.Name
+            };
 
             if (input.FilmsOfGenre != null)
             {
                 foreach (var id in input.FilmsOfGenre)
                 {
-                    var film = DataHolder.GetFilmById(id);
+                    var film = DataHolder.DaoFilm.Find(id);
 
                     genre.AddFilm(film);
                 }

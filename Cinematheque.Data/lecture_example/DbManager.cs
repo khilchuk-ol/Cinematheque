@@ -1,18 +1,15 @@
-﻿using Cinematheque.Data.Utils;
+﻿using Cinematheque.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Cinematheque.Data
 {
     public static class DbManager
     {
-        private static Dictionary<string, TableManager> managers = new Dictionary<string, TableManager>();
-        private static DbProviderFactory providerFactory = DbProviderFactories.GetFactory("System.Data.OleDB");
-        private static DbConnection connection = providerFactory.CreateConnection();
+        private static readonly Dictionary<string, TableManager> managers = new Dictionary<string, TableManager>();
+        private static readonly DbProviderFactory providerFactory = DbProviderFactories.GetFactory("System.Data.OleDB");
+        private static readonly DbConnection connection = providerFactory.CreateConnection();
 
         internal static DbProviderFactory ProviderFactory
         {
