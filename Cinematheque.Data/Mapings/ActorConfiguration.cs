@@ -1,4 +1,5 @@
-﻿using System.Data.Entity.ModelConfiguration;
+﻿using Cinematheque.Data.Models;
+using System.Data.Entity.ModelConfiguration;
 
 namespace Cinematheque.Data.Mapings
 {
@@ -11,6 +12,12 @@ namespace Cinematheque.Data.Mapings
 
             Property(a => a.Name).IsRequired();
             Property(a => a.Surname).IsRequired();
+
+            HasRequired(a => a.Country)
+                .WithMany()
+                .HasForeignKey(a => a.CountryId)
+                .WillCascadeOnDelete(false);
+            
         }
     }
 }

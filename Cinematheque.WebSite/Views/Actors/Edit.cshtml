@@ -101,7 +101,7 @@
                             </table>
 
                             <select id="select-film-act">
-                                @foreach (var f in DataHolder.AvailableFilms(DataHolder.GetActorById(Model.ID)))
+                                @foreach (var f in DataHolder.DaoFilm.GetFilmsWithoutActor(Model.ID))
                                 {
                                     <option value="@f.ID">@f.Title</option>
                                 }

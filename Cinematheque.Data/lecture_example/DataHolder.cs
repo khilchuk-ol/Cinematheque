@@ -1,9 +1,11 @@
 ﻿using Cinematheque.Data.Dao;
 using Cinematheque.Data.Dao.Impl;
+using Cinematheque.Data.DAO;
+using Cinematheque.Data.Models;
+using Cinematheque.Utils;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 
 namespace Cinematheque.Data
 {
@@ -17,6 +19,8 @@ namespace Cinematheque.Data
 
         public static IDaoGenre DaoGenre { get; private set; }
 
+        public static IDaoCountry DaoCountry { get; private set; }
+
 
         static DataHolder()
         {
@@ -24,6 +28,17 @@ namespace Cinematheque.Data
             DaoActor = new ActorDao();
             DaoFilm = new FilmDao();
             DaoGenre = new GenreDao();
+            DaoCountry = new CountryDao();
+/*
+            foreach(var n in CountryList.EnglishNames)
+            {
+                DaoCountry.Add(new Country()
+                {
+                    Name = n
+                });
+            }
+
+            var country = DaoCountry.GetCountryByEnglishName("France");
 
             for (var i = 0; i < 10; i++)
             {
@@ -31,10 +46,10 @@ namespace Cinematheque.Data
 
                 var a = new Actor()
                 {
-                    Name = ch.ToString(),
+                    Name = ch.ToString() + "aaak",
                     Surname = "Actor",
                     Birth = DateTime.Now,
-                    Country = RegionInfo.CurrentRegion,
+                    CountryId = country.ID,
                     Gender = Gender.NotIdentified,
                     PhotoFileName = $"actor{ch}.jpg",
                     Biography = "aaaaaaaaaaaaaaaaaaaaaaa"
@@ -45,7 +60,7 @@ namespace Cinematheque.Data
                     Name = ch.ToString(),
                     Surname = "Director",
                     Birth = DateTime.Now,
-                    Country = RegionInfo.CurrentRegion,
+                    CountryId = country.ID,
                     Gender = Gender.NotIdentified,
                     PhotoFileName = $"director{ch}.jpg",
                     Biography = "ddddddddddddddddddddddddd"
@@ -55,13 +70,13 @@ namespace Cinematheque.Data
                 {
                     Title = $"film{ch}",
                     ReleaseDate = DateTime.Now,
-                    Country = new List<RegionInfo>(),
+                    Countries = new List<Country>(),
                     IMDbRating = 5,
                     Description = "fffffffffffffffffffff",
                     PosterFileName = $"film{ch}.jpg",
                     Duration = TimeSpan.FromMinutes(90)
                 };
-                f.Country.Add(RegionInfo.CurrentRegion);
+                f.Countries.Add(country);
 
                 var g = new Genre()
                 {
@@ -74,13 +89,14 @@ namespace Cinematheque.Data
                 g.AddFilm(f);
                 d.AddFilm(f);
                 f.DirectorID = d.ID;
-                f.Director = d;
 
                 DaoFilm.Add(f);
                 DaoActor.Add(a);
                 DaoGenre.Add(g);
                 DaoDirector.Add(d);
+
             }
+*/
         }
 
         

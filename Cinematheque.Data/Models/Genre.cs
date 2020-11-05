@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Cinematheque.Data
+namespace Cinematheque.Data.Models
 {
     public class Genre : Entity
     {
@@ -13,8 +13,6 @@ namespace Cinematheque.Data
         public Genre() : base()
         {
             Films = new List<Film>();
-
-            //Validate(this);
         }
 
         public void AddFilm(Film f)

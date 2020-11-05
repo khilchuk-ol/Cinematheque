@@ -101,7 +101,7 @@
                             </table>
 
                             <select id="select-film-dir">
-                                @foreach (var f in DataHolder.AvailableFilms(DataHolder.GetDirectorById(Model.ID)))
+                                @foreach (var f in DataHolder.DaoFilm.GetFilmsWithoutDirector(Model.ID))
                                 {
                                     <option value="@f.ID">@f.Title</option>
                                 }

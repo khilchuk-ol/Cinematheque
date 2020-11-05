@@ -86,7 +86,7 @@
                             </table>
 
                             <select id="select-film-act">
-                                @foreach (var f in DataHolder.Films)
+                                @foreach (var f in DataHolder.DaoFilm.FindAll())
                                 {
                                     <option value="@f.ID">@f.Title</option>
                                 }

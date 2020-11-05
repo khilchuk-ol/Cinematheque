@@ -1,4 +1,4 @@
-﻿namespace Cinematheque.Data
+﻿namespace Cinematheque.Data.Models
 {
     public enum Gender
     {

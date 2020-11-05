@@ -93,7 +93,7 @@
                             </table>
 
                             <select id="select-actor">
-                                @foreach (var a in DataHolder.AvailableActors(DataHolder.GetFilmById(Model.ID)))
+                                @foreach (var a in DataHolder.DaoActor.GetActorsWithoutFilm(Model.ID))
                                 {
                                     <option value="@a.ID">@a.GetFullName()</option>
                                 }
@@ -126,7 +126,7 @@
                             </table>
 
                             <select id="select-genre">
-                                @foreach (var g in DataHolder.AvailableGenres(DataHolder.GetFilmById(Model.ID)))
+                                @foreach (var g in DataHolder.DaoGenre.GetGenresWithoutFilm(Model.ID))
                                 {
                                     <option value="@g.ID">@g.Name</option>
                                 }

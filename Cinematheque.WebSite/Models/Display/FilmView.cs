@@ -1,4 +1,4 @@
-﻿using Cinematheque.Data;
+﻿using Cinematheque.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -54,7 +54,7 @@ namespace Cinematheque.WebSite.Models
         {
             Title = data.Title;
             ReleaseDate = data.ReleaseDate;
-            Countries = data.Countries.Select(ri => ri.EnglishName).ToList();
+            Countries = data.Countries.Select(ri => ri.Name).ToList();
             Actors = data.Actors.ToDictionary(a => a.ID, a => a.GetFullName());
             DirectorID = data.Director.ID;
             DirectorName = data.Director.GetFullName();

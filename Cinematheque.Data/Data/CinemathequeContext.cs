@@ -1,4 +1,5 @@
 ﻿using Cinematheque.Data.Mapings;
+using Cinematheque.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -23,12 +24,15 @@ namespace Cinematheque.Data.Data
 
         public DbSet<Genre> Genres { get; set; } //=> Set<Genre>();
 
+        public DbSet<Country> Countries { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new FilmConfiguration());
             modelBuilder.Configurations.Add(new ActorConfiguration());
             modelBuilder.Configurations.Add(new DirectorConfiguration());
             modelBuilder.Configurations.Add(new GenreConfiguration());
+            modelBuilder.Configurations.Add(new CountryConfiguration());
         }
     }
 }

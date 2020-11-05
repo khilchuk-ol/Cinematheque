@@ -2,7 +2,7 @@
 using System;
 using System.Globalization;
 
-namespace Cinematheque.Data
+namespace Cinematheque.Data.Models
 {
     public class Person : Entity//<T> where T : class, IEquatable<Person>
     {
@@ -16,12 +16,11 @@ namespace Cinematheque.Data
 
         public Gender Gender { get; set; }
 
-        public RegionInfo Country { get; set; } 
+        public Country Country { get; set; } 
 
-        public Person() : base()
-        {
-            //Validate(this);
-        }
+        public Guid CountryId { get; set; }
+
+        public Person() : base() { }
 
         public int GetAge()
         {

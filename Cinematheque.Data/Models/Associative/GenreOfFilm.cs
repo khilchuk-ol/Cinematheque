@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cinematheque.Data.Models;
+using System;
 using System.Linq;
 
 namespace Cinematheque.Data

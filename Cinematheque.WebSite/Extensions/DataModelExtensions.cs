@@ -1,9 +1,9 @@
 ﻿using Cinematheque.Data;
+using Cinematheque.Data.Models;
 using Cinematheque.Utils;
 using Cinematheque.WebSite.Models;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Web;
 
@@ -19,11 +19,11 @@ namespace Cinematheque.WebSite.Extensions
             data.ReleaseDate = input.ReleaseDate;
             data.IMDbRating = input.IMDbRating;
             data.Duration = input.Duration;
-            data.Country = new List<RegionInfo>();
+            data.Countries = new List<Country>();
 
-            foreach (var name in input.Country)
+            foreach (var name in input.Countries)
             {
-                data.Country.Add(CountryList.GetRegionByEnglishName(name));
+                data.Countries.Add(DataHolder.DaoCountry.GetCountryByEnglishName(name));
             }
 
             data.RemoveAllGenres();
@@ -91,7 +91,7 @@ namespace Cinematheque.WebSite.Extensions
             data.Surname = input.Surname;
             data.Birth = input.Birth;
             data.Death = input.Death;
-            data.Country = CountryList.GetRegionByEnglishName(input.Country);
+            data.Country = DataHolder.DaoCountry.GetCountryByEnglishName(input.Country);
 
             data.RemoveAllFilms();
             if (input.FilmsStared != null)
@@ -104,7 +104,7 @@ namespace Cinematheque.WebSite.Extensions
                 }
             }
 
-            data.Gender = (Data.Gender)input.Gender;
+            data.Gender = (Data.Models.Gender)input.Gender;
 
             if (photo != null && photo.ContentLength > 0)
             {
@@ -142,7 +142,7 @@ namespace Cinematheque.WebSite.Extensions
             data.Surname = input.Surname;
             data.Birth = input.Birth;
             data.Death = input.Death;
-            data.Country = CountryList.GetRegionByEnglishName(input.Country);
+            data.Country = DataHolder.DaoCountry.GetCountryByEnglishName(input.Country);
 
             data.RemoveAllFilms();
             if (input.FilmsDirected != null)
@@ -155,7 +155,7 @@ namespace Cinematheque.WebSite.Extensions
                 }
             }
 
-            data.Gender = (Data.Gender)input.Gender;
+            data.Gender = (Data.Models.Gender)input.Gender;
 
             if (photo != null && photo.ContentLength > 0)
             {

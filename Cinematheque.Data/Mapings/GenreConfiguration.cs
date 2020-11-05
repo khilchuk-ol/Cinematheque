@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity.ModelConfiguration;
+using Cinematheque.Data.Models;
 
 namespace Cinematheque.Data.Mapings
 {

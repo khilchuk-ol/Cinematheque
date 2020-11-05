@@ -1,5 +1,5 @@
-﻿using System.Data.Entity.ModelConfiguration;
-using System.Security.Cryptography;
+﻿using Cinematheque.Data.Models;
+using System.Data.Entity.ModelConfiguration;
 
 namespace Cinematheque.Data.Mapings
 {
@@ -20,6 +20,7 @@ namespace Cinematheque.Data.Mapings
                     m.MapLeftKey("FilmID");
                     m.MapRightKey("ActorID");
                 });
+                
 
             HasMany(f => f.Genres)
                 .WithMany(g => g.Films)
@@ -28,6 +29,16 @@ namespace Cinematheque.Data.Mapings
                     m.ToTable("FilmGenre");
                     m.MapLeftKey("FilmID");
                     m.MapRightKey("GenreID");
+                });
+
+            HasMany(f => f.Countries)
+                .WithMany()
+                .Map(m =>
+                {
+                    m.ToTable("FilmCountry");
+                    m.MapLeftKey("FilmID");
+                    m.MapRightKey("CountryId");
+                    
                 });
         }
     }

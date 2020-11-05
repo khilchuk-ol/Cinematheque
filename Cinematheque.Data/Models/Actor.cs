@@ -1,7 +1,7 @@
 ﻿using Cinematheque.Utils;
 using System.Collections.Generic;
 
-namespace Cinematheque.Data
+namespace Cinematheque.Data.Models
 {
     public class Actor : Person
     {
@@ -14,8 +14,6 @@ namespace Cinematheque.Data
         public Actor() : base()
         {
             Films = new List<Film>();
-
-            //Validate(this);
         }
 
         public void RemoveAllFilms()

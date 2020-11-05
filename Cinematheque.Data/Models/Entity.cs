@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cinematheque.Data
+namespace Cinematheque.Data.Models
 {
     public class Entity//<T> where T : class
     {

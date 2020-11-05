@@ -1,4 +1,4 @@
-﻿using Cinematheque.Data;
+﻿using Cinematheque.Data.Models;
 using System;
 
 namespace Cinematheque.WebSite.Models

@@ -1,4 +1,4 @@
-﻿using Cinematheque.Data;
+﻿using Cinematheque.Data.Models;
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -51,7 +51,7 @@ namespace Cinematheque.WebSite.Models
             Birth = data.Birth;
             Death = data.Death;
             Gender = (Gender)data.Gender;
-            Country = data.Country?.EnglishName;
+            Country = data.Country?.Name;
         }
 
         public PersonView() : base()

@@ -53,11 +53,13 @@
   <ItemGroup>
     <Compile Include="Dao\IDao.cs" />
     <Compile Include="Dao\IDaoActor.cs" />
+    <Compile Include="Dao\IDaoCountry.cs" />
     <Compile Include="Dao\IDaoDirector.cs" />
     <Compile Include="Dao\IDaoFilm.cs" />
     <Compile Include="Dao\IDaoGenre.cs" />
     <Compile Include="Dao\Impl\AbstractDao.cs" />
     <Compile Include="Dao\Impl\ActorDao.cs" />
+    <Compile Include="Dao\Impl\CountryDao.cs" />
     <Compile Include="Dao\Impl\DirectorDao.cs" />
     <Compile Include="Dao\Impl\FilmDao.cs" />
     <Compile Include="Dao\Impl\GenreDao.cs" />
@@ -65,11 +67,13 @@
     <Compile Include="lecture_example\DataHolder.cs" />
     <Compile Include="lecture_example\DbManager.cs" />
     <Compile Include="Mapings\ActorConfiguration.cs" />
+    <Compile Include="Mapings\CountryConfiguration.cs" />
     <Compile Include="Mapings\DirectorConfiguration.cs" />
     <Compile Include="Mapings\FilmConfiguration.cs" />
     <Compile Include="Mapings\GenreConfiguration.cs" />
     <Compile Include="Models\Actor.cs" />
     <Compile Include="Models\Associative\ActorInFilm.cs" />
+    <Compile Include="Models\Country.cs" />
     <Compile Include="Models\Director.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\Film.cs" />

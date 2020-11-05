@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace Cinematheque.Data
+namespace Cinematheque.Data.Models
 {
     public class Film : Entity
     {
@@ -11,7 +11,7 @@ namespace Cinematheque.Data
 
         public DateTime ReleaseDate { get; set; }
 
-        public List<RegionInfo> Countries { get; set; }
+        public List<Country> Countries { get; set; }
         
         public List<Actor> Actors { get; set; }
 
@@ -31,11 +31,9 @@ namespace Cinematheque.Data
 
         public Film() : base()
         {
-            Countries = new List<RegionInfo>();
+            Countries = new List<Country>();
             Actors = new List<Actor>();
             Genres = new List<Genre>();
-
-            //Validate(this);
         }
 
         public void RemoveActor(Actor a)

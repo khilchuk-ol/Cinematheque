@@ -1,4 +1,6 @@
 ﻿using Cinematheque.Data;
+using Cinematheque.Data.Dao;
+using Cinematheque.Utils;
 using Cinematheque.WebSite.Extensions;
 using Cinematheque.WebSite.Models;
 using System;
@@ -10,22 +12,30 @@ namespace Cinematheque.WebSite.Controllers
 {
     public class GenresController : Controller
     {
+        private IDaoGenre Dao { get; }
+
+        public GenresController(IDaoGenre dao)
+        {
+            Validator.RequireNotNull(dao);
+            Dao = dao;
+        }
+
         // GET: Genres
         public ActionResult Index()
         {
-            return View(DataHolder.DaoGenre.FindAll().OrderBy(g => g.Name));
+            return View(Dao.FindAll().OrderBy(g => g.Name));
         }
 
         public ActionResult Search(string q)
         {
-            var genres = DataHolder.DaoGenre.SearchGenresByName(q);
+            var genres =Dao.SearchGenresByName(q);
             return View(genres.OrderBy(f => f.Name));
         }
 
         //GET: Genres/Films
         public ActionResult Films(Guid id)
         {
-            var genre = DataHolder.DaoGenre.GetGenreWithFilms(id);
+            var genre = Dao.GetGenreWithFilms(id);
 
             return View(new GenreAndFilmsView
             {
@@ -42,7 +52,7 @@ namespace Cinematheque.WebSite.Controllers
         public ActionResult DoCreate(GenreInput input)
         {
             var genre = input.CreateGenre();
-            DataHolder.DaoGenre.Add(genre);
+            Dao.Add(genre);
 
             return RedirectToAction("Index");
         }

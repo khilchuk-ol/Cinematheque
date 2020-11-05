@@ -1,9 +1,9 @@
 ﻿using Cinematheque.Data;
+using Cinematheque.Data.Models;
 using Cinematheque.Utils;
 using Cinematheque.WebSite.Models;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Web;
 
@@ -20,12 +20,12 @@ namespace Cinematheque.WebSite.Extensions
                 IMDbRating = input.IMDbRating,
                 Duration = input.Duration,
                 Description = input.Description,
-                Country = new List<RegionInfo>()
+                Countries = new List<Country>()
             };
 
-            foreach (var name in input.Country)
+            foreach (var name in input.Countries)
             {
-                film.Country.Add(CountryList.GetRegionByEnglishName(name));
+                film.Countries.Add(DataHolder.DaoCountry.GetCountryByEnglishName(name));
             }
 
             if (poster != null && poster.ContentLength > 0)
@@ -92,8 +92,8 @@ namespace Cinematheque.WebSite.Extensions
                 Surname = input.Surname,
                 Birth = input.Birth,
                 Death = input.Death,
-                Country = CountryList.GetRegionByEnglishName(input.Country),
-                Gender = (Data.Gender)input.Gender
+                Country = DataHolder.DaoCountry.GetCountryByEnglishName(input.Country),
+                Gender = (Data.Models.Gender)input.Gender
             };
 
             if (photo != null && photo.ContentLength > 0)
@@ -148,8 +148,8 @@ namespace Cinematheque.WebSite.Extensions
                 Surname = input.Surname,
                 Birth = input.Birth,
                 Death = input.Death,
-                Country = CountryList.GetRegionByEnglishName(input.Country),
-                Gender = (Data.Gender)input.Gender
+                Country = DataHolder.DaoCountry.GetCountryByEnglishName(input.Country),
+                Gender = (Data.Models.Gender)input.Gender
             };
 
             if (photo != null && photo.ContentLength > 0)
