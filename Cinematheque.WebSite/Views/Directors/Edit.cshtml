@@ -1,6 +1,6 @@
 ﻿@using Cinematheque.WebSite.Extensions
 @using Cinematheque.Data
-@model Cinematheque.WebSite.Models.DirectorView
+@model Cinematheque.WebSite.Models.InfoContainers.DirectorInfoContainer
 
 @{
     ViewBag.Title = "Edit";
@@ -8,7 +8,7 @@
 
 <h2>Edit</h2>
 
-@using (Html.BeginForm("DoEdit", "Directors", FormMethod.Post, new { id = Model.ID, enctype = "multipart/form-data" }))
+@using (Html.BeginForm("DoEdit", "Directors", FormMethod.Post, new { id = Model.Director.ID, enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -16,75 +16,75 @@
     <table>
         <tr>
             <td>
-                <img width="340" height="500" src="/images/directors/@Model.PhotoFileName" />
+                <img width="340" height="500" src="/images/directors/@Model.Director.PhotoFileName" />
 
                 <label for="file">Upload New Photo:</label>
                 <input type="file" name="file" id="file" /><br><br>
                 <br><br>
-                @Html.ValidationMessageFor(model => model.PhotoFileName, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.Director.PhotoFileName, "", new { @class = "text-danger" })
             </td>
 
             <td width="700">
                 <div class="form-horizontal">
 
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    @Html.HiddenFor(model => model.ID)
+                    @Html.HiddenFor(model => model.Director.ID)
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.Director.Name, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.Director.Name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Director.Name, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Surname, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.Director.Surname, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.Surname, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.Director.Surname, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Director.Surname, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Birth, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.Director.Birth, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            <input type="date" value="@Model.Birth.ToString("yyyy-MM-dd")" />
-                            @Html.ValidationMessageFor(model => model.Birth, "", new { @class = "text-danger" })
+                            <input type="date" value="@Model.Director.Birth.ToString("yyyy-MM-dd")" />
+                            @Html.ValidationMessageFor(model => model.Director.Birth, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Death, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.Director.Death, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            <input type="date" value="@(Model.Death.HasValue ? Model.Death.Value.ToString("yyyy-MM-dd") : "yyyy-MM-dd")" />
-                            @Html.ValidationMessageFor(model => model.Death, "", new { @class = "text-danger" })
+                            <input type="date" value="@(Model.Director.Death.HasValue ? Model.Director.Death.Value.ToString("yyyy-MM-dd") : "yyyy-MM-dd")" />
+                            @Html.ValidationMessageFor(model => model.Director.Death, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.Director.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.Director.Gender, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Director.Gender, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Country, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.Director.Country, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.DropDownListFor(model => model.Country,
+                            @Html.DropDownListFor(model => model.Director.Country,
                            Cinematheque.Utils.CountryList.EnglishNames.ConvertToListItems(),
                            new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.Director.Country, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.FilmsDirected, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.Director.FilmsDirected, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
                             <table id="films-dir">
-                                @foreach (var f in Model.FilmsDirected)
+                                @foreach (var f in Model.Director.FilmsDirected)
                                 {
                                     <tr id="@f.Key">
                                         <td style="text-align:left; width:200px">
@@ -101,7 +101,7 @@
                             </table>
 
                             <select id="select-film-dir">
-                                @foreach (var f in DataHolder.DaoFilm.GetFilmsWithoutDirector(Model.ID))
+                                @foreach (var f in Model.AvailableFilms)
                                 {
                                     <option value="@f.ID">@f.Title</option>
                                 }
@@ -109,17 +109,17 @@
 
                             <button type="button" id="btn-add-film" style="cursor:pointer">Add film</button>
 
-                            @Html.ValidationMessageFor(model => model.FilmsDirected, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.Director.FilmsDirected, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Biography, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.Director.Biography, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
                             <textarea rows="10" cols="30" name="Biography">
-                                @Model.Biography
+                                @Model.Director.Biography
                             </textarea>
-                            @Html.ValidationMessageFor(model => model.Biography, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.Director.Biography, "", new { @class = "text-danger" })
                         </div>
                     </div>
 

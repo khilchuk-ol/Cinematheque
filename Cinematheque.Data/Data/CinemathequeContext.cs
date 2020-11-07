@@ -1,11 +1,6 @@
 ﻿using Cinematheque.Data.Mapings;
 using Cinematheque.Data.Models;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Cinematheque.Data.Data
 {
@@ -13,7 +8,8 @@ namespace Cinematheque.Data.Data
     {
         public CinemathequeContext() : base("Cinematheque")
         {
-            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<CinemathequeContext>());
+            //Database.SetInitializer(new DropCreateDatabaseIfModelChanges<CinemathequeContext>());
+            Database.SetInitializer(new CinemathequeDatabaseInitializer());
         }
 
         public DbSet<Film> Films { get; set; }

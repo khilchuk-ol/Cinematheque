@@ -1,7 +1,6 @@
 ﻿@using Cinematheque.WebSite.Extensions
 @using Cinematheque.Utils
-@using Cinematheque.Data
-@model Cinematheque.WebSite.Models.FilmView
+@model Cinematheque.WebSite.Models.InfoContainers.FilmInfoContainer
 
 @{
     ViewBag.Title = "Edit film";
@@ -9,7 +8,7 @@
 
 <h2>Edit</h2>
 
-@using (Html.BeginForm("DoEdit", "Films", FormMethod.Post, new { id = Model.ID, enctype = "multipart/form-data" }))
+@using (Html.BeginForm("DoEdit", "Films", FormMethod.Post, new { id = Model.Film.ID, enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -17,40 +16,40 @@
     <table>
         <tr>
             <td>
-                <img width="340" height="500" src="/images/films/@Model.PosterFileName" />
+                <img width="340" height="500" src="/images/films/@Model.Film.PosterFileName" />
 
                 <label for="file">Upload New Poster:</label>
                 <input type="file" name="file" id="file" /><br><br>
                 <br><br>
-                @Html.ValidationMessageFor(model => model.PosterFileName, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.Film.PosterFileName, "", new { @class = "text-danger" })
             </td>
 
             <td width="700">
                 <div class="form-horizontal">
 
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    @Html.HiddenFor(model => model.ID)
+                    @Html.HiddenFor(model => model.Film.ID)
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.Film.Title, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.Film.Title, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Film.Title, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.ReleaseDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.Film.ReleaseDate, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            <input type="date" value="@Model.ReleaseDate.ToString("yyyy-MM-dd")" name="ReleaseDate" />
-                            @Html.ValidationMessageFor(model => model.ReleaseDate, "", new { @class = "text-danger" })
+                            <input type="date" value="@Model.Film.ReleaseDate.ToString("yyyy-MM-dd")" name="ReleaseDate" />
+                            @Html.ValidationMessageFor(model => model.Film.ReleaseDate, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Countries, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.Film.Countries, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @foreach (var c in CountryList.MainFilmCountriesNames.ConvertToCheckBoxItems(Model.Countries))
+                            @foreach (var c in CountryList.MainFilmCountriesNames.ConvertToCheckBoxItems(Model.Film.Countries))
                             {
                                 <div>
                                     <label>@c.Text</label>
@@ -58,25 +57,25 @@
                                 </div>
                             }
 
-                            @Html.ValidationMessageFor(model => model.Countries, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.Film.Countries, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.DirectorName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.Film.DirectorName, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.DropDownListFor(model => model.DirectorID,
-                                                  DataHolder.DaoDirector.FindAll().ConvertToListItems(),
+                            @Html.DropDownListFor(model => model.Film.DirectorID,
+                                                  Model.AvailableDirectors.ConvertToListItems(),
                                                   new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.DirectorID, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.Film.DirectorID, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Actors, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.Film.Actors, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
                             <table id="actors">
-                                @foreach (var a in Model.Actors)
+                                @foreach (var a in Model.Film.Actors)
                                 {
                                     <tr id="@a.Key">
                                         <td style="text-align:left; width:200px">
@@ -93,7 +92,7 @@
                             </table>
 
                             <select id="select-actor">
-                                @foreach (var a in DataHolder.DaoActor.GetActorsWithoutFilm(Model.ID))
+                                @foreach (var a in Model.AvailableActors)
                                 {
                                     <option value="@a.ID">@a.GetFullName()</option>
                                 }
@@ -101,15 +100,15 @@
 
                             <button type="button" id="btn-add-actor" style="cursor:pointer">Add actor</button>
 
-                            @Html.ValidationMessageFor(model => model.Actors, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.Film.Actors, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Genres, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.Film.Genres, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
                             <table id="genres">
-                                @foreach (var a in Model.Genres)
+                                @foreach (var a in Model.Film.Genres)
                                 {
                                     <tr id="@a.ID">
                                         <td style="text-align:left; width:200px">
@@ -126,7 +125,7 @@
                             </table>
 
                             <select id="select-genre">
-                                @foreach (var g in DataHolder.DaoGenre.GetGenresWithoutFilm(Model.ID))
+                                @foreach (var g in Model.AvailableGenres)
                                 {
                                     <option value="@g.ID">@g.Name</option>
                                 }
@@ -134,33 +133,33 @@
 
                             <button type="button" id="btn-add-genre" style="cursor:pointer">Add genre</button>
 
-                            @Html.ValidationMessageFor(model => model.Genres, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.Film.Genres, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Duration, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.Film.Duration, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Duration, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.Film.Duration, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Film.Duration, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.IMDbRating, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.Film.IMDbRating, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.IMDbRating, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.IMDbRating, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.Film.IMDbRating, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Film.IMDbRating, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.Film.Description, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
                             <textarea rows="10" cols="30" name="Description">
-                                @Model.Description
+                                @Model.Film.Description
                             </textarea>
-                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.Film.Description, "", new { @class = "text-danger" })
                         </div>
                     </div>
 

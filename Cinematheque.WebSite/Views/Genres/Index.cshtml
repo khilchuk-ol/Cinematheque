@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Cinematheque.Data.Genre>
+﻿@model IEnumerable<Cinematheque.Data.Models.Genre>
 
 @{
     ViewBag.Title = "All genres";
@@ -20,7 +20,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            Name
         </th>
         <th></th>
     </tr>

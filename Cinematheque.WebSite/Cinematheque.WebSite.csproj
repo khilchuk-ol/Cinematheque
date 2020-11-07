@@ -208,6 +208,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\InfoContainers\ActorInfoContainer.cs" />
+    <Compile Include="Models\InfoContainers\DirectorInfoContainer.cs" />
+    <Compile Include="Models\InfoContainers\FilmInfoContainer.cs" />
+    <Compile Include="Models\InfoContainers\GenreInfoContainer.cs" />
     <Compile Include="Models\Input\ActorInput.cs" />
     <Compile Include="Models\Input\DirectorInput.cs" />
     <Compile Include="Models\Display\ActorView.cs" />

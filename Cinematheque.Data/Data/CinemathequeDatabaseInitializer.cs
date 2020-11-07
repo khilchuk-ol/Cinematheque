@@ -1,44 +1,23 @@
-﻿using Cinematheque.Data.Dao;
-using Cinematheque.Data.Dao.Impl;
-using Cinematheque.Data.DAO;
-using Cinematheque.Data.Models;
+﻿using Cinematheque.Data.Models;
 using Cinematheque.Utils;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
+using System.Data.Entity;
+using System.Linq;
 
-namespace Cinematheque.Data
+namespace Cinematheque.Data.Data
 {
-    public static class DataHolder
+    public class CinemathequeDatabaseInitializer : DropCreateDatabaseIfModelChanges<CinemathequeContext>
     {
-        public static IDaoDirector DaoDirector { get; private set; }
-
-        public static IDaoActor DaoActor { get; private set; }
-
-        public static IDaoFilm DaoFilm { get; private set; }
-
-        public static IDaoGenre DaoGenre { get; private set; }
-
-        public static IDaoCountry DaoCountry { get; private set; }
-
-
-        static DataHolder()
+        protected override void Seed(CinemathequeContext context)
         {
-            DaoDirector = new DirectorDao();
-            DaoActor = new ActorDao();
-            DaoFilm = new FilmDao();
-            DaoGenre = new GenreDao();
-            DaoCountry = new CountryDao();
-/*
-            foreach(var n in CountryList.EnglishNames)
+            foreach (var n in CountryList.EnglishNames)
             {
-                DaoCountry.Add(new Country()
-                {
-                    Name = n
-                });
+                context.Countries.Add(new Country { Name = n });
             }
+            context.SaveChanges();
 
-            var country = DaoCountry.GetCountryByEnglishName("France");
+            var country = context.Countries.Where(c => c.Name == "France").FirstOrDefault();
 
             for (var i = 0; i < 10; i++)
             {
@@ -90,15 +69,15 @@ namespace Cinematheque.Data
                 d.AddFilm(f);
                 f.DirectorID = d.ID;
 
-                DaoFilm.Add(f);
-                DaoActor.Add(a);
-                DaoGenre.Add(g);
-                DaoDirector.Add(d);
+                context.Films.Add(f);
+                context.Actors.Add(a);
+                context.Genres.Add(g);
+                context.Directors.Add(d);
 
             }
-*/
-        }
 
-        
+            context.SaveChanges();
+            base.Seed(context);
+        }
     }
 }

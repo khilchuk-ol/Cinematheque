@@ -35,9 +35,6 @@
         <th>
             @Html.DisplayNameFor(model => model.Death)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Country)
-        </th>
         <th></th>
     </tr>
 
@@ -63,9 +60,6 @@
             {
                 <td>-</td>
             }
-            <td>
-                @Html.DisplayFor(modelItem => item.Country)
-            </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
                 @Html.ActionLink("Details", "Details", new { id = item.ID }) |

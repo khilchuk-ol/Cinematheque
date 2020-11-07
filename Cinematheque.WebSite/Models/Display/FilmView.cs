@@ -25,7 +25,7 @@ namespace Cinematheque.WebSite.Models
 
         public Dictionary<Guid, string> Actors { get; set; }
 
-        public Guid DirectorID { get; set; }
+        public Guid? DirectorID { get; set; }
 
         [Display(Name = "Director")]
         public string DirectorName { get; set; }
@@ -54,10 +54,10 @@ namespace Cinematheque.WebSite.Models
         {
             Title = data.Title;
             ReleaseDate = data.ReleaseDate;
-            Countries = data.Countries.Select(ri => ri.Name).ToList();
+            Countries = data.Countries?.Select(ri => ri.Name).ToList();
             Actors = data.Actors.ToDictionary(a => a.ID, a => a.GetFullName());
-            DirectorID = data.Director.ID;
-            DirectorName = data.Director.GetFullName();
+            DirectorID = data.Director?.ID;
+            DirectorName = data.Director?.GetFullName();
             Genres = data.Genres;
             Duration = data.Duration;
             IMDbRating = data.IMDbRating;

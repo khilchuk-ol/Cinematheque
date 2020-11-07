@@ -32,12 +32,18 @@ namespace Cinematheque.Data.Models
             Films.Clear();
         }
 
-        private static void Validate(Genre g)
+        /*private static void Validate(Genre g)
         {
             if (!Validator.IsAlphabetic(g.Name))
             {
                 throw new Exception("Name is not valid");
             }
+        }
+        */
+
+        public override string ToString()
+        {
+            return Name;
         }
     }
 }

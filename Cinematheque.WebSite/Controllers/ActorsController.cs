@@ -1,8 +1,8 @@
-﻿using Cinematheque.Data;
-using Cinematheque.Data.Dao;
+﻿using Cinematheque.Data.Dao;
 using Cinematheque.Utils;
 using Cinematheque.WebSite.Extensions;
 using Cinematheque.WebSite.Models;
+using Cinematheque.WebSite.Models.InfoContainers;
 using System;
 using System.Linq;
 using System.Web;
@@ -12,51 +12,64 @@ namespace Cinematheque.WebSite.Controllers
 {
     public class ActorsController : Controller
     {
-        private IDaoActor Dao { get; }
+        private IDaoActor ActorsDao { get; }
 
-        public ActorsController(IDaoActor dao)
+        private IDaoFilm FilmsDao { get; }
+
+        private IDaoCountry CountriesDao { get; }
+
+        public ActorsController(IDaoActor actorsDao, IDaoFilm filmsDao, IDaoCountry countriesDao)
         {
-            Validator.RequireNotNull(dao);
-            Dao = dao;
+            Validator.RequireNotNull(actorsDao);
+            Validator.RequireNotNull(filmsDao);
+            Validator.RequireNotNull(countriesDao);
+
+            ActorsDao = actorsDao;
+            FilmsDao = filmsDao;
+            CountriesDao = countriesDao;
         }
         // GET: Actors
         public ActionResult Index()
         {
-            return View(Dao.FindAll().Select(a => new ActorView(a)).OrderBy(a => a.FullName));
+            return View(ActorsDao.FindAll().Select(a => new ActorView(a)).OrderBy(a => a.FullName));
         }
 
         public ActionResult Search(string q)
         {
-            var actors = Dao.SearchActorsByName(q).Select(a => new ActorView(a));
+            var actors = ActorsDao.SearchActorsByName(q).Select(a => new ActorView(a));
             return View(actors.OrderBy(a => a.FullName));
         }
 
         public ActionResult Edit(Guid id)
         {
-            var actor = Dao.GetActorWithFilms(id);
+            var actor = ActorsDao.GetActorWithFilms(id);
 
-            return View(new ActorView(actor));
+            return View(new ActorInfoContainer()
+            {
+                Actor = new ActorView(actor),
+                AvailableFilms = FilmsDao.GetFilmsWithoutActor(actor.ID)
+            });
         }
 
         [HttpPost]
         public ActionResult DoEdit(Guid id, HttpPostedFileBase file, ActorInput newView)
         {
-            var data = Dao.GetActorWithFilms(id);
-            newView.CopyToData(data, file);
+            var data = ActorsDao.GetActorWithFilms(id);
+            newView.CopyToData(data, file, CountriesDao, FilmsDao);
 
             return RedirectToAction("Index");
         }
 
         public ActionResult Details(Guid id)
         {
-            var actor = Dao.GetActorWithFilms(id);
+            var actor = ActorsDao.GetActorWithFilms(id);
 
             return View(new ActorView(actor));
         }
 
         public ActionResult Delete(Guid id)
         {
-            var actor = Dao.GetActorWithFilms(id);
+            var actor = ActorsDao.GetActorWithFilms(id);
 
             return View(new ActorView(actor));
         }
@@ -64,8 +77,8 @@ namespace Cinematheque.WebSite.Controllers
         [HttpPost]
         public ActionResult DoDelete(Guid id)
         {
-            var toRemove = Dao.Find(id);
-            Dao.Delete(toRemove);
+            var toRemove = ActorsDao.Find(id);
+            ActorsDao.Delete(toRemove);
 
             toRemove.RemoveAllFilms();
 
@@ -74,13 +87,16 @@ namespace Cinematheque.WebSite.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            return View(new ActorInfoContainer()
+            {
+                AvailableFilms = FilmsDao.FindAll()
+            }) ;
         }
 
         public ActionResult DoCreate(HttpPostedFileBase file, ActorInput input)
         {
-            var actor = input.CreateActor(file);
-            Dao.Add(actor);
+            var actor = input.CreateActor(file, CountriesDao, FilmsDao);
+            ActorsDao.Add(actor);
 
             return RedirectToAction("Index");
         }

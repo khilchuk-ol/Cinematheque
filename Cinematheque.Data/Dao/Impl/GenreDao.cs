@@ -13,12 +13,8 @@ namespace Cinematheque.Data.Dao.Impl
 
         public List<Genre> GetGenresWithoutFilm(Guid filmId)
         {
-            var film = Context.Films
-                              .Where(f => f.ID == filmId)
-                              .FirstOrDefault();
-
             return Context.Genres
-                          .Where(g => !g.Films.Contains(film))
+                          .Where(g => !g.Films.Select(f => f.ID).Contains(filmId))
                           .ToList();
         }
 

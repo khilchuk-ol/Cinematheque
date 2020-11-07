@@ -5,6 +5,7 @@ using Cinematheque.Data.Models;
 using Cinematheque.Utils;
 using System;
 using System.Collections.Generic;
+using System.Web;
 using Unity;
 using Unity.AspNet.Mvc;
 using Unity.Lifetime;
@@ -50,8 +51,6 @@ namespace Cinematheque.WebSite
             container.RegisterType<IDaoDirector, DirectorDao>();
             container.RegisterType<IDaoFilm, FilmDao>();
             container.RegisterType<IDaoGenre, GenreDao>();
-
-            FillContainer(container);
         }
 
         private static void FillContainer(IUnityContainer container)
@@ -61,15 +60,6 @@ namespace Cinematheque.WebSite
             var daoFilm = container.Resolve<IDaoFilm>();
             var daoGenre = container.Resolve<IDaoGenre>();
             var daoCountry = container.Resolve<IDaoCountry>();
-
-
-            foreach (var n in CountryList.EnglishNames)
-            {
-                daoCountry.Add(new Country()
-                {
-                    Name = n
-                });
-            }
 
             var country = daoCountry.GetCountryByEnglishName("France");
 

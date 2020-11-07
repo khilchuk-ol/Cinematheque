@@ -1,6 +1,4 @@
-﻿using Cinematheque.Data.Data;
-using System.Web.Mvc;
-using Unity;
+﻿using System.Web.Mvc;
 
 namespace Cinematheque.WebSite.Controllers
 {

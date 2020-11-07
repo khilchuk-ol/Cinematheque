@@ -1,4 +1,4 @@
-﻿using Cinematheque.Data;
+﻿using Cinematheque.Data.Dao;
 using Cinematheque.Data.Models;
 using Cinematheque.Utils;
 using Cinematheque.WebSite.Models;
@@ -11,7 +11,8 @@ namespace Cinematheque.WebSite.Extensions
 {
     public static class CreationExtensions
     {
-        public static Film CreateFilm(this FilmInput input, HttpPostedFileBase poster)
+        public static Film CreateFilm(this FilmInput input, HttpPostedFileBase poster, 
+                                      IDaoCountry daoCountry, IDaoActor daoActor, IDaoDirector daoDirector, IDaoGenre daoGenre)
         {
             var film = new Film
             {
@@ -25,7 +26,7 @@ namespace Cinematheque.WebSite.Extensions
 
             foreach (var name in input.Countries)
             {
-                film.Countries.Add(DataHolder.DaoCountry.GetCountryByEnglishName(name));
+                film.Countries.Add(daoCountry.GetCountryByEnglishName(name));
             }
 
             if (poster != null && poster.ContentLength > 0)
@@ -63,19 +64,19 @@ namespace Cinematheque.WebSite.Extensions
             {
                 foreach (var id in input.Genres)
                 {
-                    var genre = DataHolder.DaoGenre.Find(id);
+                    var genre = daoGenre.Find(id);
                     film.AddGenre(genre);
                 }
 
             }
 
-            film.Director = DataHolder.DaoDirector.Find(input.DirectorID);
+            film.Director = daoDirector.Find(input.DirectorID);
 
             if (input.Actors != null)
             {
                 foreach (var id in input.Actors)
                 {
-                    var actor = DataHolder.DaoActor.Find(id);
+                    var actor = daoActor.Find(id);
 
                     film.AddActor(actor);
                 }
@@ -84,7 +85,8 @@ namespace Cinematheque.WebSite.Extensions
             return film;
         }
 
-        public static Actor CreateActor(this ActorInput input, HttpPostedFileBase photo)
+        public static Actor CreateActor(this ActorInput input, HttpPostedFileBase photo, IDaoCountry daoCountry, IDaoFilm daoFilm)
+
         {
             var actor = new Actor
             {
@@ -92,7 +94,7 @@ namespace Cinematheque.WebSite.Extensions
                 Surname = input.Surname,
                 Birth = input.Birth,
                 Death = input.Death,
-                Country = DataHolder.DaoCountry.GetCountryByEnglishName(input.Country),
+                Country = daoCountry.GetCountryByEnglishName(input.Country),
                 Gender = (Data.Models.Gender)input.Gender
             };
 
@@ -131,7 +133,7 @@ namespace Cinematheque.WebSite.Extensions
             {
                 foreach (var id in input.FilmsStared)
                 {
-                    var film = DataHolder.DaoFilm.Find(id);
+                    var film = daoFilm.Find(id);
 
                     actor.AddFilm(film);
                 }
@@ -140,7 +142,7 @@ namespace Cinematheque.WebSite.Extensions
             return actor;
         }
 
-        public static Director CreateDirector(this DirectorInput input, HttpPostedFileBase photo)
+        public static Director CreateDirector(this DirectorInput input, HttpPostedFileBase photo, IDaoCountry daoCountry, IDaoFilm daoFilm)
         {
             var director = new Director
             {
@@ -148,7 +150,7 @@ namespace Cinematheque.WebSite.Extensions
                 Surname = input.Surname,
                 Birth = input.Birth,
                 Death = input.Death,
-                Country = DataHolder.DaoCountry.GetCountryByEnglishName(input.Country),
+                Country = daoCountry.GetCountryByEnglishName(input.Country),
                 Gender = (Data.Models.Gender)input.Gender
             };
 
@@ -187,7 +189,7 @@ namespace Cinematheque.WebSite.Extensions
             {
                 foreach (var id in input.FilmsDirected)
                 {
-                    var film = DataHolder.DaoFilm.Find(id);
+                    var film = daoFilm.Find(id);
 
                     director.AddFilm(film);
                 }
@@ -196,7 +198,7 @@ namespace Cinematheque.WebSite.Extensions
             return director;
         }
 
-        public static Genre CreateGenre(this GenreInput input)
+        public static Genre CreateGenre(this GenreInput input, IDaoFilm daoFilm)
         {
             var genre = new Genre()
             {
@@ -207,7 +209,7 @@ namespace Cinematheque.WebSite.Extensions
             {
                 foreach (var id in input.FilmsOfGenre)
                 {
-                    var film = DataHolder.DaoFilm.Find(id);
+                    var film = daoFilm.Find(id);
 
                     genre.AddFilm(film);
                 }

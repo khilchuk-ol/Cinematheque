@@ -1,4 +1,4 @@
-﻿using Cinematheque.Data;
+﻿using Cinematheque.Data.Dao;
 using Cinematheque.Data.Models;
 using Cinematheque.Utils;
 using Cinematheque.WebSite.Models;
@@ -11,7 +11,8 @@ namespace Cinematheque.WebSite.Extensions
 {
     public static class DataModelExtensions
     {
-        public static void CopyToData(this FilmInput input, Film data, HttpPostedFileBase poster)
+        public static void CopyToData(this FilmInput input, Film data, HttpPostedFileBase poster, 
+                                      IDaoCountry daoCountry, IDaoGenre daoGenre, IDaoDirector daoDirector, IDaoActor daoActor)
         {
             if (data.ID != input.ID) throw new Exception("Cannot copy from foreign view to data");
 
@@ -23,7 +24,7 @@ namespace Cinematheque.WebSite.Extensions
 
             foreach (var name in input.Countries)
             {
-                data.Countries.Add(DataHolder.DaoCountry.GetCountryByEnglishName(name));
+                data.Countries.Add(daoCountry.GetCountryByEnglishName(name));
             }
 
             data.RemoveAllGenres();
@@ -32,20 +33,20 @@ namespace Cinematheque.WebSite.Extensions
             {
                 foreach (var id in input.Genres)
                 {
-                    var genre = DataHolder.DaoGenre.Find(id);
+                    var genre = daoGenre.Find(id);
                     data.AddGenre(genre);
                 }
 
             }
 
-            data.Director = DataHolder.DaoDirector.Find(input.DirectorID);
+            data.Director = daoDirector.Find(input.DirectorID);
 
             data.RemoveAllActors();
             if (input.Actors != null)
             {
                 foreach (var id in input.Actors)
                 {
-                    var actor = DataHolder.DaoActor.Find(id);
+                    var actor = daoActor.Find(id);
 
                     data.AddActor(actor);
                 }
@@ -83,7 +84,7 @@ namespace Cinematheque.WebSite.Extensions
             }
         }
 
-        public static void CopyToData(this ActorInput input, Actor data, HttpPostedFileBase photo)
+        public static void CopyToData(this ActorInput input, Actor data, HttpPostedFileBase photo, IDaoCountry daoCountry, IDaoFilm daoFilm)
         {
             if (data.ID != input.ID) throw new Exception("Cannot copy from foreign view to data");
 
@@ -91,14 +92,14 @@ namespace Cinematheque.WebSite.Extensions
             data.Surname = input.Surname;
             data.Birth = input.Birth;
             data.Death = input.Death;
-            data.Country = DataHolder.DaoCountry.GetCountryByEnglishName(input.Country);
+            data.Country = daoCountry.GetCountryByEnglishName(input.Country);
 
             data.RemoveAllFilms();
             if (input.FilmsStared != null)
             {
                 foreach (var id in input.FilmsStared)
                 {
-                    var film = DataHolder.DaoFilm.Find(id);
+                    var film = daoFilm.Find(id);
 
                     data.AddFilm(film);
                 }
@@ -134,7 +135,7 @@ namespace Cinematheque.WebSite.Extensions
             }
         }
 
-        public static void CopyToData(this DirectorInput input, Director data, HttpPostedFileBase photo)
+        public static void CopyToData(this DirectorInput input, Director data, HttpPostedFileBase photo, IDaoCountry daoCountry, IDaoFilm daoFilm)
         {
             if (data.ID != input.ID) throw new Exception("Cannot copy from foreign view to data");
 
@@ -142,14 +143,14 @@ namespace Cinematheque.WebSite.Extensions
             data.Surname = input.Surname;
             data.Birth = input.Birth;
             data.Death = input.Death;
-            data.Country = DataHolder.DaoCountry.GetCountryByEnglishName(input.Country);
+            data.Country = daoCountry.GetCountryByEnglishName(input.Country);
 
             data.RemoveAllFilms();
             if (input.FilmsDirected != null)
             {
                 foreach (var id in input.FilmsDirected)
                 {
-                    var film = DataHolder.DaoFilm.Find(id);
+                    var film = daoFilm.Find(id);
 
                     data.AddFilm(film);
                 }

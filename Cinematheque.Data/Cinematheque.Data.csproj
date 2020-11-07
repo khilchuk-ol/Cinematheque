@@ -64,7 +64,7 @@
     <Compile Include="Dao\Impl\FilmDao.cs" />
     <Compile Include="Dao\Impl\GenreDao.cs" />
     <Compile Include="Data\CinemathequeContext.cs" />
-    <Compile Include="lecture_example\DataHolder.cs" />
+    <Compile Include="Data\CinemathequeDatabaseInitializer.cs" />
     <Compile Include="lecture_example\DbManager.cs" />
     <Compile Include="Mapings\ActorConfiguration.cs" />
     <Compile Include="Mapings\CountryConfiguration.cs" />

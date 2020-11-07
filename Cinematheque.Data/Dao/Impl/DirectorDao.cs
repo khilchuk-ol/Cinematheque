@@ -15,7 +15,15 @@ namespace Cinematheque.Data.Dao.Impl
         {
             return Context.Directors
                           .Include(d => d.Films)
+                          .Include(d => d.Country)
                           .FirstOrDefault(d => d.ID == id);
+        }
+
+        public List<Director> GetDirectorsWithoutFilm(Guid filmId)
+        {
+            return Context.Directors
+                          .Where(d => !d.Films.Select(f => f.ID).Contains(filmId))
+                          .ToList();
         }
 
         public List<Director> SearchDirectorsByName(string fullname)

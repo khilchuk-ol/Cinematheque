@@ -3,6 +3,7 @@ using Cinematheque.Data.Dao;
 using Cinematheque.Utils;
 using Cinematheque.WebSite.Extensions;
 using Cinematheque.WebSite.Models;
+using Cinematheque.WebSite.Models.InfoContainers;
 using System;
 using System.Linq;
 using System.Web;
@@ -12,30 +13,35 @@ namespace Cinematheque.WebSite.Controllers
 {
     public class GenresController : Controller
     {
-        private IDaoGenre Dao { get; }
+        private IDaoGenre GenresDao { get; }
 
-        public GenresController(IDaoGenre dao)
+        private IDaoFilm FilmsDao { get; }
+
+        public GenresController(IDaoGenre genreDao, IDaoFilm filmsDao)
         {
-            Validator.RequireNotNull(dao);
-            Dao = dao;
+            Validator.RequireNotNull(genreDao);
+            Validator.RequireNotNull(filmsDao);
+
+            GenresDao = genreDao;
+            FilmsDao = filmsDao;
         }
 
         // GET: Genres
         public ActionResult Index()
         {
-            return View(Dao.FindAll().OrderBy(g => g.Name));
+            return View(GenresDao.FindAll().OrderBy(g => g.Name));
         }
 
         public ActionResult Search(string q)
         {
-            var genres =Dao.SearchGenresByName(q);
+            var genres =GenresDao.SearchGenresByName(q);
             return View(genres.OrderBy(f => f.Name));
         }
 
         //GET: Genres/Films
         public ActionResult Films(Guid id)
         {
-            var genre = Dao.GetGenreWithFilms(id);
+            var genre = GenresDao.GetGenreWithFilms(id);
 
             return View(new GenreAndFilmsView
             {
@@ -46,13 +52,16 @@ namespace Cinematheque.WebSite.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            return View(new GenreInfoContainer()
+            {
+                AvailableFilms = FilmsDao.FindAll()
+            });
         }
 
         public ActionResult DoCreate(GenreInput input)
         {
-            var genre = input.CreateGenre();
-            Dao.Add(genre);
+            var genre = input.CreateGenre(FilmsDao);
+            GenresDao.Add(genre);
 
             return RedirectToAction("Index");
         }

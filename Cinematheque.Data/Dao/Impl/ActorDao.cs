@@ -13,11 +13,8 @@ namespace Cinematheque.Data.Dao.Impl
 
         public List<Actor> GetActorsWithoutFilm(Guid filmId)
         {
-            var film = Context.Films
-                              .Where(f => f.ID == filmId)
-                              .FirstOrDefault();
             return Context.Actors
-                          .Where(a => !a.Films.Contains(film))
+                          .Where(a => !a.Films.Select(f => f.ID).Contains(filmId))
                           .ToList();
         }
 
@@ -25,6 +22,7 @@ namespace Cinematheque.Data.Dao.Impl
         {
             return Context.Actors
                           .Include(a => a.Films)
+                          .Include(a => a.Country)
                           .FirstOrDefault(a => a.ID == id);
         }
 

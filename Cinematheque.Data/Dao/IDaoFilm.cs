@@ -7,7 +7,9 @@ namespace Cinematheque.Data.Dao
 {
     public interface IDaoFilm : IDao<Film>
     {
-        Film GetFilmWithActorsAndGenres(Guid id);
+        Film GetFilmWithFullInfo(Guid id);
+
+        List<Film> FindAllWithGenres();
 
         List<Film> SearchFilmsByTitle(string title);
 
