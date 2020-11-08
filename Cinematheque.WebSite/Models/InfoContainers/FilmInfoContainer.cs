@@ -16,6 +16,8 @@ namespace Cinematheque.WebSite.Models.InfoContainers
             set { actors = value; } 
         }
 
+        public IEnumerable<Country> Countries { get; set; }
+
         private IEnumerable<Director> directors;
 
         public IEnumerable<Director> AvailableDirectors

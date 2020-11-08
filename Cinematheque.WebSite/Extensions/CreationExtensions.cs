@@ -94,7 +94,8 @@ namespace Cinematheque.WebSite.Extensions
                 Surname = input.Surname,
                 Birth = input.Birth,
                 Death = input.Death,
-                Country = daoCountry.GetCountryByEnglishName(input.Country),
+                Country = daoCountry.Find(input.CountryId),
+                Biography = input.Biography,
                 Gender = (Data.Models.Gender)input.Gender
             };
 
@@ -150,7 +151,7 @@ namespace Cinematheque.WebSite.Extensions
                 Surname = input.Surname,
                 Birth = input.Birth,
                 Death = input.Death,
-                Country = daoCountry.GetCountryByEnglishName(input.Country),
+                Country = daoCountry.GetCountryByEnglishName(input.CountryName),
                 Gender = (Data.Models.Gender)input.Gender
             };
 

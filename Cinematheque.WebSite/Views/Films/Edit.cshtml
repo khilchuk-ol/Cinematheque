@@ -8,7 +8,7 @@
 
 <h2>Edit</h2>
 
-@using (Html.BeginForm("DoEdit", "Films", FormMethod.Post, new { id = Model.Film.ID, enctype = "multipart/form-data" }))
+@using (Html.BeginForm("DoEdit", "Films", new { id = Model.Film.ID }, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -33,7 +33,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Film.Title, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.Film.Title, new { htmlAttributes = new { @class = "form-control" } })
+                            <input type="text" name="Title" value="@Model.Film.Title" class="form-control" />
                             @Html.ValidationMessageFor(model => model.Film.Title, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -64,9 +64,13 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Film.DirectorName, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.DropDownListFor(model => model.Film.DirectorID,
-                                                  Model.AvailableDirectors.ConvertToListItems(),
-                                                  new { htmlAttributes = new { @class = "form-control" } })
+                            <select id="directors" name="DirectorID" class="form-control">
+                                @foreach(var d in Model.AvailableDirectors)
+                                {
+                                    <option value="@d.ID" selected="@(d.ID == Model.Film.DirectorID ? "selected" : null)">@d.GetFullName()</option>
+                                }
+                            </select>
+                            
                             @Html.ValidationMessageFor(model => model.Film.DirectorID, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -140,7 +144,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Film.Duration, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.Film.Duration, new { htmlAttributes = new { @class = "form-control" } })
+                            <input type="text" name="Duration" value="@Model.Film.Duration" class="form-control" />
                             @Html.ValidationMessageFor(model => model.Film.Duration, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -148,7 +152,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Film.IMDbRating, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.Film.IMDbRating, new { htmlAttributes = new { @class = "form-control" } })
+                            <input type="number" name="IMDbRating" value="@Model.Film.IMDbRating" class="form-control" />
                             @Html.ValidationMessageFor(model => model.Film.IMDbRating, "", new { @class = "text-danger" })
                         </div>
                     </div>

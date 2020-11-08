@@ -1,5 +1,4 @@
-﻿@using Cinematheque.WebSite.Extensions
-@model Cinematheque.WebSite.Models.InfoContainers.ActorInfoContainer
+﻿@model Cinematheque.WebSite.Models.InfoContainers.ActorInfoContainer
 
 @{
     ViewBag.Title = "Create actor";
@@ -31,7 +30,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Actor.Name, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.Actor.Name, new { htmlAttributes = new { @class = "form-control" } })
+                            <input type="text" name="Name" class="form-control" />
                             @Html.ValidationMessageFor(model => model.Actor.Name, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -39,7 +38,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Actor.Surname, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.Actor.Surname, new { htmlAttributes = new { @class = "form-control" } })
+                            <input type="text" name="Surname"class="form-control" />
                             @Html.ValidationMessageFor(model => model.Actor.Surname, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -47,7 +46,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Actor.Birth, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            <input type="date" value="value=" @DateTime.Now.ToString("yyyy-MM-dd") name="Birth" />
+                            <input type="date" value="yyyy-MM-dd" name="Birth" />
                             @Html.ValidationMessageFor(model => model.Actor.Birth, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -63,18 +62,25 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Actor.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.Actor.Gender, new { htmlAttributes = new { @class = "form-control" } })
+                            <select name="Gender">
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="None" selected>Not identified</option>
+                            </select>
                             @Html.ValidationMessageFor(model => model.Actor.Gender, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Actor.Country, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.Actor.CountryName, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.DropDownListFor(model => model.Actor.Country,
-                           Cinematheque.Utils.CountryList.EnglishNames.ConvertToListItems(),
-                           new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Actor.Country, "", new { @class = "text-danger" })
+                            <select id="countries" name="CountryId" class="form-control">
+                                @foreach (var item in Model.Countries)
+                                {
+                                    <option value="@item.ID">@item.Name</option>
+                                }
+                            </select>
+                            @Html.ValidationMessageFor(model => model.Actor.CountryName, "", new { @class = "text-danger" })
                         </div>
                     </div>
 

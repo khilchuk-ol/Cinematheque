@@ -7,7 +7,7 @@
 
 <h2>Edit</h2>
 
-@using (Html.BeginForm("DoEdit", "Actors", FormMethod.Post, new { id = Model.Actor.ID, enctype = "multipart/form-data" }))
+@using (Html.BeginForm("DoEdit", "Actors", new { id = Model.Actor.ID }, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -32,7 +32,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Actor.Name, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.Actor.Name, new { htmlAttributes = new { @class = "form-control" } })
+                            <input type="text" name="Name" value="@Model.Actor.Name" class="form-control" />
                             @Html.ValidationMessageFor(model => model.Actor.Name, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -40,7 +40,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Actor.Surname, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.Actor.Surname, new { htmlAttributes = new { @class = "form-control" } })
+                            <input type="text" name="Surname" value="@Model.Actor.Surname" class="form-control" />
                             @Html.ValidationMessageFor(model => model.Actor.Surname, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -48,7 +48,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Actor.Birth, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            <input type="date" value="@Model.Actor.Birth.ToString("yyyy-MM-dd")" />
+                            <input type="date" name="Birth" value="@Model.Actor.Birth.ToString("yyyy-MM-dd")" />
                             @Html.ValidationMessageFor(model => model.Actor.Birth, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -56,7 +56,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Actor.Death, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            <input type="date" value="@(Model.Actor.Death.HasValue ? Model.Actor.Death.Value.ToString("yyyy-MM-dd") : "yyyy-MM-dd")" />
+                            <input type="date" name="Death" value="@(Model.Actor.Death.HasValue ? Model.Actor.Death.Value.ToString("yyyy-MM-dd") : "yyyy-MM-dd")" />
                             @Html.ValidationMessageFor(model => model.Actor.Death, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -64,18 +64,32 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Actor.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.Actor.Gender, new { htmlAttributes = new { @class = "form-control" } })
+                            <select name="Gender">
+                                <option value="Male" @(Model.Actor.Gender.Equals(Cinematheque.WebSite.Models.Gender.Male) ? "selected" : "")>
+                                    Male
+                                </option>
+                                <option value="Female" @(Model.Actor.Gender.Equals(Cinematheque.WebSite.Models.Gender.Female) ? "selected" : "")>
+                                    Female
+                                </option>
+                                <option value="None" @(Model.Actor.Gender.Equals(Cinematheque.WebSite.Models.Gender.None) ? "selected" : "") >
+                                    Not identified
+                                </option>
+                            </select>
                             @Html.ValidationMessageFor(model => model.Actor.Gender, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Actor.Country, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.Actor.CountryName, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.DropDownListFor(model => model.Actor.Country,
-                           Cinematheque.Utils.CountryList.EnglishNames.ConvertToListItems(),
-                           new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Actor.Country, "", new { @class = "text-danger" })
+                            <select id="countries" name="CountryId" value="@Model.Actor.CountryId" class = "form-control">
+                                @foreach(var item in Model.Countries)
+                                {
+                                    <option value="@item.ID" selected="@(item.ID == Model.Actor.CountryId ? "selected" : null)">@item.Name</option>
+                                }
+                            </select>
+                            
+                            @Html.ValidationMessageFor(model => model.Actor.CountryId, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
@@ -88,7 +102,7 @@
                                     <tr id="@f.Key">
                                         <td style="text-align:left; width:200px">
                                             <span class="film-text">@f.Value</span>
-                                            <input type="hidden" name="FilmsDirected" value="@f.Key" />
+                                            <input type="hidden" name="FilmsStared" value="@f.Key" />
                                         </td>
                                         <td>
                                             <span class="btn-remove-film" style="cursor:pointer">
@@ -153,7 +167,7 @@
                     `<tr>
                              <td style="text-align:left; width:200px">
                                  <span class="film-text">${opt.text()}</span>
-                                 <input type="hidden" name="FilmsDirected" value="${opt.val()}" />
+                                 <input type="hidden" name="FilmsStared" value="${opt.val()}" />
                              </td>
                              <td>
                                  <span class="btn-remove-film" style="cursor:pointer">

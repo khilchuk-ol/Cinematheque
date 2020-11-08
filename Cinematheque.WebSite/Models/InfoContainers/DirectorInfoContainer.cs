@@ -10,6 +10,8 @@ namespace Cinematheque.WebSite.Models.InfoContainers
 
         private IEnumerable<Film> films;
 
+        public IEnumerable<Country> Countries { get; set; }
+
         public IEnumerable<Film> AvailableFilms
         {
             get { return films.OrderBy(f => f.Title); }

@@ -20,6 +20,7 @@ namespace Cinematheque.WebSite.Extensions
             data.ReleaseDate = input.ReleaseDate;
             data.IMDbRating = input.IMDbRating;
             data.Duration = input.Duration;
+            data.Description = input.Description;
             data.Countries = new List<Country>();
 
             foreach (var name in input.Countries)
@@ -39,7 +40,10 @@ namespace Cinematheque.WebSite.Extensions
 
             }
 
-            data.Director = daoDirector.Find(input.DirectorID);
+            if(input.DirectorID != Guid.Empty)
+            {
+                data.Director = daoDirector.Find(input.DirectorID);
+            }
 
             data.RemoveAllActors();
             if (input.Actors != null)
@@ -92,7 +96,12 @@ namespace Cinematheque.WebSite.Extensions
             data.Surname = input.Surname;
             data.Birth = input.Birth;
             data.Death = input.Death;
-            data.Country = daoCountry.GetCountryByEnglishName(input.Country);
+            data.Biography = input.Biography;
+
+            if (input.CountryId != null)
+            {
+                data.Country = daoCountry.Find(input.CountryId);
+            }
 
             data.RemoveAllFilms();
             if (input.FilmsStared != null)
@@ -143,7 +152,12 @@ namespace Cinematheque.WebSite.Extensions
             data.Surname = input.Surname;
             data.Birth = input.Birth;
             data.Death = input.Death;
-            data.Country = daoCountry.GetCountryByEnglishName(input.Country);
+            data.Biography = input.Biography;
+
+            if (input.CountryId != null)
+            {
+                data.Country = daoCountry.Find(input.CountryId);
+            }
 
             data.RemoveAllFilms();
             if (input.FilmsDirected != null)

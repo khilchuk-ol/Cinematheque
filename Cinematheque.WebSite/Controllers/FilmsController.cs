@@ -1,12 +1,10 @@
-﻿using Cinematheque.Data;
-using Cinematheque.Data.Dao;
+﻿using Cinematheque.Data.Dao;
 using Cinematheque.Utils;
 using Cinematheque.WebSite.Extensions;
 using Cinematheque.WebSite.Models;
 using Cinematheque.WebSite.Models.InfoContainers;
 using System;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
 using System.Web;
 using System.Web.Mvc;
 
@@ -53,6 +51,7 @@ namespace Cinematheque.WebSite.Controllers
             return View(films.OrderBy(f => f.Title));
         }
 
+        
         public ActionResult Edit(Guid id)
         {
             var film = FilmsDao.GetFilmWithFullInfo(id);
@@ -61,7 +60,7 @@ namespace Cinematheque.WebSite.Controllers
             {
                 Film = new FilmView(film),
                 AvailableActors = ActorsDao.GetActorsWithoutFilm(film.ID),
-                AvailableDirectors = DirectorsDao.GetDirectorsWithoutFilm(film.ID),
+                AvailableDirectors = DirectorsDao.FindAll(),
                 AvailableGenres = GenresDao.GetGenresWithoutFilm(film.ID)
             });
         }
@@ -69,8 +68,9 @@ namespace Cinematheque.WebSite.Controllers
         [HttpPost]
         public ActionResult DoEdit(Guid id, HttpPostedFileBase file, FilmInput input)
         {
-            var data = FilmsDao.Find(id);
+            var data = FilmsDao.GetFilmWithFullInfo(id);
             input.CopyToData(data, file, CountriesDao, GenresDao, DirectorsDao, ActorsDao);
+            FilmsDao.Update(data);
 
             return RedirectToAction("Index");
         }

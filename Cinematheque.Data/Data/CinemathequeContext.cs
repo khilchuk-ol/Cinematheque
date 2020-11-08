@@ -24,11 +24,12 @@ namespace Cinematheque.Data.Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Configurations.Add(new FilmConfiguration());
-            modelBuilder.Configurations.Add(new ActorConfiguration());
-            modelBuilder.Configurations.Add(new DirectorConfiguration());
-            modelBuilder.Configurations.Add(new GenreConfiguration());
-            modelBuilder.Configurations.Add(new CountryConfiguration());
+            modelBuilder.Configurations.AddFromAssembly(GetType().Assembly);
+            //modelBuilder.Configurations.Add(new FilmConfiguration());
+            //modelBuilder.Configurations.Add(new ActorConfiguration());
+            //modelBuilder.Configurations.Add(new DirectorConfiguration());
+            //modelBuilder.Configurations.Add(new GenreConfiguration());
+            //modelBuilder.Configurations.Add(new CountryConfiguration());
         }
     }
 }

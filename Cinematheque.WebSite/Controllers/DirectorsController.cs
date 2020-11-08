@@ -49,15 +49,17 @@ namespace Cinematheque.WebSite.Controllers
             return View(new DirectorInfoContainer()
             {
                 Director = new DirectorView(director),
-                AvailableFilms = FilmsDao.GetFilmsWithoutDirector(director.ID)
+                AvailableFilms = FilmsDao.GetFilmsWithoutDirector(director.ID),
+                Countries = CountriesDao.FindAll().OrderBy(c => c.Name)
             });
         }
 
         [HttpPost]
         public ActionResult DoEdit(Guid id, HttpPostedFileBase file, DirectorInput newView)
         {
-            var data = DirectorsDao.Find(id);
+            var data = DirectorsDao.GetDirectorAndFilms(id);
             newView.CopyToData(data, file, CountriesDao, FilmsDao);
+            DirectorsDao.Update(data);
 
             return RedirectToAction("Index");
         }
@@ -91,7 +93,8 @@ namespace Cinematheque.WebSite.Controllers
         {
             return View(new DirectorInfoContainer()
             {
-                AvailableFilms = FilmsDao.FindAll()
+                AvailableFilms = FilmsDao.FindAll(),
+                Countries = CountriesDao.FindAll().OrderBy(c => c.Name)
             });
         }
 

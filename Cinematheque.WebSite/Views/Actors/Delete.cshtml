@@ -60,11 +60,11 @@
                     </dd>
 
                     <dt>
-                        @Html.DisplayNameFor(model => model.Country)
+                        @Html.DisplayNameFor(model => model.CountryName)
                     </dt>
 
                     <dd>
-                        @Html.DisplayFor(model => model.Country)
+                        @Html.DisplayFor(model => model.CountryName)
                     </dd>
 
                     <dt>
@@ -83,15 +83,15 @@
                 </dl>
 
                 @using (Html.BeginForm("DoDelete", "Actors", new { Id = Model.ID }))
-                {
+                 {
                     @Html.AntiForgeryToken()
 
                     <div class="form-actions no-color">
                         <input type="submit" value="Delete" class="btn btn-default" /> |
                         @Html.ActionLink("Back to List", "Index")
                     </div>
-                }
-                /td>
+                 }
+            </td>
         </tr>
     </table>
 </div>

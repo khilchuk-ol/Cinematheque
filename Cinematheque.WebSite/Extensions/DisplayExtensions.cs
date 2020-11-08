@@ -8,27 +8,32 @@ namespace Cinematheque.WebSite.Extensions
 {
     public static class DisplayExtensions
     {
-        public static List<SelectListItem> ConvertToListItems(this IEnumerable<string> @items)
+        public static IEnumerable<SelectListItem> ConvertToListItems(this IEnumerable<string> @items)
         {
             return items.Select(i => new SelectListItem() { Text = i, Value = i }).ToList();
         }
 
-        public static List<SelectListItem> ConvertToListItems(this IEnumerable<Director> @items)
+        public static IEnumerable<SelectListItem> ConvertToListItems(this IEnumerable<Director> @items)
         {
             return items.Select(i => new SelectListItem() { Text = i.GetFullName(), Value = i.ID.ToString() }).ToList();
         }
 
-        public static List<SelectListItem> ConvertToListItems(this IEnumerable<Actor> @items)
-        {
-            return items.Select(i => new SelectListItem() { Text = i.GetFullName(), Value = i.ID.ToString() }).ToList();
-        }
-
-        public static List<SelectListItem> ConvertToListItems(this IEnumerable<Genre> @items)
+        public static IEnumerable<SelectListItem> ConvertToListItems(this IEnumerable<Country> @items)
         {
             return items.Select(i => new SelectListItem() { Text = i.Name, Value = i.ID.ToString() }).ToList();
         }
 
-        public static List<SelectListItem> ConvertToCheckBoxItems(this IEnumerable<string> @items, IEnumerable<string> checkedItems)
+        public static IEnumerable<SelectListItem> ConvertToListItems(this IEnumerable<Actor> @items)
+        {
+            return items.Select(i => new SelectListItem() { Text = i.GetFullName(), Value = i.ID.ToString() }).ToList();
+        }
+
+        public static IEnumerable<SelectListItem> ConvertToListItems(this IEnumerable<Genre> @items)
+        {
+            return items.Select(i => new SelectListItem() { Text = i.Name, Value = i.ID.ToString() }).ToList();
+        }
+
+        public static IEnumerable<SelectListItem> ConvertToCheckBoxItems(this IEnumerable<string> @items, IEnumerable<string> checkedItems)
         {
             return items.Select(i => checkedItems.Contains(i) ? 
                                       new SelectListItem() { Text = i, Value = i, Selected = true } : 
@@ -37,7 +42,7 @@ namespace Cinematheque.WebSite.Extensions
 
         }
 
-        public static List<SelectListItem> ConvertToCheckBoxItems(this IEnumerable<string> @items)
+        public static IEnumerable<SelectListItem> ConvertToCheckBoxItems(this IEnumerable<string> @items)
         {
             return items.Select(i => new SelectListItem() { Text = i, Value = i, Selected = false })
                         .ToList();

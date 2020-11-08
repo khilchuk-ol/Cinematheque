@@ -30,7 +30,9 @@ namespace Cinematheque.WebSite.Models
         public Gender Gender { get; set; }
 
         [Required(AllowEmptyStrings = false)]
-        public string Country { get; set; }
+        public string CountryName { get; set; }
+
+        public Guid? CountryId { get; set; }
 
         public override string ToString()
         {
@@ -51,7 +53,8 @@ namespace Cinematheque.WebSite.Models
             Birth = data.Birth;
             Death = data.Death;
             Gender = (Gender)data.Gender;
-            Country = data.Country?.Name;
+            CountryName = data.Country?.Name;
+            CountryId = data.Country?.ID;
         }
 
         public PersonView() : base()
