@@ -57,12 +57,14 @@
     <Compile Include="Dao\IDaoDirector.cs" />
     <Compile Include="Dao\IDaoFilm.cs" />
     <Compile Include="Dao\IDaoGenre.cs" />
+    <Compile Include="Dao\IDaoUser.cs" />
     <Compile Include="Dao\Impl\AbstractDao.cs" />
     <Compile Include="Dao\Impl\ActorDao.cs" />
     <Compile Include="Dao\Impl\CountryDao.cs" />
     <Compile Include="Dao\Impl\DirectorDao.cs" />
     <Compile Include="Dao\Impl\FilmDao.cs" />
     <Compile Include="Dao\Impl\GenreDao.cs" />
+    <Compile Include="Dao\Impl\UserDao.cs" />
     <Compile Include="Data\CinemathequeContext.cs" />
     <Compile Include="Data\CinemathequeDatabaseInitializer.cs" />
     <Compile Include="lecture_example\DbManager.cs" />
@@ -71,6 +73,7 @@
     <Compile Include="Mapings\DirectorConfiguration.cs" />
     <Compile Include="Mapings\FilmConfiguration.cs" />
     <Compile Include="Mapings\GenreConfiguration.cs" />
+    <Compile Include="Mapings\UserConfiguration.cs" />
     <Compile Include="Models\Actor.cs" />
     <Compile Include="Models\Associative\ActorInFilm.cs" />
     <Compile Include="Models\Country.cs" />
@@ -81,6 +84,7 @@
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\Associative\GenreOfFilm.cs" />
     <Compile Include="Models\Person.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="lecture_example\TableManager.cs" />
   </ItemGroup>

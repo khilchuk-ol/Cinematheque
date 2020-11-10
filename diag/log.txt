@@ -66926,3 +66926,1313 @@ Log Entry : 14:53:43 8 листопада 2020 р.
   :DATABASE LOG: Closed connection at 08.11.2020 14:53:43 +02:00
 
 -------------------------------
+
+Log Entry : 10:47:58 9 листопада 2020 р.
+  :
+  :DATABASE LOG: Opened connection at 09.11.2020 10:47:58 +02:00
+
+-------------------------------
+
+Log Entry : 10:47:58 9 листопада 2020 р.
+  :
+  :DATABASE LOG: 
+SELECT Count(*)
+FROM INFORMATION_SCHEMA.TABLES AS t
+WHERE t.TABLE_SCHEMA + '.' + t.TABLE_NAME IN ('dbo.Actor','dbo.Country','dbo.Film','dbo.Director','dbo.Genre','dbo.FilmActor','dbo.FilmCountry','dbo.FilmGenre')
+    OR t.TABLE_NAME = 'EdmMetadata'
+-------------------------------
+
+Log Entry : 10:47:58 9 листопада 2020 р.
+  :
+  :DATABASE LOG: 
+
+-------------------------------
+
+Log Entry : 10:47:58 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Executing at 09.11.2020 10:47:58 +02:00
+
+-------------------------------
+
+Log Entry : 10:47:58 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Completed in 57 ms with result: 8
+
+-------------------------------
+
+Log Entry : 10:47:58 9 листопада 2020 р.
+  :
+  :DATABASE LOG: 
+
+-------------------------------
+
+Log Entry : 10:47:58 9 листопада 2020 р.
+  :
+  :DATABASE LOG: Closed connection at 09.11.2020 10:47:58 +02:00
+
+-------------------------------
+
+Log Entry : 10:47:59 9 листопада 2020 р.
+  :
+  :DATABASE LOG: Opened connection at 09.11.2020 10:47:59 +02:00
+
+-------------------------------
+
+Log Entry : 10:48:00 9 листопада 2020 р.
+  :
+  :DATABASE LOG: SELECT 
+    [GroupBy1].[A1] AS [C1]
+    FROM ( SELECT 
+        COUNT(1) AS [A1]
+        FROM [dbo].[__MigrationHistory] AS [Extent1]
+        WHERE [Extent1].[ContextKey] = @p__linq__0
+    )  AS [GroupBy1]
+-------------------------------
+
+Log Entry : 10:48:00 9 листопада 2020 р.
+  :
+  :DATABASE LOG: 
+
+-------------------------------
+
+Log Entry : 10:48:00 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- p__linq__0: 'Cinematheque.Data.Data.CinemathequeContext' (Type = String, Size = 4000)
+
+-------------------------------
+
+Log Entry : 10:48:00 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Executing at 09.11.2020 10:48:00 +02:00
+
+-------------------------------
+
+Log Entry : 10:48:00 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Completed in 81 ms with result: SqlDataReader
+
+-------------------------------
+
+Log Entry : 10:48:00 9 листопада 2020 р.
+  :
+  :DATABASE LOG: 
+
+-------------------------------
+
+Log Entry : 10:48:00 9 листопада 2020 р.
+  :
+  :DATABASE LOG: Closed connection at 09.11.2020 10:48:00 +02:00
+
+-------------------------------
+
+Log Entry : 10:48:00 9 листопада 2020 р.
+  :
+  :DATABASE LOG: Opened connection at 09.11.2020 10:48:00 +02:00
+
+-------------------------------
+
+Log Entry : 10:48:00 9 листопада 2020 р.
+  :
+  :DATABASE LOG: SELECT TOP (1) 
+    [Project1].[C1] AS [C1], 
+    [Project1].[MigrationId] AS [MigrationId], 
+    [Project1].[Model] AS [Model], 
+    [Project1].[ProductVersion] AS [ProductVersion]
+    FROM ( SELECT 
+        [Extent1].[MigrationId] AS [MigrationId], 
+        [Extent1].[Model] AS [Model], 
+        [Extent1].[ProductVersion] AS [ProductVersion], 
+        1 AS [C1]
+        FROM [dbo].[__MigrationHistory] AS [Extent1]
+        WHERE [Extent1].[ContextKey] = @p__linq__0
+    )  AS [Project1]
+    ORDER BY [Project1].[MigrationId] DESC
+-------------------------------
+
+Log Entry : 10:48:01 9 листопада 2020 р.
+  :
+  :DATABASE LOG: 
+
+-------------------------------
+
+Log Entry : 10:48:01 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- p__linq__0: 'Cinematheque.Data.Data.CinemathequeContext' (Type = String, Size = 4000)
+
+-------------------------------
+
+Log Entry : 10:48:01 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Executing at 09.11.2020 10:48:01 +02:00
+
+-------------------------------
+
+Log Entry : 10:48:01 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Completed in 25 ms with result: SqlDataReader
+
+-------------------------------
+
+Log Entry : 10:48:01 9 листопада 2020 р.
+  :
+  :DATABASE LOG: 
+
+-------------------------------
+
+Log Entry : 10:48:01 9 листопада 2020 р.
+  :
+  :DATABASE LOG: Closed connection at 09.11.2020 10:48:01 +02:00
+
+-------------------------------
+
+Log Entry : 10:48:01 9 листопада 2020 р.
+  :
+  :DATABASE LOG: Opened connection at 09.11.2020 10:48:01 +02:00
+
+-------------------------------
+
+Log Entry : 10:48:01 9 листопада 2020 р.
+  :
+  :DATABASE LOG: SELECT 
+    [Project1].[C1] AS [C1], 
+    [Project1].[ID] AS [ID], 
+    [Project1].[Title] AS [Title], 
+    [Project1].[ReleaseDate] AS [ReleaseDate], 
+    [Project1].[DirectorID] AS [DirectorID], 
+    [Project1].[Duration] AS [Duration], 
+    [Project1].[IMDbRating] AS [IMDbRating], 
+    [Project1].[PosterFileName] AS [PosterFileName], 
+    [Project1].[Description] AS [Description], 
+    [Project1].[C2] AS [C2], 
+    [Project1].[ID1] AS [ID1], 
+    [Project1].[Name] AS [Name]
+    FROM ( SELECT 
+        [Extent1].[ID] AS [ID], 
+        [Extent1].[Title] AS [Title], 
+        [Extent1].[ReleaseDate] AS [ReleaseDate], 
+        [Extent1].[DirectorID] AS [DirectorID], 
+        [Extent1].[Duration] AS [Duration], 
+        [Extent1].[IMDbRating] AS [IMDbRating], 
+        [Extent1].[PosterFileName] AS [PosterFileName], 
+        [Extent1].[Description] AS [Description], 
+        1 AS [C1], 
+        [Join1].[ID] AS [ID1], 
+        [Join1].[Name] AS [Name], 
+        CASE WHEN ([Join1].[FilmID] IS NULL) THEN CAST(NULL AS int) ELSE 1 END AS [C2]
+        FROM  [dbo].[Film] AS [Extent1]
+        LEFT OUTER JOIN  (SELECT [Extent2].[FilmID] AS [FilmID], [Extent3].[ID] AS [ID], [Extent3].[Name] AS [Name]
+            FROM  [dbo].[FilmGenre] AS [Extent2]
+            INNER JOIN [dbo].[Genre] AS [Extent3] ON [Extent3].[ID] = [Extent2].[GenreID] ) AS [Join1] ON [Extent1].[ID] = [Join1].[FilmID]
+    )  AS [Project1]
+    ORDER BY [Project1].[ID] ASC, [Project1].[C2] ASC
+-------------------------------
+
+Log Entry : 10:48:01 9 листопада 2020 р.
+  :
+  :DATABASE LOG: 
+
+-------------------------------
+
+Log Entry : 10:48:01 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Executing at 09.11.2020 10:48:01 +02:00
+
+-------------------------------
+
+Log Entry : 10:48:01 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Completed in 90 ms with result: SqlDataReader
+
+-------------------------------
+
+Log Entry : 10:48:01 9 листопада 2020 р.
+  :
+  :DATABASE LOG: 
+
+-------------------------------
+
+Log Entry : 10:48:01 9 листопада 2020 р.
+  :
+  :DATABASE LOG: Closed connection at 09.11.2020 10:48:01 +02:00
+
+-------------------------------
+
+Log Entry : 10:48:04 9 листопада 2020 р.
+  :
+  :DATABASE LOG: Opened connection at 09.11.2020 10:48:04 +02:00
+
+-------------------------------
+
+Log Entry : 10:48:04 9 листопада 2020 р.
+  :
+  :DATABASE LOG: SELECT 
+    [Extent1].[ID] AS [ID], 
+    [Extent1].[PhotoFileName] AS [PhotoFileName], 
+    [Extent1].[Biography] AS [Biography], 
+    [Extent1].[Name] AS [Name], 
+    [Extent1].[Surname] AS [Surname], 
+    [Extent1].[Birth] AS [Birth], 
+    [Extent1].[Death] AS [Death], 
+    [Extent1].[Gender] AS [Gender], 
+    [Extent1].[CountryId] AS [CountryId]
+    FROM [dbo].[Actor] AS [Extent1]
+-------------------------------
+
+Log Entry : 10:48:04 9 листопада 2020 р.
+  :
+  :DATABASE LOG: 
+
+-------------------------------
+
+Log Entry : 10:48:04 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Executing at 09.11.2020 10:48:04 +02:00
+
+-------------------------------
+
+Log Entry : 10:48:04 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Completed in 16 ms with result: SqlDataReader
+
+-------------------------------
+
+Log Entry : 10:48:04 9 листопада 2020 р.
+  :
+  :DATABASE LOG: 
+
+-------------------------------
+
+Log Entry : 10:48:04 9 листопада 2020 р.
+  :
+  :DATABASE LOG: Closed connection at 09.11.2020 10:48:04 +02:00
+
+-------------------------------
+
+Log Entry : 10:48:04 9 листопада 2020 р.
+  :
+  :DATABASE LOG: Opened connection at 09.11.2020 10:48:04 +02:00
+
+-------------------------------
+
+Log Entry : 10:48:04 9 листопада 2020 р.
+  :
+  :DATABASE LOG: SELECT 
+    [Extent1].[ID] AS [ID], 
+    [Extent1].[PhotoFileName] AS [PhotoFileName], 
+    [Extent1].[Biography] AS [Biography], 
+    [Extent1].[Name] AS [Name], 
+    [Extent1].[Surname] AS [Surname], 
+    [Extent1].[Birth] AS [Birth], 
+    [Extent1].[Death] AS [Death], 
+    [Extent1].[Gender] AS [Gender], 
+    [Extent1].[CountryId] AS [CountryId]
+    FROM [dbo].[Director] AS [Extent1]
+-------------------------------
+
+Log Entry : 10:48:04 9 листопада 2020 р.
+  :
+  :DATABASE LOG: 
+
+-------------------------------
+
+Log Entry : 10:48:04 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Executing at 09.11.2020 10:48:04 +02:00
+
+-------------------------------
+
+Log Entry : 10:48:04 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Completed in 15 ms with result: SqlDataReader
+
+-------------------------------
+
+Log Entry : 10:48:04 9 листопада 2020 р.
+  :
+  :DATABASE LOG: 
+
+-------------------------------
+
+Log Entry : 10:48:04 9 листопада 2020 р.
+  :
+  :DATABASE LOG: Closed connection at 09.11.2020 10:48:04 +02:00
+
+-------------------------------
+
+Log Entry : 10:48:04 9 листопада 2020 р.
+  :
+  :DATABASE LOG: Opened connection at 09.11.2020 10:48:04 +02:00
+
+-------------------------------
+
+Log Entry : 10:48:04 9 листопада 2020 р.
+  :
+  :DATABASE LOG: SELECT 
+    [Extent1].[ID] AS [ID], 
+    [Extent1].[Name] AS [Name]
+    FROM [dbo].[Genre] AS [Extent1]
+-------------------------------
+
+Log Entry : 10:48:04 9 листопада 2020 р.
+  :
+  :DATABASE LOG: 
+
+-------------------------------
+
+Log Entry : 10:48:04 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Executing at 09.11.2020 10:48:04 +02:00
+
+-------------------------------
+
+Log Entry : 10:48:04 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Completed in 2 ms with result: SqlDataReader
+
+-------------------------------
+
+Log Entry : 10:48:04 9 листопада 2020 р.
+  :
+  :DATABASE LOG: 
+
+-------------------------------
+
+Log Entry : 10:48:04 9 листопада 2020 р.
+  :
+  :DATABASE LOG: Closed connection at 09.11.2020 10:48:04 +02:00
+
+-------------------------------
+
+Log Entry : 10:49:15 9 листопада 2020 р.
+  :
+  :DATABASE LOG: Opened connection at 09.11.2020 10:49:15 +02:00
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: SELECT TOP (1) 
+    [Extent1].[ID] AS [ID], 
+    [Extent1].[Name] AS [Name]
+    FROM [dbo].[Country] AS [Extent1]
+    WHERE [Extent1].[Name] = @p__linq__0
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: 
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- p__linq__0: 'Germany' (Type = String, Size = 4000)
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Executing at 09.11.2020 10:49:16 +02:00
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Completed in 40 ms with result: SqlDataReader
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: 
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: Closed connection at 09.11.2020 10:49:16 +02:00
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: Opened connection at 09.11.2020 10:49:16 +02:00
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: SELECT TOP (1) 
+    [Extent1].[ID] AS [ID], 
+    [Extent1].[Name] AS [Name]
+    FROM [dbo].[Country] AS [Extent1]
+    WHERE [Extent1].[Name] = @p__linq__0
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: 
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- p__linq__0: 'Korea' (Type = String, Size = 4000)
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Executing at 09.11.2020 10:49:16 +02:00
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Completed in 2 ms with result: SqlDataReader
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: 
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: Closed connection at 09.11.2020 10:49:16 +02:00
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: Opened connection at 09.11.2020 10:49:16 +02:00
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: SELECT TOP (2) 
+    [Extent1].[ID] AS [ID], 
+    [Extent1].[Name] AS [Name]
+    FROM [dbo].[Genre] AS [Extent1]
+    WHERE [Extent1].[ID] = @p0
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: 
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- p0: '61ea5b07-8c95-4335-a4f2-22fc6089bf62' (Type = Guid)
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Executing at 09.11.2020 10:49:16 +02:00
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Completed in 1 ms with result: SqlDataReader
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: 
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: Closed connection at 09.11.2020 10:49:16 +02:00
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: Opened connection at 09.11.2020 10:49:16 +02:00
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: SELECT TOP (2) 
+    [Extent1].[ID] AS [ID], 
+    [Extent1].[PhotoFileName] AS [PhotoFileName], 
+    [Extent1].[Biography] AS [Biography], 
+    [Extent1].[Name] AS [Name], 
+    [Extent1].[Surname] AS [Surname], 
+    [Extent1].[Birth] AS [Birth], 
+    [Extent1].[Death] AS [Death], 
+    [Extent1].[Gender] AS [Gender], 
+    [Extent1].[CountryId] AS [CountryId]
+    FROM [dbo].[Director] AS [Extent1]
+    WHERE [Extent1].[ID] = @p0
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: 
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- p0: 'b8cbf784-900b-4815-88b6-78af8343af7b' (Type = Guid)
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Executing at 09.11.2020 10:49:16 +02:00
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Completed in 1 ms with result: SqlDataReader
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: 
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: Closed connection at 09.11.2020 10:49:16 +02:00
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: Opened connection at 09.11.2020 10:49:16 +02:00
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: SELECT TOP (2) 
+    [Extent1].[ID] AS [ID], 
+    [Extent1].[PhotoFileName] AS [PhotoFileName], 
+    [Extent1].[Biography] AS [Biography], 
+    [Extent1].[Name] AS [Name], 
+    [Extent1].[Surname] AS [Surname], 
+    [Extent1].[Birth] AS [Birth], 
+    [Extent1].[Death] AS [Death], 
+    [Extent1].[Gender] AS [Gender], 
+    [Extent1].[CountryId] AS [CountryId]
+    FROM [dbo].[Actor] AS [Extent1]
+    WHERE [Extent1].[ID] = @p0
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: 
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- p0: 'fecf43a6-48fc-4d3e-9820-1ba1c2c50511' (Type = Guid)
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Executing at 09.11.2020 10:49:16 +02:00
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Completed in 1 ms with result: SqlDataReader
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: 
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: Closed connection at 09.11.2020 10:49:16 +02:00
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: Opened connection at 09.11.2020 10:49:16 +02:00
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: SELECT TOP (2) 
+    [Extent1].[ID] AS [ID], 
+    [Extent1].[PhotoFileName] AS [PhotoFileName], 
+    [Extent1].[Biography] AS [Biography], 
+    [Extent1].[Name] AS [Name], 
+    [Extent1].[Surname] AS [Surname], 
+    [Extent1].[Birth] AS [Birth], 
+    [Extent1].[Death] AS [Death], 
+    [Extent1].[Gender] AS [Gender], 
+    [Extent1].[CountryId] AS [CountryId]
+    FROM [dbo].[Actor] AS [Extent1]
+    WHERE [Extent1].[ID] = @p0
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: 
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- p0: '97d47a9b-45a6-4fdf-8498-a219cfb3086b' (Type = Guid)
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Executing at 09.11.2020 10:49:16 +02:00
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Completed in 4 ms with result: SqlDataReader
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: 
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: Closed connection at 09.11.2020 10:49:16 +02:00
+
+-------------------------------
+
+Log Entry : 10:49:16 9 листопада 2020 р.
+  :
+  :DATABASE LOG: Opened connection at 09.11.2020 10:49:16 +02:00
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: Started transaction at 09.11.2020 10:49:16 +02:00
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: INSERT [dbo].[Film]([ID], [Title], [ReleaseDate], [DirectorID], [Duration], [IMDbRating], [PosterFileName], [Description])
+VALUES (@0, @1, @2, @3, @4, @5, @6, @7)
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- @0: 'a0c4869b-8dd2-470c-a03f-eb9e18b7c985' (Type = Guid)
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- @1: 'My super film' (Type = String, Size = -1)
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- @2: '06.11.2020 0:00:00' (Type = DateTime2)
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- @3: 'b8cbf784-900b-4815-88b6-78af8343af7b' (Type = Guid)
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- @4: '01:00:00' (Type = Time)
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- @5: '7' (Type = Single)
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- @6: 'default.jpg' (Type = String, Size = -1)
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- @7: 'kkkkkkkkk' (Type = String, Size = -1)
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Executing at 09.11.2020 10:49:17 +02:00
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Completed in 110 ms with result: 1
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: 
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: INSERT [dbo].[FilmActor]([FilmID], [ActorID])
+VALUES (@0, @1)
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- @0: 'a0c4869b-8dd2-470c-a03f-eb9e18b7c985' (Type = Guid)
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- @1: '97d47a9b-45a6-4fdf-8498-a219cfb3086b' (Type = Guid)
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Executing at 09.11.2020 10:49:17 +02:00
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Completed in 5 ms with result: 1
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: 
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: INSERT [dbo].[FilmActor]([FilmID], [ActorID])
+VALUES (@0, @1)
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- @0: 'a0c4869b-8dd2-470c-a03f-eb9e18b7c985' (Type = Guid)
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- @1: 'fecf43a6-48fc-4d3e-9820-1ba1c2c50511' (Type = Guid)
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Executing at 09.11.2020 10:49:17 +02:00
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Completed in 2 ms with result: 1
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: 
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: INSERT [dbo].[FilmCountry]([FilmID], [CountryId])
+VALUES (@0, @1)
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- @0: 'a0c4869b-8dd2-470c-a03f-eb9e18b7c985' (Type = Guid)
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- @1: '21d031c5-b2df-4c87-8ced-6e0133ab73e3' (Type = Guid)
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Executing at 09.11.2020 10:49:17 +02:00
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Completed in 4 ms with result: 1
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: 
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: INSERT [dbo].[FilmCountry]([FilmID], [CountryId])
+VALUES (@0, @1)
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- @0: 'a0c4869b-8dd2-470c-a03f-eb9e18b7c985' (Type = Guid)
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- @1: 'cc6679f5-a6fa-4fbb-b8d6-3783e705afd4' (Type = Guid)
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Executing at 09.11.2020 10:49:17 +02:00
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Completed in 2 ms with result: 1
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: 
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: INSERT [dbo].[FilmGenre]([FilmID], [GenreID])
+VALUES (@0, @1)
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- @0: 'a0c4869b-8dd2-470c-a03f-eb9e18b7c985' (Type = Guid)
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- @1: '61ea5b07-8c95-4335-a4f2-22fc6089bf62' (Type = Guid)
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Executing at 09.11.2020 10:49:17 +02:00
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Completed in 8 ms with result: 1
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: 
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: Committed transaction at 09.11.2020 10:49:17 +02:00
+
+-------------------------------
+
+Log Entry : 10:49:17 9 листопада 2020 р.
+  :
+  :DATABASE LOG: Closed connection at 09.11.2020 10:49:17 +02:00
+
+-------------------------------
+
+Log Entry : 10:49:18 9 листопада 2020 р.
+  :
+  :DATABASE LOG: Opened connection at 09.11.2020 10:49:18 +02:00
+
+-------------------------------
+
+Log Entry : 10:49:18 9 листопада 2020 р.
+  :
+  :DATABASE LOG: SELECT 
+    [Project1].[C1] AS [C1], 
+    [Project1].[ID] AS [ID], 
+    [Project1].[Title] AS [Title], 
+    [Project1].[ReleaseDate] AS [ReleaseDate], 
+    [Project1].[DirectorID] AS [DirectorID], 
+    [Project1].[Duration] AS [Duration], 
+    [Project1].[IMDbRating] AS [IMDbRating], 
+    [Project1].[PosterFileName] AS [PosterFileName], 
+    [Project1].[Description] AS [Description], 
+    [Project1].[C2] AS [C2], 
+    [Project1].[ID1] AS [ID1], 
+    [Project1].[Name] AS [Name]
+    FROM ( SELECT 
+        [Extent1].[ID] AS [ID], 
+        [Extent1].[Title] AS [Title], 
+        [Extent1].[ReleaseDate] AS [ReleaseDate], 
+        [Extent1].[DirectorID] AS [DirectorID], 
+        [Extent1].[Duration] AS [Duration], 
+        [Extent1].[IMDbRating] AS [IMDbRating], 
+        [Extent1].[PosterFileName] AS [PosterFileName], 
+        [Extent1].[Description] AS [Description], 
+        1 AS [C1], 
+        [Join1].[ID] AS [ID1], 
+        [Join1].[Name] AS [Name], 
+        CASE WHEN ([Join1].[FilmID] IS NULL) THEN CAST(NULL AS int) ELSE 1 END AS [C2]
+        FROM  [dbo].[Film] AS [Extent1]
+        LEFT OUTER JOIN  (SELECT [Extent2].[FilmID] AS [FilmID], [Extent3].[ID] AS [ID], [Extent3].[Name] AS [Name]
+            FROM  [dbo].[FilmGenre] AS [Extent2]
+            INNER JOIN [dbo].[Genre] AS [Extent3] ON [Extent3].[ID] = [Extent2].[GenreID] ) AS [Join1] ON [Extent1].[ID] = [Join1].[FilmID]
+    )  AS [Project1]
+    ORDER BY [Project1].[ID] ASC, [Project1].[C2] ASC
+-------------------------------
+
+Log Entry : 10:49:18 9 листопада 2020 р.
+  :
+  :DATABASE LOG: 
+
+-------------------------------
+
+Log Entry : 10:49:18 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Executing at 09.11.2020 10:49:18 +02:00
+
+-------------------------------
+
+Log Entry : 10:49:18 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Completed in 8 ms with result: SqlDataReader
+
+-------------------------------
+
+Log Entry : 10:49:18 9 листопада 2020 р.
+  :
+  :DATABASE LOG: 
+
+-------------------------------
+
+Log Entry : 10:49:18 9 листопада 2020 р.
+  :
+  :DATABASE LOG: Closed connection at 09.11.2020 10:49:18 +02:00
+
+-------------------------------
+
+Log Entry : 10:49:22 9 листопада 2020 р.
+  :
+  :DATABASE LOG: Opened connection at 09.11.2020 10:49:22 +02:00
+
+-------------------------------
+
+Log Entry : 10:49:23 9 листопада 2020 р.
+  :
+  :DATABASE LOG: SELECT 
+    [UnionAll2].[Gender] AS [C1], 
+    [UnionAll2].[ID] AS [C2], 
+    [UnionAll2].[Title] AS [C3], 
+    [UnionAll2].[ReleaseDate] AS [C4], 
+    [UnionAll2].[DirectorID] AS [C5], 
+    [UnionAll2].[Duration] AS [C6], 
+    [UnionAll2].[IMDbRating] AS [C7], 
+    [UnionAll2].[PosterFileName] AS [C8], 
+    [UnionAll2].[Description] AS [C9], 
+    [UnionAll2].[ID1] AS [C10], 
+    [UnionAll2].[PhotoFileName] AS [C11], 
+    [UnionAll2].[Biography] AS [C12], 
+    [UnionAll2].[Name] AS [C13], 
+    [UnionAll2].[Surname] AS [C14], 
+    [UnionAll2].[Birth] AS [C15], 
+    [UnionAll2].[Death] AS [C16], 
+    [UnionAll2].[Gender1] AS [C17], 
+    [UnionAll2].[CountryId] AS [C18], 
+    [UnionAll2].[C1] AS [C19], 
+    [UnionAll2].[ID2] AS [C20], 
+    [UnionAll2].[PhotoFileName1] AS [C21], 
+    [UnionAll2].[Biography1] AS [C22], 
+    [UnionAll2].[Name1] AS [C23], 
+    [UnionAll2].[Surname1] AS [C24], 
+    [UnionAll2].[Birth1] AS [C25], 
+    [UnionAll2].[Death1] AS [C26], 
+    [UnionAll2].[Gender2] AS [C27], 
+    [UnionAll2].[CountryId1] AS [C28], 
+    [UnionAll2].[C2] AS [C29], 
+    [UnionAll2].[C3] AS [C30], 
+    [UnionAll2].[C4] AS [C31], 
+    [UnionAll2].[C5] AS [C32]
+    FROM  (SELECT 
+        CASE WHEN ([Join2].[Gender] IS NULL) THEN CAST(NULL AS int) ELSE 1 END AS [C1], 
+        [Limit1].[Gender] AS [Gender], 
+        [Limit1].[ID] AS [ID], 
+        [Limit1].[Title] AS [Title], 
+        [Limit1].[ReleaseDate] AS [ReleaseDate], 
+        [Limit1].[DirectorID] AS [DirectorID], 
+        [Limit1].[Duration] AS [Duration], 
+        [Limit1].[IMDbRating] AS [IMDbRating], 
+        [Limit1].[PosterFileName] AS [PosterFileName], 
+        [Limit1].[Description] AS [Description], 
+        [Limit1].[ID1] AS [ID1], 
+        [Limit1].[PhotoFileName] AS [PhotoFileName], 
+        [Limit1].[Biography] AS [Biography], 
+        [Limit1].[Name] AS [Name], 
+        [Limit1].[Surname] AS [Surname], 
+        [Limit1].[Birth] AS [Birth], 
+        [Limit1].[Death] AS [Death], 
+        [Limit1].[Gender] AS [Gender1], 
+        [Limit1].[CountryId] AS [CountryId], 
+        [Join2].[ID] AS [ID2], 
+        [Join2].[PhotoFileName] AS [PhotoFileName1], 
+        [Join2].[Biography] AS [Biography1], 
+        [Join2].[Name] AS [Name1], 
+        [Join2].[Surname] AS [Surname1], 
+        [Join2].[Birth] AS [Birth1], 
+        [Join2].[Death] AS [Death1], 
+        [Join2].[Gender] AS [Gender2], 
+        [Join2].[CountryId] AS [CountryId1], 
+        CAST(NULL AS uniqueidentifier) AS [C2], 
+        CAST(NULL AS varchar(1)) AS [C3], 
+        CAST(NULL AS uniqueidentifier) AS [C4], 
+        CAST(NULL AS varchar(1)) AS [C5]
+        FROM   (SELECT TOP (1) 
+            [Extent1].[ID] AS [ID], 
+            [Extent1].[Title] AS [Title], 
+            [Extent1].[ReleaseDate] AS [ReleaseDate], 
+            [Extent1].[DirectorID] AS [DirectorID], 
+            [Extent1].[Duration] AS [Duration], 
+            [Extent1].[IMDbRating] AS [IMDbRating], 
+            [Extent1].[PosterFileName] AS [PosterFileName], 
+            [Extent1].[Description] AS [Description], 
+            [Extent2].[ID] AS [ID1], 
+            [Extent2].[PhotoFileName] AS [PhotoFileName], 
+            [Extent2].[Biography] AS [Biography], 
+            [Extent2].[Name] AS [Name], 
+            [Extent2].[Surname] AS [Surname], 
+            [Extent2].[Birth] AS [Birth], 
+            [Extent2].[Death] AS [Death], 
+            [Extent2].[Gender] AS [Gender], 
+            [Extent2].[CountryId] AS [CountryId]
+            FROM  [dbo].[Film] AS [Extent1]
+            INNER JOIN [dbo].[Director] AS [Extent2] ON [Extent1].[DirectorID] = [Extent2].[ID]
+            WHERE [Extent1].[ID] = @p__linq__0 ) AS [Limit1]
+        LEFT OUTER JOIN  (SELECT [Extent3].[FilmID] AS [FilmID], [Extent4].[ID] AS [ID], [Extent4].[PhotoFileName] AS [PhotoFileName], [Extent4].[Biography] AS [Biography], [Extent4].[Name] AS [Name], [Extent4].[Surname] AS [Surname], [Extent4].[Birth] AS [Birth], [Extent4].[Death] AS [Death], [Extent4].[Gender] AS [Gender], [Extent4].[CountryId] AS [CountryId]
+            FROM  [dbo].[FilmActor] AS [Extent3]
+            INNER JOIN [dbo].[Actor] AS [Extent4] ON [Extent4].[ID] = [Extent3].[ActorID] ) AS [Join2] ON [Limit1].[ID] = [Join2].[FilmID]
+    UNION ALL
+        SELECT 
+        2 AS [C1], 
+        [Limit2].[Gender] AS [Gender], 
+        [Limit2].[ID] AS [ID], 
+        [Limit2].[Title] AS [Title], 
+        [Limit2].[ReleaseDate] AS [ReleaseDate], 
+        [Limit2].[DirectorID] AS [DirectorID], 
+        [Limit2].[Duration] AS [Duration], 
+        [Limit2].[IMDbRating] AS [IMDbRating], 
+        [Limit2].[PosterFileName] AS [PosterFileName], 
+        [Limit2].[Description] AS [Description], 
+        [Limit2].[ID1] AS [ID1], 
+        [Limit2].[PhotoFileName] AS [PhotoFileName], 
+        [Limit2].[Biography] AS [Biography], 
+        [Limit2].[Name] AS [Name], 
+        [Limit2].[Surname] AS [Surname], 
+        [Limit2].[Birth] AS [Birth], 
+        [Limit2].[Death] AS [Death], 
+        [Limit2].[Gender] AS [Gender1], 
+        [Limit2].[CountryId] AS [CountryId], 
+        CAST(NULL AS uniqueidentifier) AS [C2], 
+        CAST(NULL AS varchar(1)) AS [C3], 
+        CAST(NULL AS varchar(1)) AS [C4], 
+        CAST(NULL AS varchar(1)) AS [C5], 
+        CAST(NULL AS varchar(1)) AS [C6], 
+        CAST(NULL AS datetime2) AS [C7], 
+        CAST(NULL AS datetime2) AS [C8], 
+        CAST(NULL AS int) AS [C9], 
+        CAST(NULL AS uniqueidentifier) AS [C10], 
+        [Join5].[ID] AS [ID2], 
+        [Join5].[Name] AS [Name1], 
+        CAST(NULL AS uniqueidentifier) AS [C11], 
+        CAST(NULL AS varchar(1)) AS [C12]
+        FROM   (SELECT TOP (1) 
+            [Extent5].[ID] AS [ID], 
+            [Extent5].[Title] AS [Title], 
+            [Extent5].[ReleaseDate] AS [ReleaseDate], 
+            [Extent5].[DirectorID] AS [DirectorID], 
+            [Extent5].[Duration] AS [Duration], 
+            [Extent5].[IMDbRating] AS [IMDbRating], 
+            [Extent5].[PosterFileName] AS [PosterFileName], 
+            [Extent5].[Description] AS [Description], 
+            [Extent6].[ID] AS [ID1], 
+            [Extent6].[PhotoFileName] AS [PhotoFileName], 
+            [Extent6].[Biography] AS [Biography], 
+            [Extent6].[Name] AS [Name], 
+            [Extent6].[Surname] AS [Surname], 
+            [Extent6].[Birth] AS [Birth], 
+            [Extent6].[Death] AS [Death], 
+            [Extent6].[Gender] AS [Gender], 
+            [Extent6].[CountryId] AS [CountryId]
+            FROM  [dbo].[Film] AS [Extent5]
+            INNER JOIN [dbo].[Director] AS [Extent6] ON [Extent5].[DirectorID] = [Extent6].[ID]
+            WHERE [Extent5].[ID] = @p__linq__0 ) AS [Limit2]
+        INNER JOIN  (SELECT [Extent7].[FilmID] AS [FilmID], [Extent8].[ID] AS [ID], [Extent8].[Name] AS [Name]
+            FROM  [dbo].[FilmGenre] AS [Extent7]
+            INNER JOIN [dbo].[Genre] AS [Extent8] ON [Extent8].[ID] = [Extent7].[GenreID] ) AS [Join5] ON [Limit2].[ID] = [Join5].[FilmID]
+    UNION ALL
+        SELECT 
+        3 AS [C1], 
+        [Limit3].[Gender] AS [Gender], 
+        [Limit3].[ID] AS [ID], 
+        [Limit3].[Title] AS [Title], 
+        [Limit3].[ReleaseDate] AS [ReleaseDate], 
+        [Limit3].[DirectorID] AS [DirectorID], 
+        [Limit3].[Duration] AS [Duration], 
+        [Limit3].[IMDbRating] AS [IMDbRating], 
+        [Limit3].[PosterFileName] AS [PosterFileName], 
+        [Limit3].[Description] AS [Description], 
+        [Limit3].[ID1] AS [ID1], 
+        [Limit3].[PhotoFileName] AS [PhotoFileName], 
+        [Limit3].[Biography] AS [Biography], 
+        [Limit3].[Name] AS [Name], 
+        [Limit3].[Surname] AS [Surname], 
+        [Limit3].[Birth] AS [Birth], 
+        [Limit3].[Death] AS [Death], 
+        [Limit3].[Gender] AS [Gender1], 
+        [Limit3].[CountryId] AS [CountryId], 
+        CAST(NULL AS uniqueidentifier) AS [C2], 
+        CAST(NULL AS varchar(1)) AS [C3], 
+        CAST(NULL AS varchar(1)) AS [C4], 
+        CAST(NULL AS varchar(1)) AS [C5], 
+        CAST(NULL AS varchar(1)) AS [C6], 
+        CAST(NULL AS datetime2) AS [C7], 
+        CAST(NULL AS datetime2) AS [C8], 
+        CAST(NULL AS int) AS [C9], 
+        CAST(NULL AS uniqueidentifier) AS [C10], 
+        CAST(NULL AS uniqueidentifier) AS [C11], 
+        CAST(NULL AS varchar(1)) AS [C12], 
+        [Join8].[ID] AS [ID2], 
+        [Join8].[Name] AS [Name1]
+        FROM   (SELECT TOP (1) 
+            [Extent9].[ID] AS [ID], 
+            [Extent9].[Title] AS [Title], 
+            [Extent9].[ReleaseDate] AS [ReleaseDate], 
+            [Extent9].[DirectorID] AS [DirectorID], 
+            [Extent9].[Duration] AS [Duration], 
+            [Extent9].[IMDbRating] AS [IMDbRating], 
+            [Extent9].[PosterFileName] AS [PosterFileName], 
+            [Extent9].[Description] AS [Description], 
+            [Extent10].[ID] AS [ID1], 
+            [Extent10].[PhotoFileName] AS [PhotoFileName], 
+            [Extent10].[Biography] AS [Biography], 
+            [Extent10].[Name] AS [Name], 
+            [Extent10].[Surname] AS [Surname], 
+            [Extent10].[Birth] AS [Birth], 
+            [Extent10].[Death] AS [Death], 
+            [Extent10].[Gender] AS [Gender], 
+            [Extent10].[CountryId] AS [CountryId]
+            FROM  [dbo].[Film] AS [Extent9]
+            INNER JOIN [dbo].[Director] AS [Extent10] ON [Extent9].[DirectorID] = [Extent10].[ID]
+            WHERE [Extent9].[ID] = @p__linq__0 ) AS [Limit3]
+        INNER JOIN  (SELECT [Extent11].[FilmID] AS [FilmID], [Extent12].[ID] AS [ID], [Extent12].[Name] AS [Name]
+            FROM  [dbo].[FilmCountry] AS [Extent11]
+            INNER JOIN [dbo].[Country] AS [Extent12] ON [Extent12].[ID] = [Extent11].[CountryId] ) AS [Join8] ON [Limit3].[ID] = [Join8].[FilmID]) AS [UnionAll2]
+    ORDER BY [UnionAll2].[ID] ASC, [UnionAll2].[ID1] ASC, [UnionAll2].[C1] ASC
+-------------------------------
+
+Log Entry : 10:49:23 9 листопада 2020 р.
+  :
+  :DATABASE LOG: 
+
+-------------------------------
+
+Log Entry : 10:49:23 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- p__linq__0: 'a0c4869b-8dd2-470c-a03f-eb9e18b7c985' (Type = Guid, IsNullable = false)
+
+-------------------------------
+
+Log Entry : 10:49:23 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Executing at 09.11.2020 10:49:23 +02:00
+
+-------------------------------
+
+Log Entry : 10:49:23 9 листопада 2020 р.
+  :
+  :DATABASE LOG: -- Completed in 69 ms with result: SqlDataReader
+
+-------------------------------
+
+Log Entry : 10:49:23 9 листопада 2020 р.
+  :
+  :DATABASE LOG: 
+
+-------------------------------
+
+Log Entry : 10:49:23 9 листопада 2020 р.
+  :
+  :DATABASE LOG: Closed connection at 09.11.2020 10:49:23 +02:00
+
+-------------------------------

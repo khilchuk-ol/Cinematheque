@@ -22,6 +22,8 @@ namespace Cinematheque.Data.Data
 
         public DbSet<Country> Countries { get; set; }
 
+        public DbSet<User> Users { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.AddFromAssembly(GetType().Assembly);
