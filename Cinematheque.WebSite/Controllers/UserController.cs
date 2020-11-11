@@ -1,41 +1,35 @@
-﻿using Cinematheque.Data.Dao;
-using Cinematheque.Data.Dao.Impl;
-using Cinematheque.Utils;
-using Cinematheque.WebSite.Models;
+﻿using Cinematheque.Data.Models;
+using Cinematheque.WebSite.ModelBinders;
+using Newtonsoft.Json;
+using System;
+using System.Web;
 using System.Web.Mvc;
 
 namespace Cinematheque.WebSite.Controllers
 {
     public class UserController : Controller
     {
-        private IDaoUser UserDao { get; }
-
-        public UserController(IDaoUser daoUser)
-        {
-            Validator.RequireNotNull(daoUser);
-
-            UserDao = daoUser;
+        public ActionResult Cabinet([ModelBinder(typeof(UserModelBinder))] User user)
+        { 
+            return View(user);
         }
 
-        // GET: User
-        public ActionResult Register()
+        public ActionResult EditName([ModelBinder(typeof(UserModelBinder))] User user, string username)
         {
-            return View();
-        }
+            if(!string.IsNullOrWhiteSpace(username))
+            {
+                user.Username = username;
 
-        public ActionResult CompleteRegister(UserView user)
-        {
-            return View();
-        }
+                var cookie = new HttpCookie(nameof(User))
+                {
+                    Value = JsonConvert.SerializeObject(user),
+                    Expires = DateTime.Now.AddYears(1),
+                    Path = "/"
+                };
 
-        public ActionResult Authenticate()
-        {
-            return View();
-        }
-
-        public ActionResult CompleteAuthentication (UserView user)
-        {
-            return View();
+                Response.Cookies.Add(cookie);
+            }
+            return RedirectToAction("Cabinet");
         }
     }
 }

@@ -209,6 +209,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="ModelBinders\UserModelBinder.cs" />
     <Compile Include="Models\InfoContainers\ActorInfoContainer.cs" />
     <Compile Include="Models\InfoContainers\DirectorInfoContainer.cs" />
     <Compile Include="Models\InfoContainers\FilmInfoContainer.cs" />
@@ -224,7 +225,6 @@
     <Compile Include="Models\Display\GenreAndFilmsView.cs" />
     <Compile Include="Models\Input\GenreInput.cs" />
     <Compile Include="Models\PersonView.cs" />
-    <Compile Include="Models\UserView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -269,7 +269,7 @@
     <Content Include="Views\Actors\Search.cshtml" />
     <Content Include="Views\Directors\Search.cshtml" />
     <Content Include="Views\Genres\Search.cshtml" />
-    <Content Include="Views\User\Register.cshtml" />
+    <Content Include="Views\User\Cabinet.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

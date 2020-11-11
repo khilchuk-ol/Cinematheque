@@ -105,5 +105,13 @@
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index") |
+    @if (Model.IsFav)
+    {
+        @Html.ActionLink("Remove from favourite", "RemoveFromFav", new { id = Model.ID });
+    }
+    else
+    {
+        @Html.ActionLink("Add to favourite", "AddToFav", new { id = Model.ID });
+    } 
 </p>

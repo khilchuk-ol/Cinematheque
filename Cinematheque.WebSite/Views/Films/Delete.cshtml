@@ -47,7 +47,7 @@
 
                     <dd>
                         <ul>
-                            @foreach(var pair in Model.Actors)
+                            @foreach (var pair in Model.Actors)
                             {
                                 <li>@Html.ActionLink(pair.Value, "Details", "Actors", new { id = pair.Key })</li>
                             }
@@ -99,7 +99,15 @@
 
                     <div class="form-actions no-color">
                         <input type="submit" value="Delete" class="btn btn-default" /> |
-                        @Html.ActionLink("Back to List", "Index")
+                        @Html.ActionLink("Back to List", "Index") |
+                        @if (Model.IsFav)
+                        {
+                            @Html.ActionLink("Remove from favourite", "RemoveFromFav", new { id = Model.ID });
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Add to favourite", "AddToFav", new { id = Model.ID });
+                        } 
                     </div>
                 }
             </td>

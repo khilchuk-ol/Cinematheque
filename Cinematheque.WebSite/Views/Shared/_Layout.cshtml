@@ -18,34 +18,49 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <table>
+                <table style="width:1300px">
                     <tr>
                         <td>
-                            @Html.ActionLink("Cinematheque", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                        </td>
+                            <table>
+                                <tr>
+                                    <td>
+                                        @Html.ActionLink("Cinematheque", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                                    </td>
 
-                        <td>
-                            @Html.ActionLink("Films", "Index", "Films", new { area = "" }, new { @class = "navbar-brand" })
-                        </td>
+                                    <td>
+                                        @Html.ActionLink("Films", "Index", "Films", new { area = "" }, new { @class = "navbar-brand" })
+                                    </td>
 
-                        <td>
-                            @Html.ActionLink("Actors", "Index", "Actors", new { area = "" }, new { @class = "navbar-brand" })
-                        </td>
+                                    <td>
+                                        @Html.ActionLink("Actors", "Index", "Actors", new { area = "" }, new { @class = "navbar-brand" })
+                                    </td>
 
-                        <td>
-                            @Html.ActionLink("Directors", "Index", "Directors", new { area = "" }, new { @class = "navbar-brand" })
-                        </td>
+                                    <td>
+                                        @Html.ActionLink("Directors", "Index", "Directors", new { area = "" }, new { @class = "navbar-brand" })
+                                    </td>
 
-                        <td>
-                            @Html.ActionLink("Genres", "Index", "Genres", new { area = "" }, new { @class = "navbar-brand" })
-                        </td>
+                                    <td>
+                                        @Html.ActionLink("Genres", "Index", "Genres", new { area = "" }, new { @class = "navbar-brand" })
+                                    </td>
 
-                        <td>
-                            @Html.ActionLink("Top 100", "Top100", "Films", new { area = "" }, new { @class = "navbar-brand" })
-                        </td>
+                                    <td>
+                                        @Html.ActionLink("Top 100", "Top100", "Films", new { area = "" }, new { @class = "navbar-brand" })
+                                    </td>
 
+                                    <td>
+                                        @Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
                         <td>
-                            @Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                            <table style="float:right">
+                                <tr>
+                                    <td>
+                                        @Html.ActionLink("Cabinet", "Cabinet", "User", new { area = "" }, new { @class = "navbar-brand" })
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
                 </table>

@@ -1,0 +1,56 @@
+﻿@model Cinematheque.Data.Models.User
+
+<div>
+    <table style="margin-top:15px">
+        <tr>
+            <td><h4 style="margin-right:20px">@Model.Username</h4></td>
+            <td><button id="edit-uname">Edit username</button></td>
+        </tr>
+    </table>
+    <div id="edit" style="margin-top:15px" hidden>
+        @using (Html.BeginForm("EditName", "User"))
+        {
+            <label for="uname">Enter new username: </label>
+            <input type="text" id="uname" name="username" />
+            <input type="submit" value="Submit changes" />
+        }
+    </div>
+
+    <hr />
+    <h4>Selected films:</h4>
+    @if(Model.FavFilms.Count == 0)
+    {
+        <h4>You haven't added films to selected list yet</h4>
+    }
+    <table style="margin-top:20px">
+        @foreach (var f in Model.FavFilms.OrderBy(f => f.Title))
+        {
+            <tr style="margin-bottom:10px">
+                <td>
+                    <img style="margin-right:20px" width="170" height="250" src="/images/films/@f.PosterFileName" />
+                </td>
+                <td>
+                    @Html.ActionLink(f.Title, "Details", "Films", new { id = f.ID }, new { })
+                </td>
+                <td>
+                    <div style="margin-left:800px">
+                        @Html.ActionLink("Remove", "RemoveFromFav", "Films", new { id = f.ID, user = Model }, new { })
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+
+</div>
+<p>
+    @Html.ActionLink("Back to Home", "Index")
+</p>
+
+@section scripts {
+    <script>
+        $('#edit-uname').click(function (e) {
+            var el = document.querySelector('#edit');
+            el.removeAttribute("hidden");
+        });
+    </script>
+} 

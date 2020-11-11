@@ -50,6 +50,8 @@ namespace Cinematheque.WebSite.Models
         [Required(AllowEmptyStrings = false)]
         public string Description { get; set; }
 
+        public bool IsFav { get; set; }
+
         public FilmView(Film data) : base(data)
         {
             Title = data.Title;

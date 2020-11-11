@@ -1,9 +1,13 @@
 ﻿using Cinematheque.Data.Dao;
+using Cinematheque.Data.Models;
 using Cinematheque.Utils;
 using Cinematheque.WebSite.Extensions;
+using Cinematheque.WebSite.ModelBinders;
 using Cinematheque.WebSite.Models;
 using Cinematheque.WebSite.Models.InfoContainers;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -38,17 +42,19 @@ namespace Cinematheque.WebSite.Controllers
         }
 
         // GET: Films
-        public ActionResult Index()
+        public ActionResult Index([ModelBinder(typeof(UserModelBinder))] User user)
         {
-            var st = PathUtils.GetProjectDirectory();
-            return View(FilmsDao.FindAllWithGenres().Select(f => new FilmView(f)).OrderBy(f => f.Title));
+            return View(FilmsDao.FindAllWithGenres()
+                                .Select(f => new FilmView(f) { IsFav = user.HasFavourite(f) })
+                                .OrderBy(f => f.Title));
         }
 
         // GET: Films/Search
-        public ActionResult Search(string q)
+        public ActionResult Search([ModelBinder(typeof(UserModelBinder))] User user, string q)
         {
-            var films = FilmsDao.SearchFilmsByTitle(q).Select(f => new FilmView(f));
-            return View(films.OrderBy(f => f.Title));
+            return View(FilmsDao.SearchFilmsByTitle(q)
+                                .Select(f => new FilmView(f) { IsFav = user.HasFavourite(f) })
+                                .OrderBy(f => f.Title));
         }
 
         
@@ -75,18 +81,18 @@ namespace Cinematheque.WebSite.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Details(Guid id)
+        public ActionResult Details([ModelBinder(typeof(UserModelBinder))] User user, Guid id)
         {
             var film = FilmsDao.GetFilmWithFullInfo(id);
 
-            return View(new FilmView(film));
+            return View(new FilmView(film) { IsFav = user.HasFavourite(film) });
         }
 
-        public ActionResult Delete(Guid id)
+        public ActionResult Delete([ModelBinder(typeof(UserModelBinder))] User user, Guid id)
         {
             var film = FilmsDao.GetFilmWithFullInfo(id);
 
-            return View(new FilmView(film));
+            return View(new FilmView(film) { IsFav = user.HasFavourite(film)});
         }
 
         [HttpPost]
@@ -117,12 +123,46 @@ namespace Cinematheque.WebSite.Controllers
         }
 
         //GET: Films/Top100
-        public ActionResult Top100()
+        public ActionResult Top100([ModelBinder(typeof(UserModelBinder))] User user)
         {
-            return View(FilmsDao.FindAll().OrderByDescending(f => f.IMDbRating)
-                                     .Take(100)
-                                     .Select(f => new FilmView(f))
-                                     .ToList());
+           return View(FilmsDao.FindAll()
+                               .OrderByDescending(f => f.IMDbRating)
+                               .Take(100)
+                               .Select(f => new FilmView(f) { IsFav = user.HasFavourite(f) })
+                               .ToList());
+        }
+
+        public ActionResult AddToFav([ModelBinder(typeof(UserModelBinder))] User user, Guid id)
+        {
+            var film = FilmsDao.Find(id);
+            user.FavFilms.Add(film);
+
+            var cookie = new HttpCookie(nameof(User))
+            {
+                Value = JsonConvert.SerializeObject(user),
+                Expires = DateTime.Now.AddYears(1),
+                Path = "/"
+            };
+
+            Response.Cookies.Add(cookie);
+
+            return RedirectToAction("Index", "Films");
+        }
+
+        public ActionResult RemoveFromFav([ModelBinder(typeof(UserModelBinder))] User user, Guid id)
+        {
+            user.FavFilms.RemoveAll(f => f.ID == id);
+
+            var cookie = new HttpCookie(nameof(User))
+            {
+                Value = JsonConvert.SerializeObject(user),
+                Expires = DateTime.Now.AddYears(1),
+                Path = "/"
+            };
+
+            Response.Cookies.Add(cookie);
+
+            return RedirectToAction("Cabinet", "User");
         }
     }
 }

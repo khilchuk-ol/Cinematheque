@@ -6,7 +6,7 @@ namespace Cinematheque.WebSite.Controllers
     {
         // GET: Home
         public ActionResult Index()
-        {
+        {          
             return View();
         }
 

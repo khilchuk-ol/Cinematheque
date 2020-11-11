@@ -18,7 +18,8 @@ namespace Cinematheque.Data.Dao.Impl
 
         public User GetUserWithFilms(Guid id)
         {
-            return Context.Users.Where(u => u.ID == id).Include(u => u.FavFilms).FirstOrDefault();
+            throw new NotImplementedException();
+            //return Context.Users.Where(u => u.ID == id).Include(u => u.FavFilms).FirstOrDefault();
         }
     }
 }

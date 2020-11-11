@@ -5,7 +5,7 @@ namespace Cinematheque.Data.Models
     public class Entity//<T> where T : class
     {
         //internal static TableManager tm; 
-        public Guid ID { get; private set; } //{ get { return new Guid(row["ID"].ToString()); } }
+        public Guid ID { get; set; } //{ get { return new Guid(row["ID"].ToString()); } }
 
         public Entity()
         {

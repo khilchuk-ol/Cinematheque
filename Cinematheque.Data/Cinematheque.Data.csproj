@@ -73,7 +73,6 @@
     <Compile Include="Mapings\DirectorConfiguration.cs" />
     <Compile Include="Mapings\FilmConfiguration.cs" />
     <Compile Include="Mapings\GenreConfiguration.cs" />
-    <Compile Include="Mapings\UserConfiguration.cs" />
     <Compile Include="Models\Actor.cs" />
     <Compile Include="Models\Associative\ActorInFilm.cs" />
     <Compile Include="Models\Country.cs" />
