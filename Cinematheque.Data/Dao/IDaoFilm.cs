@@ -16,5 +16,7 @@ namespace Cinematheque.Data.Dao
         List<Film> GetFilmsWithoutDirector(Guid diectorId);
 
         List<Film> GetFilmsWithoutActor(Guid actorId);
+
+        List<Film> SearchFilmsWithSettings(FilmsSearchSettings fss);
     }
 }

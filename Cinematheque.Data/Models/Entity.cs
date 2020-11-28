@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace Cinematheque.Data.Models
 {
+    [DataContract]
     public class Entity//<T> where T : class
     {
         //internal static TableManager tm; 
+        [DataMember]
         public Guid ID { get; set; } //{ get { return new Guid(row["ID"].ToString()); } }
 
         public Entity()

@@ -1,14 +1,255 @@
-﻿@model Cinematheque.Data.Models.User
+﻿@model Cinematheque.WebSite.Models.Display.FilmsSearchInfoBase
 
 @{
     ViewBag.Title = "Home";
 }
 
 <h2>Home</h2>
-
 <label for="searchFilm">Enter film's title: </label>
 @using (Html.BeginForm("Search", "Films", FormMethod.Get, new { name = "searchFilm" }))
 {
-    <input type="text" title="Find film" name="q" />
-    <input type="submit" value="Search" />
+    <table>
+        <tr>
+            <td>
+                <input type="text" title="Find film" name="Query" />
+                <input type="submit" value="Search" />
+            </td>
+
+            <td style="padding-top : 0px">
+                <span id="customize-search" style="cursor:pointer">
+                    <img width="40" height="30" src="~/Content/Images/filter.jpg" />
+                </span>
+            </td>
+        </tr>
+    </table>
+    <div id="filter" hidden>
+
+        <table width="100%">
+            <tr>
+                <td>
+                    <label style="color:forestgreen">Include genres: </label>
+
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <table id="include-genres">
+                            </table>
+
+                            <select id="select-incl-genre">
+                                @foreach (var g in Model.Genres)
+                                {
+                                    <option value="@g.ID" id="@g.ID">@g.Name</option>
+                                }
+                            </select>
+
+                            <button type="button" id="btn-incl-genre" style="cursor:pointer">Include</button>
+                        </div>
+                    </div>
+
+                </td>
+
+                <td>
+                    <label style="color:red">Exclude genres: </label>
+
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <table id="exclude-genres">
+                            </table>
+
+                            <select id="select-excl-genre">
+                                @foreach (var g in Model.Genres)
+                                {
+                                    <option value="@g.ID" id="@g.ID">@g.Name</option>
+                                }
+                            </select>
+
+                            <button type="button" id="btn-excl-genre" style="cursor:pointer">Exclude</button>
+                        </div>
+                    </div>
+
+                </td>
+
+                <td>
+                    <label style="color:forestgreen">Include actors: </label>
+
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <table id="include-actors">
+                            </table>
+
+                            <select id="select-incl-actor">
+                                @foreach (var a in Model.Actors)
+                                {
+                                    <option value="@a.ID" id="@a.ID">@a.FullName</option>
+                                }
+                            </select>
+
+                            <button type="button" id="btn-incl-actor" style="cursor:pointer">Include</button>
+                        </div>
+                    </div>
+
+                </td>
+
+                <td>
+                    <label style="color:red">Exclude actors: </label>
+
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <table id="exclude-actors">
+                            </table>
+
+                            <select id="select-excl-actor">
+                                @foreach (var a in Model.Actors)
+                                {
+                                    <option value="@a.ID" id="@a.ID">@a.FullName</option>
+                                }
+                            </select>
+
+                            <button type="button" id="btn-excl-actor" style="cursor:pointer">Exclude</button>
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+        </table>
+
+    </div>
+}
+@section scripts {
+    <script>
+        $('#customize-search').click(function (e) {
+            var el = document.querySelector('#filter');
+            el.removeAttribute("hidden");
+        });
+
+        $('#include-genres').on('click', '.btn-remove-incl-genre', function (e) {
+
+            var tr = $(e.target).closest('tr');
+            var text = tr.find('.incl-genre-text').text();
+            var id = tr.find('input:hidden').val();
+
+            $('#select-incl-genre').append(new Option(text, id));
+            $('#select-excl-genre').append(new Option(text, id));
+
+            tr.remove();
+        });
+
+        $('#btn-incl-genre').click(function () {
+            var opt = $('#select-incl-genre').find('option:selected');
+
+            $('#include-genres').append(
+                `<tr>
+                         <td style="text-align:left; width:200px">
+                             <span class="incl-genre-text">${opt.text()}</span>
+                             <input type="hidden" name="IncludeGenres" value="${opt.val()}" />
+                         </td>
+                         <td>
+                             <span class="btn-remove-incl-genre" style="cursor:pointer">
+                                  <img width="10" height="10" src="@Url.Content("~/Content/Images/remove.jpg")" />
+                             </span>
+                         </td>
+                    </tr>`);
+
+            $('#select-excl-genre #' + opt.val()).remove();
+
+            opt.remove();
+        });
+
+        $('#exclude-genres').on('click', '.btn-remove-excl-genre', function (e) {
+
+            var tr = $(e.target).closest('tr');
+            var text = tr.find('.excl-genre-text').text();
+            var id = tr.find('input:hidden').val();
+
+            $('#select-incl-genre').append(new Option(text, id));
+            $('#select-excl-genre').append(new Option(text, id));
+            tr.remove();
+        });
+
+        $('#btn-excl-genre').click(function () {
+            var opt = $('#select-excl-genre').find('option:selected');
+
+            $('#exclude-genres').append(
+                    `<tr>
+                         <td style="text-align:left; width:200px">
+                             <span class="excl-genre-text">${opt.text()}</span>
+                             <input type="hidden" name="ExcludeGenres" value="${opt.val()}" />
+                         </td>
+                         <td>
+                             <span class="btn-remove-excl-genre" style="cursor:pointer">
+                                  <img width="10" height="10" src="@Url.Content("~/Content/Images/remove.jpg")" />
+                             </span>
+                         </td>
+                    </tr>`);
+
+            $('#select-incl-genre #' + opt.val()).remove();
+
+            opt.remove();
+        });
+
+        $('#include-actors').on('click', '.btn-remove-incl-actor', function (e) {
+
+            var tr = $(e.target).closest('tr');
+            var text = tr.find('.incl-actor-text').text();
+            var id = tr.find('input:hidden').val();
+
+            $('#select-incl-actor').append(new Option(text, id));
+            $('#select-excl-actor').append(new Option(text, id));
+
+            tr.remove();
+        });
+
+        $('#btn-incl-actor').click(function () {
+            var opt = $('#select-incl-actor').find('option:selected');
+
+            $('#include-actors').append(
+                `<tr>
+                         <td style="text-align:left; width:200px">
+                             <span class="incl-actor-text">${opt.text()}</span>
+                             <input type="hidden" name="IncludeActors" value="${opt.val()}" />
+                         </td>
+                         <td>
+                             <span class="btn-remove-incl-actor" style="cursor:pointer">
+                                  <img width="10" height="10" src="@Url.Content("~/Content/Images/remove.jpg")" />
+                             </span>
+                         </td>
+                    </tr>`);
+
+            $('#select-excl-actor #' + opt.val()).remove();
+
+            opt.remove();
+        });
+
+        $('#exclude-actors').on('click', '.btn-remove-excl-actor', function (e) {
+
+            var tr = $(e.target).closest('tr');
+            var text = tr.find('.excl-actor-text').text();
+            var id = tr.find('input:hidden').val();
+
+            $('#select-incl-actor').append(new Option(text, id));
+            $('#select-excl-actor').append(new Option(text, id));
+            tr.remove();
+        });
+
+        $('#btn-excl-actor').click(function () {
+            var opt = $('#select-excl-actor').find('option:selected');
+
+            $('#exclude-actors').append(
+                    `<tr>
+                         <td style="text-align:left; width:200px">
+                             <span class="excl-actor-text">${opt.text()}</span>
+                             <input type="hidden" name="ExcludeActors" value="${opt.val()}" />
+                         </td>
+                         <td>
+                             <span class="btn-remove-excl-actor" style="cursor:pointer">
+                                  <img width="10" height="10" src="@Url.Content("~/Content/Images/remove.jpg")" />
+                             </span>
+                         </td>
+                    </tr>`);
+
+            $('#select-incl-actor #' + opt.val()).remove();
+
+            opt.remove();
+        });
+
+    </script>
 }

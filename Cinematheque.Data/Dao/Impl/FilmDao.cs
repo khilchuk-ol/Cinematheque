@@ -44,9 +44,43 @@ namespace Cinematheque.Data.Dao.Impl
 
         public List<Film> SearchFilmsByTitle(string title)
         {
+            if(string.IsNullOrWhiteSpace(title))
+            {
+                return Context.Films.ToList();
+            }
+
             return Context.Films
                           .Where(f => f.Title.Contains(title))
                           .ToList();
+        }
+
+        public List<Film> SearchFilmsWithSettings(FilmsSearchSettings fss)
+        {
+            var query = string.IsNullOrWhiteSpace(fss.Query) ?
+                           Context.Films.AsQueryable() :
+                           Context.Films.Where(f => f.Title.Contains(fss.Query));
+
+            if(fss.IncludeActorsIDs.Count() != 0)
+            {
+                query = query.Where(f => f.Actors.Any(a => fss.IncludeActorsIDs.Contains(a.ID)));
+            }
+
+            if (fss.IncludeGenresIDs.Count() != 0)
+            {
+                query = query.Where(f => f.Genres.Any(g => fss.IncludeGenresIDs.Contains(g.ID)));
+            }
+
+            if (fss.ExcludeActorsIDs.Count() != 0)
+            {
+                query = query.Where(f => f.Actors.All(a => !fss.ExcludeActorsIDs.Contains(a.ID)));
+            }
+
+            if (fss.ExcludeGenresIDs.Count() != 0)
+            {
+                query = query.Where(f => f.Genres.All(g => !fss.ExcludeGenresIDs.Contains(g.ID)));
+            }
+
+            return query.ToList();
         }
     }
 }

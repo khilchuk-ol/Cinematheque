@@ -7,7 +7,6 @@ using Cinematheque.WebSite.Models;
 using Cinematheque.WebSite.Models.InfoContainers;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -39,6 +38,8 @@ namespace Cinematheque.WebSite.Controllers
             DirectorsDao = directorsDao;
             GenresDao = genresDao;
             CountriesDao = countriesDao;
+
+            //var emul = FilmsDbEmulXml.Deserialize();
         }
 
         // GET: Films
@@ -50,10 +51,19 @@ namespace Cinematheque.WebSite.Controllers
         }
 
         // GET: Films/Search
-        public ActionResult Search([ModelBinder(typeof(UserModelBinder))] User user, string q)
+        public ActionResult Search(FilmsSearchInfoContainer info)
         {
-            return View(FilmsDao.SearchFilmsByTitle(q)
-                                .Select(f => new FilmView(f) { IsFav = user.HasFavourite(f) })
+            var settings = new FilmsSearchSettings()
+            {
+                IncludeGenresIDs = info.IncludeGenres,
+                IncludeActorsIDs = info.IncludeActors,
+                ExcludeActorsIDs = info.ExcludeActors,
+                ExcludeGenresIDs = info.ExcludeGenres,
+                Query = info.Query
+            };
+
+            return View(FilmsDao.SearchFilmsWithSettings(settings)
+                                .Select(f => new FilmView(f))
                                 .OrderBy(f => f.Title));
         }
 

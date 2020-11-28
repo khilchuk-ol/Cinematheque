@@ -210,9 +210,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="ModelBinders\UserModelBinder.cs" />
+    <Compile Include="Models\Display\FilmsSearchInfoBase.cs" />
     <Compile Include="Models\InfoContainers\ActorInfoContainer.cs" />
     <Compile Include="Models\InfoContainers\DirectorInfoContainer.cs" />
     <Compile Include="Models\InfoContainers\FilmInfoContainer.cs" />
+    <Compile Include="Models\InfoContainers\FilmsSearchInfoContainer.cs" />
     <Compile Include="Models\InfoContainers\GenreInfoContainer.cs" />
     <Compile Include="Models\Input\ActorInput.cs" />
     <Compile Include="Models\Input\DirectorInput.cs" />

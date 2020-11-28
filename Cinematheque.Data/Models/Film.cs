@@ -2,31 +2,40 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Runtime.Serialization;
 
 namespace Cinematheque.Data.Models
 {
+    [DataContract]
     public class Film : Entity
     {
+        [DataMember]
         public string Title { get; set; }
 
+        [DataMember]
         public DateTime ReleaseDate { get; set; }
-
+        
         public List<Country> Countries { get; set; }
         
         public List<Actor> Actors { get; set; }
-
+        
+        [DataMember]
         public Guid DirectorID { get; set; }
 
         public Director Director { get; set; }
 
         public List<Genre> Genres { get; set; }
-
+        
+        [DataMember]
         public TimeSpan Duration { get; set; }
 
+        [DataMember]
         public float IMDbRating { get; set; }
 
+        [DataMember]
         public string PosterFileName { get; set; }
 
+        [DataMember]
         public string Description { get; set; }
 
         public Film() : base()

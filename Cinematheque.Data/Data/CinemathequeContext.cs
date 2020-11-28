@@ -1,4 +1,4 @@
-﻿using Cinematheque.Data.Mapings;
+﻿using Cinematheque.Data.lecture_example;
 using Cinematheque.Data.Models;
 using System.Data.Entity;
 
@@ -23,6 +23,7 @@ namespace Cinematheque.Data.Data
         public DbSet<Country> Countries { get; set; }
 
         public DbSet<User> Users { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
