@@ -272,6 +272,7 @@
     <Content Include="Views\Directors\Search.cshtml" />
     <Content Include="Views\Genres\Search.cshtml" />
     <Content Include="Views\User\Cabinet.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

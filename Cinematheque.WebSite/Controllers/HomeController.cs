@@ -1,6 +1,8 @@
 ﻿using Cinematheque.Data.Dao;
+using Cinematheque.Data.Models;
 using Cinematheque.WebSite.Models;
 using Cinematheque.WebSite.Models.Display;
+using Cinematheque.WebSite.Models.InfoContainers;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -32,6 +34,24 @@ namespace Cinematheque.WebSite.Controllers
                 Actors = ActorsDao.FindAll().Select(a => new ActorView(a)).OrderBy(a => a.FullName).ToList()
             };
             return View(info);
+        }
+
+
+        // GET: Home/Search
+        public ActionResult Search(FilmsSearchInfoContainer info)
+        {
+            var settings = new FilmsSearchSettings()
+            {
+                IncludeGenresIDs = info.IncludeGenres,
+                IncludeActorsIDs = info.IncludeActors,
+                ExcludeActorsIDs = info.ExcludeActors,
+                ExcludeGenresIDs = info.ExcludeGenres,
+                Query = info.Query
+            };
+
+            return View(FilmsDao.SearchFilmsWithSettings(settings)
+                                .Select(f => new FilmView(f))
+                                .OrderBy(f => f.Title));
         }
 
         //GET: Home/About

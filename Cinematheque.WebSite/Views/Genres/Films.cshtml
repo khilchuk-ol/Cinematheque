@@ -8,6 +8,7 @@
 
     <table class="table">
         <tr>
+            <th></th>
             <th>
                 @Html.DisplayNameFor(model => model.Films.First().Title)
             </th>
@@ -34,6 +35,10 @@
         @foreach (var item in Model.Films)
         {
             <tr>
+                <td>
+                    <img style="margin-right:20px" width="170" height="250" src="/images/films/@item.PosterFileName" />
+                </td>
+
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>

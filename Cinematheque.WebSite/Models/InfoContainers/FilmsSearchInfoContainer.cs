@@ -6,6 +6,7 @@ namespace Cinematheque.WebSite.Models.InfoContainers
     public class FilmsSearchInfoContainer
     {
         public string Query { get; set; }
+
         public IEnumerable<Guid> IncludeActors { get; set; }
 
         public IEnumerable<Guid> ExcludeActors { get; set; }

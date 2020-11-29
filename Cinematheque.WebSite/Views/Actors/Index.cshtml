@@ -19,6 +19,7 @@
 
 <table class="table">
     <tr>
+        <th></th>
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
@@ -39,14 +40,21 @@
     {
         <tr>
             <td>
+                <img style="margin-right:20px" width="170" height="250" src="/images/actors/@item.PhotoFileName" />
+            </td>
+
+            <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.Surname)
             </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.Birth)
             </td>
+
             @if (item.Death.HasValue)
             {
                 <td>

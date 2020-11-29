@@ -1,0 +1,95 @@
+﻿@model IEnumerable<Cinematheque.WebSite.Models.FilmView>
+
+@{ 
+    Layout = null;
+}
+
+@if (Model.Count() > 0)
+{
+    <table class="table">
+        <tr>
+            <th>
+
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.ReleaseDate)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Duration)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.DirectorName)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Genres)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.IMDbRating)
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <img style="margin-right:20px" width="170" height="250" src="/images/films/@item.PosterFileName" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReleaseDate)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Duration)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Duration)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.DirectorName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.GenresString)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.IMDbRating)
+                </td>
+
+                <td>
+                    @if (item.IsFav)
+                    {
+                        Html.ActionLink("Remove from favourite", "RemoveFromFav", new { id = item.ID });
+                    }
+                    else
+                    {
+                        Html.ActionLink("Add to favourite", "AddToFav", new { id = item.ID });
+                    } |
+                    @Html.ActionLink("Edit", "Edit", "Films", new { }, new { id = item.ID }) |
+                    @Html.ActionLink("Details", "Details", "Films", new { }, new { id = item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", "Films", new { }, new { id = item.ID })
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <h4>Sorry, but no such films were found</h4>
+}

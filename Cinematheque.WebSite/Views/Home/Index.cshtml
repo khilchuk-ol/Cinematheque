@@ -6,13 +6,13 @@
 
 <h2>Home</h2>
 <label for="searchFilm">Enter film's title: </label>
-@using (Html.BeginForm("Search", "Films", FormMethod.Get, new { name = "searchFilm" }))
+@using (Html.BeginForm("Search", "Home", FormMethod.Get, new { name = "searchFilm", id="search-form" }))
 {
     <table>
         <tr>
             <td>
                 <input type="text" title="Find film" name="Query" />
-                <input type="submit" value="Search" />
+                <input id="search-submit" type="submit" value="Search" onclick="doSearch()" class=".search-buttons" />
             </td>
 
             <td style="padding-top : 0px">
@@ -41,7 +41,7 @@
                                 }
                             </select>
 
-                            <button type="button" id="btn-incl-genre" style="cursor:pointer">Include</button>
+                            <button type="button" id="btn-incl-genre" style="cursor:pointer" class=".search-buttons" >Include</button>
                         </div>
                     </div>
 
@@ -62,7 +62,7 @@
                                 }
                             </select>
 
-                            <button type="button" id="btn-excl-genre" style="cursor:pointer">Exclude</button>
+                            <button type="button" id="btn-excl-genre" style="cursor:pointer" class=".search-buttons" >Exclude</button>
                         </div>
                     </div>
 
@@ -83,7 +83,7 @@
                                 }
                             </select>
 
-                            <button type="button" id="btn-incl-actor" style="cursor:pointer">Include</button>
+                            <button type="button" id="btn-incl-actor" style="cursor:pointer" class=".search-buttons" >Include</button>
                         </div>
                     </div>
 
@@ -104,7 +104,7 @@
                                 }
                             </select>
 
-                            <button type="button" id="btn-excl-actor" style="cursor:pointer">Exclude</button>
+                            <button type="button" id="btn-excl-actor" style="cursor:pointer" class=".search-buttons" >Exclude</button>
                         </div>
                     </div>
 
@@ -113,13 +113,43 @@
         </table>
 
     </div>
+
+    <div id="search-results" style="padding-top: 10px">
+
+    </div>
 }
 @section scripts {
     <script>
+
         $('#customize-search').click(function (e) {
             var el = document.querySelector('#filter');
             el.removeAttribute("hidden");
         });
+
+        function doSearch() {
+            var form = $('#search-form'),
+                res = $('#search-results');
+
+            form.submit(function (e) {
+                e.preventDefault();
+
+                $('#filter button').prop('disabled', true);
+
+                $.ajax({
+                    type: 'POST',
+                    url: form.attr('action'),
+                    data: form.serialize(),
+                    success: function (response) {
+                        res.html(response)
+                    },
+                    error: function () {
+                        console.log("An error occured during search")
+                    }
+                })
+
+                $('#filter button').prop('disabled', false);
+            });
+        }
 
         $('#include-genres').on('click', '.btn-remove-incl-genre', function (e) {
 
@@ -175,7 +205,7 @@
                              <input type="hidden" name="ExcludeGenres" value="${opt.val()}" />
                          </td>
                          <td>
-                             <span class="btn-remove-excl-genre" style="cursor:pointer">
+                             <span class="btn-remove-excl-genre" style="cursor:pointer" >
                                   <img width="10" height="10" src="@Url.Content("~/Content/Images/remove.jpg")" />
                              </span>
                          </td>

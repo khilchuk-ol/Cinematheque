@@ -8,12 +8,5 @@ namespace Cinematheque.WebSite.Models.Display
         public IEnumerable<ActorView> Actors { get; set; }
 
         public IEnumerable<Genre> Genres { get; set; }
-
-
-        public FilmsSearchInfoBase()
-        {
-            Actors = new List<ActorView>();
-            Genres = new List<Genre>();
-        }
     }
 }

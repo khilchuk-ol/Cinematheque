@@ -9,10 +9,10 @@ namespace Cinematheque.Utils
 
         public static void Log(string logMessage)
         {
-            using(StreamWriter sw = File.AppendText(_logPath))
+            /*using(StreamWriter sw = File.AppendText(_logPath))
             {
                 Write(logMessage, sw);
-            }
+            }*/
         }
 
         private static void Write(string logMessage, TextWriter w)

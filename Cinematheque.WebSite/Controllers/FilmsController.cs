@@ -51,18 +51,9 @@ namespace Cinematheque.WebSite.Controllers
         }
 
         // GET: Films/Search
-        public ActionResult Search(FilmsSearchInfoContainer info)
+        public ActionResult Search(string q)
         {
-            var settings = new FilmsSearchSettings()
-            {
-                IncludeGenresIDs = info.IncludeGenres,
-                IncludeActorsIDs = info.IncludeActors,
-                ExcludeActorsIDs = info.ExcludeActors,
-                ExcludeGenresIDs = info.ExcludeGenres,
-                Query = info.Query
-            };
-
-            return View(FilmsDao.SearchFilmsWithSettings(settings)
+            return View(FilmsDao.SearchFilmsByTitle(q)
                                 .Select(f => new FilmView(f))
                                 .OrderBy(f => f.Title));
         }

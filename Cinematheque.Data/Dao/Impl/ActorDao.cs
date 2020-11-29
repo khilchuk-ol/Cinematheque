@@ -29,7 +29,7 @@ namespace Cinematheque.Data.Dao.Impl
         public List<Actor> SearchActorsByName(string fullname)
         {
             return Context.Actors
-                          .Where(a => a.GetFullName().Contains(fullname))
+                          .Where(a => (a.Name + a.Surname).Contains(fullname))
                           .ToList();
         }
     }
