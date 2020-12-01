@@ -7,6 +7,7 @@
 <table class="table">
     <tr>
         <th></th>
+        <th></th>
         <th>
             @Html.DisplayNameFor(model => model.Title)
         </th>
@@ -34,6 +35,11 @@
             <td>
                 @(position++)
             </td>
+
+            <td>
+                <img style="margin-right:20px" width="170" height="250" src="/images/films/@item.PosterFileName" />
+            </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>

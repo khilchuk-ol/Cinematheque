@@ -81,9 +81,9 @@
                     {
                         Html.ActionLink("Add to favourite", "AddToFav", new { id = item.ID });
                     } |
-                    @Html.ActionLink("Edit", "Edit", "Films", new { }, new { id = item.ID }) |
-                    @Html.ActionLink("Details", "Details", "Films", new { }, new { id = item.ID }) |
-                    @Html.ActionLink("Delete", "Delete", "Films", new { }, new { id = item.ID })
+                    @Html.ActionLink("Edit", "Edit", "Films", new { id = item.ID }, new { }) |
+                    @Html.ActionLink("Details", "Details", "Films", new { id = item.ID }, new { }) |
+                    @Html.ActionLink("Delete", "Delete", "Films", new { id = item.ID }, new { })
                 </td>
             </tr>
         }
