@@ -46,7 +46,7 @@ namespace Cinematheque.WebSite.Controllers
         public ActionResult Index([ModelBinder(typeof(UserModelBinder))] User user)
         {
             return View(FilmsDao.FindAllWithGenres()
-                                .Select(f => new FilmView(f) { IsFav = user.HasFavourite(f) })
+                                .Select(f => new FilmView(f) { IsFav = user.HasFavourite(f.ID) })
                                 .OrderBy(f => f.Title));
         }
 
@@ -62,7 +62,7 @@ namespace Cinematheque.WebSite.Controllers
         public ActionResult Edit(Guid id)
         {
             var film = FilmsDao.GetFilmWithFullInfo(id);
-
+        
             return View(new FilmInfoContainer()
             {
                 Film = new FilmView(film),
@@ -73,11 +73,27 @@ namespace Cinematheque.WebSite.Controllers
         }
 
         [HttpPost]
-        public ActionResult DoEdit(Guid id, HttpPostedFileBase file, FilmInput input)
+        public ActionResult DoEdit([ModelBinder(typeof(UserModelBinder))] User user, Guid id, HttpPostedFileBase file, FilmInput input)
         {
             var data = FilmsDao.GetFilmWithFullInfo(id);
             input.CopyToData(data, file, CountriesDao, GenresDao, DirectorsDao, ActorsDao);
             FilmsDao.Update(data);
+
+            if (user.HasFavourite(id))
+            {
+                user.FavFilms.RemoveAll(f => f.ID == id);
+
+                user.FavFilms.Add(data);
+
+                var cookie = new HttpCookie(nameof(User))
+                {
+                    Value = JsonConvert.SerializeObject(user),
+                    Expires = DateTime.Now.AddYears(1),
+                    Path = "/"
+                };
+
+                Response.Cookies.Add(cookie);
+            }
 
             return RedirectToAction("Index");
         }
@@ -86,20 +102,34 @@ namespace Cinematheque.WebSite.Controllers
         {
             var film = FilmsDao.GetFilmWithFullInfo(id);
 
-            return View(new FilmView(film) { IsFav = user.HasFavourite(film) });
+            return View(new FilmView(film) { IsFav = user.HasFavourite(id) });
         }
 
         public ActionResult Delete([ModelBinder(typeof(UserModelBinder))] User user, Guid id)
         {
             var film = FilmsDao.GetFilmWithFullInfo(id);
 
-            return View(new FilmView(film) { IsFav = user.HasFavourite(film)});
+            return View(new FilmView(film) { IsFav = user.HasFavourite(id)});
         }
 
         [HttpPost]
-        public ActionResult DoDelete(Guid id)
+        public ActionResult DoDelete([ModelBinder(typeof(UserModelBinder))] User user, Guid id)
         {
             var toRemove = FilmsDao.Find(id);
+
+            if (user.HasFavourite(id))
+            {
+                user.FavFilms.RemoveAll(f => f.ID == id);
+
+                var cookie = new HttpCookie(nameof(User))
+                {
+                    Value = JsonConvert.SerializeObject(user),
+                    Expires = DateTime.Now.AddYears(1),
+                    Path = "/"
+                };
+
+                Response.Cookies.Add(cookie);
+            }
 
             FilmsDao.Delete(toRemove);
             return RedirectToAction("Index");
@@ -129,7 +159,7 @@ namespace Cinematheque.WebSite.Controllers
            return View(FilmsDao.FindAll()
                                .OrderByDescending(f => f.IMDbRating)
                                .Take(100)
-                               .Select(f => new FilmView(f) { IsFav = user.HasFavourite(f) })
+                               .Select(f => new FilmView(f) { IsFav = user.HasFavourite(f.ID) })
                                .ToList());
         }
 

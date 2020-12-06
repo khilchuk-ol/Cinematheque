@@ -8,5 +8,7 @@ namespace Cinematheque.WebSite.Models.Display
         public IEnumerable<ActorView> Actors { get; set; }
 
         public IEnumerable<Genre> Genres { get; set; }
+
+        public IEnumerable<FilmView> FilmsDefaultView { get; set; }
     }
 }

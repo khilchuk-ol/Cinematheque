@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 
@@ -23,9 +24,9 @@ namespace Cinematheque.Data.Models
             FavFilms = new List<Film>();
         }
 
-        public bool HasFavourite(Film film)
+        public bool HasFavourite(Guid id)
         {
-            return FavFilms.FirstOrDefault(f => f.ID == film.ID) != null;
+            return FavFilms.FirstOrDefault(f => f.ID == id) != null;
         }
     }
 }

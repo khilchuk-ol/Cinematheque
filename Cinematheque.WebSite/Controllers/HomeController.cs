@@ -1,5 +1,6 @@
 ﻿using Cinematheque.Data.Dao;
 using Cinematheque.Data.Models;
+using Cinematheque.WebSite.ModelBinders;
 using Cinematheque.WebSite.Models;
 using Cinematheque.WebSite.Models.Display;
 using Cinematheque.WebSite.Models.InfoContainers;
@@ -26,12 +27,19 @@ namespace Cinematheque.WebSite.Controllers
         }
 
         // GET: Home
-        public ActionResult Index()
+        public ActionResult Index([ModelBinder(typeof(UserModelBinder))] User user)
         {
             var info = new FilmsSearchInfoBase()
             {
-                Genres = GenresDao.FindAll().OrderBy(g => g.Name),
-                Actors = ActorsDao.FindAll().Select(a => new ActorView(a)).OrderBy(a => a.FullName).ToList()
+                Genres = GenresDao.FindAll()
+                                  .OrderBy(g => g.Name),
+                Actors = ActorsDao.FindAll()
+                                  .Select(a => new ActorView(a))
+                                  .OrderBy(a => a.FullName)
+                                  .ToList(),
+                FilmsDefaultView = FilmsDao.FindAllWithGenres()
+                                           .Select(f => new FilmView(f) { IsFav = user.HasFavourite(f.ID) })
+                                           .OrderByDescending(f => f.ReleaseDate)
             };
             return View(info);
         }

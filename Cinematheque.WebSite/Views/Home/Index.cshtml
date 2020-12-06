@@ -115,7 +115,50 @@
     </div>
 
     <div id="search-results" style="padding-top: 10px">
+        <table class="table">
+            @foreach (var item in Model.FilmsDefaultView)
+            {
+                <tr>
+                    <td>
+                        <img style="margin-right:20px" width="170" height="250" src="/images/films/@item.PosterFileName" />
+                    </td>
 
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReleaseDate)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Duration)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GenresString)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IMDbRating)
+                    </td>
+
+                    <td>
+                        @if (item.IsFav)
+                        {
+                            @Html.ActionLink("Remove from favourite", "RemoveFromFav", new { id = item.ID });
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Add to favourite", "AddToFav", new { id = item.ID });
+                        } |
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                    </td>
+                </tr>
+            }
+        </table>
     </div>
 }
 @section scripts {
